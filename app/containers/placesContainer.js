@@ -1,0 +1,93 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { placeActions } from 'pltr'
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import PlaceDetails from '../components/placeDetails'
+
+class PlacesContainer extends Component {
+  static navigationOptions = {
+    title: 'Places'
+  }
+
+  renderItem = (place) => {
+    return <View key={`place-${place.id}`} style={styles.listItem}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {place})}>
+        <View style={styles.touchableItem}>
+          <View>
+            <Text style={styles.nameText}>{place.name}</Text>
+            <Text style={styles.descriptionText}>{place.description}</Text>
+          </View>
+          <Icon name={'angle-right'} size={25}></Icon>
+        </View>
+      </TouchableOpacity>
+    </View>
+  }
+
+  render () {
+    return <View style={styles.container}>
+      <FlatList
+        data={this.props.places}
+        keyExtractor={(place) => place.id}
+        renderItem={({item}) => this.renderItem(item)}
+      />
+    </View>
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+  },
+  listItem: {
+    padding: 20,
+    borderColor: '#aaa',
+    borderBottomWidth: 1,
+    backgroundColor: 'white',
+  },
+  touchableItem: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  nameText: {
+    fontSize: 16,
+  },
+  descriptionText: {
+    fontSize: 12,
+    color: '#999'
+  },
+})
+
+PlacesContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  places: PropTypes.array.isRequired,
+}
+
+function mapStateToProps (state) {
+  return {
+    places: state.places
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators(placeActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlacesContainer)

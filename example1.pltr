@@ -1,0 +1,32 @@
+{
+  "characters": [
+    {"id": 0, "name": "Leywa", "description": "description", "notes": "some notes here"},
+    {"id": 1, "name": "Tahu", "description": "description", "notes": "some notes here"}
+  ],
+  "places": [
+    {"id": 0, "name": "Holy Circle", "description": "a cool village", "notes": "some notes here"},
+    {"id": 1, "name": "Pepperoni Ridge", "description": "an even cooler village", "notes": "some notes here"}
+  ],
+  "tags": [
+    {"id": 0, "title": "Happy", "color": "orange"},
+    {"id": 1, "title": "Earthy", "color": "green"}
+  ],
+  "cards": [
+    {"id": 0, "title": "Beginning of the Story", "sceneId": 0, "lineId": 0, "description": "cool stuff"},
+    {"id": 1, "title": "Middle of the story", "sceneId": 1, "lineId": 0, "description": "more cool stuff"},
+    {"id": 1, "title": "Beginning of the subplot", "sceneId": 0, "lineId": 1, "description": "subplot stuff"}
+  ],
+  "scenes": [
+    {"title": "beginning", "id": 0, "position": 0},
+    {"title": "middle", "id": 1, "position": 1},
+    {"title": "end", "id": 2, "position": 2}
+  ],
+  "lines": [{"id": 0, "title": "Main Plot", "color": "red"}, {"id": 1, "title": "Sub Plot", "color": "blue"}],
+  "notes": [
+    {"title": "a note", "id": 0, "content": "here is some content"},
+    {"title": "another note", "id": 1, "content": "here is some content"}
+  ],
+  "customAttributes": {},
+  "file": {},
+  "storyName": "Pizza Planet 2"
+}

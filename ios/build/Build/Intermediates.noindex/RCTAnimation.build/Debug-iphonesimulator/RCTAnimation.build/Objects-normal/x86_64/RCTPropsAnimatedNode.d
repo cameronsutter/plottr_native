@@ -1,0 +1,31 @@
+dependencies: \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTPropsAnimatedNode.m \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTPropsAnimatedNode.h \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTLog.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAssert.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUtils.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTUIManager.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTRootView.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTViewManager.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTConvert.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTAnimationType.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBorderStyle.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTPointerEvents.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTTextDecorationLineType.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventDispatcher.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/UIView+React.h \
+  /Users/csutter/github/plottr_native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTComponent.h \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/RCTAnimationUtils.h \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTStyleAnimatedNode.h \
+  /Users/csutter/github/plottr_native/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h
