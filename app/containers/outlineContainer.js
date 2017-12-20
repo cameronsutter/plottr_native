@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import AppStyles from '../styles'
 
 class OutlineContainer extends Component {
   static navigationOptions = {
@@ -68,23 +69,9 @@ class OutlineContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-  },
-  listItem: {
-    padding: 20,
-    borderColor: '#aaa',
-    borderBottomWidth: 1,
-    backgroundColor: 'white',
-  },
-  touchableItem: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
+  container: AppStyles.containerView,
+  listItem: AppStyles.listItem,
+  touchableItem: AppStyles.touchableItem,
   touchableItemText: {
     fontSize: 16,
     color: 'black',

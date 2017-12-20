@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import CardDetails from './cardDetails'
+import AppStyles from '../styles'
 
 class SceneView extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -68,11 +68,8 @@ class SceneView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
-  },
+  container: AppStyles.containerView,
+  descriptionText: AppStyles.descriptionText,
   list: {
     backgroundColor: '#efefee'
   },
@@ -100,10 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 10,
     marginBottom: 10,
-  },
-  descriptionText: {
-    fontSize: 12,
-    color: '#999'
   },
 })
 

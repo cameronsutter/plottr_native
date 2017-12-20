@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import PlaceDetails from '../components/placeDetails'
+import AppStyles from '../styles'
 
 class PlacesContainer extends Component {
   static navigationOptions = {
@@ -44,29 +44,12 @@ class PlacesContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
-  },
-  listItem: {
-    padding: 20,
-    borderColor: '#aaa',
-    borderBottomWidth: 1,
-    backgroundColor: 'white',
-  },
-  touchableItem: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
+  container: AppStyles.containerView,
+  listItem: AppStyles.listItem,
+  touchableItem: AppStyles.touchableItem,
+  descriptionText: AppStyles.descriptionText,
   nameText: {
     fontSize: 16,
-  },
-  descriptionText: {
-    fontSize: 12,
-    color: '#999'
   },
 })
 

@@ -13,6 +13,7 @@ import {
   Button,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import AppStyles from '../styles'
 
 class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -73,27 +74,14 @@ class NoteDetails extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
-  },
+  container: AppStyles.detailsView,
+  sectionHeader: AppStyles.sectionHeader,
+  sectionHeaderText: AppStyles.sectionHeaderText,
   title: {
     padding: 10,
   },
   content: {
     padding: 10,
-  },
-  sectionHeader: {
-    padding: 10,
-    alignSelf: 'stretch',
-    backgroundColor: '#eee',
-    marginBottom: 5,
-  },
-  sectionHeaderText: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 })
 
