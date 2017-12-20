@@ -18,13 +18,18 @@ import AppStyles from '../styles'
 class CharacterDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
-    let button = <Button
-      title='Save'
-      onPress={params.handleSave ? params.handleSave : () => null}
-    />
+    let right = null
+    if (params.dirty) {
+      right = <Button
+        title='Save'
+        onPress={params.handleSave ? params.handleSave : () => null}
+      />
+    } else {
+      right = <Text style={styles.green}>Saved</Text>
+    }
     return {
       title: `${params.character.name}`,
-      headerRight: button,
+      headerRight: right,
     }
   }
 
@@ -41,27 +46,43 @@ class CharacterDetails extends Component {
   handleSave = () => {
     const { character } = this.props.navigation.state.params
     this.props.actions.editCharacter(character.id, this.state)
+    this.props.navigation.setParams({dirty: false})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
   }
 
+  nameChanged = (text) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({name: text})
+  }
+
+  descriptionChanged = (text) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({description: text})
+  }
+
+  notesChanged = (text) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({notes: text})
+  }
+
   renderName = ({index, item}) => {
-    return <View style={styles.name}>
-      <TextInput onChangeText={(text) => this.setState({name: text})} multiline={true} defaultValue={item}/>
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderDescription = ({index, item}) => {
-    return <View style={styles.description}>
-      <TextInput onChangeText={(text) => this.setState({description: text})} multiline={true} defaultValue={item}/>
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderNotes = ({index, item}) => {
-    return <View style={styles.notes}>
-      <TextInput onChangeText={(text) => this.setState({notes: text})} multiline={true} defaultValue={item}/>
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
@@ -85,15 +106,9 @@ const styles = StyleSheet.create({
   container: AppStyles.detailsView,
   sectionHeader: AppStyles.sectionHeader,
   sectionHeaderText: AppStyles.sectionHeaderText,
-  name: {
-    padding: 10,
-  },
-  description: {
-    padding: 10,
-  },
-  notes: {
-    padding: 10,
-  },
+  input: AppStyles.input,
+  green: AppStyles.greenSaved,
+  inputWrapper: AppStyles.inputWrapper,
 })
 
 CharacterDetails.propTypes = {

@@ -18,13 +18,18 @@ import AppStyles from '../styles'
 class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
-    let button = <Button
-      title='Save'
-      onPress={params.handleSave ? params.handleSave : () => null}
-    />
+    let right = null
+    if (params.dirty) {
+      right = <Button
+        title='Save'
+        onPress={params.handleSave ? params.handleSave : () => null}
+      />
+    } else {
+      right = <Text style={styles.green}>Saved</Text>
+    }
     return {
       title: `${params.note.title}`,
-      headerRight: button,
+      headerRight: right,
     }
   }
 
@@ -40,21 +45,32 @@ class NoteDetails extends Component {
   handleSave = () => {
     const { note } = this.props.navigation.state.params
     this.props.actions.editNote(note.id, this.state)
+    this.props.navigation.setParams({dirty: false})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
   }
 
+  titleChanged = (text) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({title: text})
+  }
+
+  contentChanged = (text) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({content: text})
+  }
+
   renderTitle = ({index, item}) => {
-    return <View style={styles.title}>
-      <TextInput onChangeText={(text) => this.setState({title: text})} multiline={true} defaultValue={item}/>
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderContent = ({index, item}) => {
-    return <View style={styles.content}>
-      <TextInput onChangeText={(text) => this.setState({content: text})} multiline={true} defaultValue={item}/>
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
@@ -77,12 +93,9 @@ const styles = StyleSheet.create({
   container: AppStyles.detailsView,
   sectionHeader: AppStyles.sectionHeader,
   sectionHeaderText: AppStyles.sectionHeaderText,
-  title: {
-    padding: 10,
-  },
-  content: {
-    padding: 10,
-  },
+  input: AppStyles.input,
+  green: AppStyles.greenSaved,
+  inputWrapper: AppStyles.inputWrapper,
 })
 
 NoteDetails.propTypes = {

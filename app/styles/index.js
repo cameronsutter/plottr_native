@@ -36,4 +36,18 @@ export default AppStyles = {
     fontSize: 16,
     fontWeight: 'bold',
   },
+  input: {
+    width: '100%',
+    fontSize: 15,
+  },
+  inputWrapper: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+  },
+  greenSaved: {
+    color: '#78be20',
+    paddingRight: 10,
+    fontSize: 16,
+  }
 }

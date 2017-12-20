@@ -20,20 +20,8 @@ class SceneView extends Component {
     title: `${navigation.state.params.scene.title}`,
   })
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      backIcon: null,
-    }
-  }
-
-  componentWillMount () {
-    Icon.getImageSource('angle-left', 30).then((source) => this.setState({ backIcon: source }))
-  }
-
-  saveCard = () => {
-
-    // this.props.navigator.pop()
+  componentWillReceiveProps () {
+    // try getting it to re-render here when the cards have been editing in cardDetails
   }
 
   renderItem = (card) => {
@@ -71,7 +59,6 @@ const styles = StyleSheet.create({
   container: AppStyles.containerView,
   descriptionText: AppStyles.descriptionText,
   list: {
-    backgroundColor: '#efefee'
   },
   listItem: {
   },
@@ -81,8 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     padding: 10,
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 15,
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: 'white',
