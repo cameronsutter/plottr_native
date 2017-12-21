@@ -3,6 +3,7 @@ import { StackNavigator } from 'react-navigation'
 import OutlineContainer from '../containers/outlineContainer'
 import SceneView from '../components/sceneView'
 import CardDetails from '../components/cardDetails'
+import SceneDetails from '../components/sceneDetails'
 
 import NotesContainer from '../containers/notesContainer'
 import NoteDeails from '../components/noteDetails'
@@ -24,7 +25,8 @@ const navigationOptions = {
 export const OutlineNavigator = StackNavigator({
   List: { screen: OutlineContainer },
   Scene: { screen: SceneView },
-  Card: { screen: CardDetails }
+  Card: { screen: CardDetails },
+  AddScene: { screen: SceneDetails },
 }, navigationOptions)
 
 export const NotesNavigator = StackNavigator({

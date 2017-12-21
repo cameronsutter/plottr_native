@@ -14,21 +14,22 @@ import {
   Button,
   Picker,
   LayoutAnimation,
+  ActivityIndicator
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
+import SaveButton from './saveButton'
 
 class CardDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     let right = null
-    if (params.dirty) {
-      right = <Button
-        title='Save'
-        color='#e5554f'
-        onPress={params.handleSave ? params.handleSave : () => null}
-      />
+    if (params.newCard) {
+      right = <ActivityIndicator/>
+    } else if (params.dirty) {
+      let func = params.handleSave ? params.handleSave : () => null
+      right = <SaveButton onPress={func}/>
     } else {
       right = <Text style={styles.green}>Saved</Text>
     }
@@ -39,23 +40,35 @@ class CardDetails extends Component {
   }
 
   constructor(props) {
-    const { card } = props.navigation.state.params
     super(props)
+    const { params } = props.navigation.state
     this.renderedLines = this.renderLines()
     this.renderedScenes = this.renderScenes()
-    this.state = {
-      title: card.title,
-      description: card.description,
-      lineId: card.lineId,
-      sceneId: card.sceneId,
-      editLine: false,
-      editScene: false,
+    if (params.newCard) {
+      this.state = {
+        newCard: true,
+      }
+      this.title = 'New card'
+      this.description = 'description goes here'
+    } else {
+      const { card } = params
+      this.state = {
+        ...card,
+        editLine: false,
+        editScene: false,
+      }
+      this.title = card.title
+      this.description = card.description
     }
   }
 
   handleSave = () => {
-    const { card } = this.props.navigation.state.params
-    this.props.actions.editCard(card.id, this.state.title, this.state.description)
+    let title = this.state.title
+    let desc = this.state.description
+    if (title == '') title = 'New Card'
+    if (desc == '') desc = 'description'
+    this.props.actions.editCard(this.state.id, title, desc)
+    this.props.actions.editCardCoordinates(this.state.id, this.state.lineId, this.state.sceneId)
     this.props.navigation.setParams({dirty: false})
     LayoutAnimation.easeInEaseOut()
     this.setState({editLine: false, editScene: false})
@@ -63,6 +76,30 @@ class CardDetails extends Component {
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
+    if (this.state.newCard) {
+      this.props.actions.addCard(this.buildNewCard())
+      setTimeout(this.findNewCard, 500)
+    }
+  }
+
+  buildNewCard () {
+    return {
+      title: '',
+      description: '',
+      lineId: 0,
+      sceneId: this.props.navigation.state.params.sceneId,
+      tags: [],
+      characters: [],
+      places: [],
+    }
+  }
+
+  findNewCard = () => {
+    let card = this.props.cards[0]
+    if (card.title == '') {
+      this.setState({newCard: false, ...card})
+      this.props.navigation.setParams({newCard: false, dirty: true})
+    }
   }
 
   titleChanged = (text) => {
@@ -111,8 +148,8 @@ class CardDetails extends Component {
     let picker = null
     if (this.state.editLine) {
       picker = <Picker
-        selectedValue={this.state.lineId}
-        onValueChange={this.changeLine}
+          selectedValue={this.state.lineId}
+          onValueChange={this.changeLine}
         >
         { this.renderedLines }
       </Picker>
@@ -167,19 +204,22 @@ class CardDetails extends Component {
   }
 
   render () {
-    const { card } = this.props.navigation.state.params
-    return <View style={styles.container}>
-      <SectionList
-        sections={[
-          {data: [card.title || ''], title: 'Title', renderItem: this.renderTitle},
-          {data: ['lineId'], title: 'Line', renderItem: this.renderLine},
-          {data: ['sceneId'], title: 'Scene', renderItem: this.renderScene},
-          {data: [card.description || ''], title: 'Description', renderItem: this.renderDescription},
-        ]}
-        renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
-        keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
-      />
-    </View>
+    if (this.state.newCard) {
+      return <ActivityIndicator/>
+    } else {
+      return <View style={styles.container}>
+        <SectionList
+          sections={[
+            {data: [this.title], title: 'Title', renderItem: this.renderTitle},
+            {data: ['lineId'], title: 'Line', renderItem: this.renderLine},
+            {data: ['sceneId'], title: 'Scene', renderItem: this.renderScene},
+            {data: [this.description], title: 'Description', renderItem: this.renderDescription},
+          ]}
+          renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
+          keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
+        />
+      </View>
+    }
   }
 }
 
@@ -201,10 +241,11 @@ CardDetails.propTypes = {
     navigate: PropTypes.func.isRequired,
     state: PropTypes.shape({
       params: PropTypes.shape({
-        card: PropTypes.object.isRequired,
+        card: PropTypes.object,
       })
     }).isRequired,
   }).isRequired,
+  cards: PropTypes.array.isRequired,
   lines: PropTypes.array.isRequired,
   scenes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
@@ -212,6 +253,7 @@ CardDetails.propTypes = {
 
 function mapStateToProps (state) {
   return {
+    cards: state.cards,
     lines: state.lines,
     scenes: state.scenes,
   }

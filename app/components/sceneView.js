@@ -14,15 +14,30 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import * as vars from '../styles/vars'
 import HeaderTitle from './headerTitle'
+import AddButton from './addButton'
 
 class SceneView extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: <HeaderTitle title={navigation.state.params.scene.title} />
-  })
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state
+    return {
+      headerTitle: <HeaderTitle title={params.scene.title} />,
+      headerRight: <AddButton onPress={params.addCard ? params.addCard : () => null}/>
+    }
+  }
 
   componentWillReceiveProps () {
-    // try getting it to re-render here when the cards have been editing in cardDetails
+    // try getting it to re-render here when the cards have been edited in cardDetails
+  }
+
+  componentWillMount () {
+    this.props.navigation.setParams({addCard: this.addCard})
+  }
+
+  addCard = () => {
+    const { scene } = this.props.navigation.state.params
+    this.props.navigation.navigate('Card', {sceneId: scene.id, newCard: true})
   }
 
   renderItem = (card) => {
@@ -44,14 +59,19 @@ class SceneView extends Component {
   }
 
   render () {
-    // HANDLE NO CARDS (add)
-    return <View style={styles.container}>
-      <FlatList
+    let body = <View style={styles.noCardsContainer}>
+      <Text style={styles.noCardsText}>No Cards in this Scene</Text>
+    </View>
+    if (this.props.navigation.state.params.cards.length > 0) {
+      body = <FlatList
         style={styles.list}
         data={this.props.navigation.state.params.cards}
         keyExtractor={(card) => card.id}
         renderItem={({item}) => this.renderItem(item)}
       />
+    }
+    return <View style={styles.container}>
+      { body }
     </View>
   }
 }
@@ -72,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: 'white',
+    backgroundColor: vars.white,
     borderRadius: 4,
     borderWidth: 1,
   },
@@ -84,6 +104,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 10,
     marginBottom: 10,
+  },
+  noCardsContainer: {
+    alignSelf: 'center',
+    marginTop: 150,
+  },
+  noCardsText: {
+    fontSize: 24,
   },
 })
 

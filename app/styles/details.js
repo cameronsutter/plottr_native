@@ -1,35 +1,6 @@
 import * as vars from './vars'
 
-export default AppStyles = {
-  headerTitle: {
-    color: vars.orange,
-    fontSize: 24,
-  },
-  addButton: {
-    color: vars.orange,
-    paddingRight: 20,
-  },
-  containerView: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
-  },
-  listItem: {
-    borderColor: vars.grayBorder,
-    borderBottomWidth: 1,
-    backgroundColor: vars.white,
-  },
-  touchableItem: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  descriptionText: {
-    fontSize: 12,
-    color: vars.grayText,
-  },
+export default DetailStyles = {
   detailsView: {
     flex: 1,
     justifyContent: 'flex-start',

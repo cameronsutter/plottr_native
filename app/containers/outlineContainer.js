@@ -15,11 +15,24 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
+import AddButton from '../components/addButton'
 
 class OutlineContainer extends Component {
-  static navigationOptions = {
-    headerTitle: <HeaderTitle title='Outline'/>,
-    headerRight: <TouchableOpacity><Ionicons name='md-add' size={30}/></TouchableOpacity>,
+  static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
+    return {
+      headerTitle: <HeaderTitle title='Outline'/>,
+      headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
+    }
+  }
+
+  addScene = () => {
+    this.props.navigation.navigate('AddScene', {newScene: true})
+  }
+
+  componentDidMount () {
+    this.props.navigation.setParams({addScene: this.addScene})
   }
 
   cardMapping = () => {
