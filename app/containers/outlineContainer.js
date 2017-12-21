@@ -60,9 +60,9 @@ class OutlineContainer extends Component {
   }
 
   renderItem = (scene, cardMap) => {
-    let cards = cardMap[scene.id]
+    let cardIds = cardMap[scene.id].map(c => c.id)
     return <View key={`scene-${scene.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Scene', {scene, cards})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Scene', {scene, cardIds})}>
         <View style={styles.touchableItem}>
           <Text style={styles.touchableItemText}>{scene.title}</Text>
           <Icon name={'angle-right'} size={25}></Icon>

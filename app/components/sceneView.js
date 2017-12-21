@@ -27,10 +27,6 @@ class SceneView extends Component {
     }
   }
 
-  componentWillReceiveProps () {
-    // try getting it to re-render here when the cards have been edited in cardDetails
-  }
-
   componentWillMount () {
     this.props.navigation.setParams({addCard: this.addCard})
   }
@@ -62,10 +58,10 @@ class SceneView extends Component {
     let body = <View style={styles.noCardsContainer}>
       <Text style={styles.noCardsText}>No Cards in this Scene</Text>
     </View>
-    if (this.props.navigation.state.params.cards.length > 0) {
+    if (this.props.cardsInScene.length > 0) {
       body = <FlatList
         style={styles.list}
-        data={this.props.navigation.state.params.cards}
+        data={this.props.cardsInScene}
         keyExtractor={(card) => card.id}
         renderItem={({item}) => this.renderItem(item)}
       />
@@ -124,13 +120,19 @@ SceneView.propTypes = {
       })
     }).isRequired,
   }).isRequired,
+  cardsInScene: PropTypes.array,
   scenes: PropTypes.array.isRequired,
   lines: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
-function mapStateToProps (state) {
+function mapStateToProps (state, ownProps) {
+  const { cardIds } = ownProps.navigation.state.params
+  let cardsInScene = state.cards.filter(c => {
+    return cardIds.includes(c.id)
+  })
   return {
+    cardsInScene,
     lines: state.lines,
     scenes: state.scenes,
   }
