@@ -1,17 +1,21 @@
 export default AppStyles = {
+  headerTitle: {
+    color: '#ff7f32',
+    fontSize: 24,
+  },
   containerView: {
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-start',
   },
   listItem: {
-    padding: 20,
     borderColor: '#aaa',
     borderBottomWidth: 1,
     backgroundColor: 'white',
   },
   touchableItem: {
     flex: 1,
+    padding: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -48,6 +52,6 @@ export default AppStyles = {
   greenSaved: {
     color: '#78be20',
     paddingRight: 10,
-    fontSize: 16,
-  }
+    fontSize: 18,
+  },
 }

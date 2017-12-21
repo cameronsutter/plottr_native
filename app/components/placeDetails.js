@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from './headerTitle'
 
 class PlaceDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,18 +29,23 @@ class PlaceDetails extends Component {
       right = <Text style={styles.green}>Saved</Text>
     }
     return {
-      title: `${params.place.title}`,
+      headerTitle: <HeaderTitle title='Place Details'/>,
       headerRight: right,
     }
   }
 
   constructor(props) {
-    const { place } = props.navigation.state.params
     super(props)
+    const { place } = props.navigation.state.params
+    let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
+      obj[attr] = place[attr]
+      return obj
+    }, {})
     this.state = {
       name: place.name,
       description: place.description,
       notes: place.notes,
+      ...customAttrs,
     }
   }
 
@@ -68,6 +74,11 @@ class PlaceDetails extends Component {
     this.setState({notes: text})
   }
 
+  customAttrChanged = (text, attr) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({[attr]: text})
+  }
+
   renderName = ({index, item}) => {
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
@@ -86,19 +97,34 @@ class PlaceDetails extends Component {
     </View>
   }
 
+  renderCustomAttr = ({item}) => {
+    const { place } = this.props.navigation.state.params
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={place[item]}/>
+    </View>
+  }
+
   render () {
     const { place } = this.props.navigation.state.params
+    let customAttrs = this.prepareCustomAttributes()
     return <View style={styles.container}>
       <SectionList
         sections={[
           {data: [place.name || ''], title: 'Name', renderItem: this.renderName},
           {data: [place.description || ''], title: 'Description', renderItem: this.renderDescription},
+          ...customAttrs,
           {data: [place.notes || ''], title: 'Notes', renderItem: this.renderNotes},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(attr, index) => `${attr.substring(0, 3)}-${index}`}
       />
     </View>
+  }
+
+  prepareCustomAttributes () {
+    return this.props.customAttributes.map(attr => {
+      return { data: [attr], title: attr, renderItem: this.renderCustomAttr }
+    })
   }
 }
 
@@ -120,11 +146,13 @@ PlaceDetails.propTypes = {
       })
     }).isRequired,
   }).isRequired,
+  customAttributes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
+    customAttributes: state.customAttributes['places']
   }
 }
 

@@ -14,10 +14,11 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from './headerTitle'
 
 class SceneView extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.scene.title}`,
+    headerTitle: <HeaderTitle title={navigation.state.params.scene.title} />
   })
 
   componentWillReceiveProps () {

@@ -12,10 +12,11 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from '../components/headerTitle'
 
 class CharactersContainer extends Component {
   static navigationOptions = {
-    title: 'Characters'
+    headerTitle: <HeaderTitle title='Characters'/>
   }
 
   renderItem = (character) => {

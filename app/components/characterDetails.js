@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from './headerTitle'
 
 class CharacterDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,18 +29,23 @@ class CharacterDetails extends Component {
       right = <Text style={styles.green}>Saved</Text>
     }
     return {
-      title: `${params.character.name}`,
+      headerTitle: <HeaderTitle title='Character Details'/>,
       headerRight: right,
     }
   }
 
   constructor(props) {
-    const { character } = props.navigation.state.params
     super(props)
+    const { character } = props.navigation.state.params
+    let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
+      obj[attr] = character[attr]
+      return obj
+    }, {})
     this.state = {
       name: character.name,
       description: character.description,
       notes: character.notes,
+      ...customAttrs,
     }
   }
 
@@ -68,37 +74,57 @@ class CharacterDetails extends Component {
     this.setState({notes: text})
   }
 
-  renderName = ({index, item}) => {
+  customAttrChanged = (text, attr) => {
+    this.props.navigation.setParams({dirty: true})
+    this.setState({[attr]: text})
+  }
+
+  renderName = ({item}) => {
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderDescription = ({index, item}) => {
+  renderDescription = ({item}) => {
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderNotes = ({index, item}) => {
+  renderNotes = ({item}) => {
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
+  renderCustomAttr = ({item}) => {
+    const { character } = this.props.navigation.state.params
+    return <View style={styles.inputWrapper}>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={character[item]}/>
+    </View>
+  }
+
   render () {
     const { character } = this.props.navigation.state.params
+    let customAttrs = this.prepareCustomAttributes()
     return <View style={styles.container}>
       <SectionList
         sections={[
           {data: [character.name || ''], title: 'Name', renderItem: this.renderName},
           {data: [character.description || ''], title: 'Description', renderItem: this.renderDescription},
+          ...customAttrs,
           {data: [character.notes || ''], title: 'Notes', renderItem: this.renderNotes},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
       />
     </View>
+  }
+
+  prepareCustomAttributes () {
+    return this.props.customAttributes.map(attr => {
+      return { data: [attr], title: attr, renderItem: this.renderCustomAttr }
+    })
   }
 }
 
@@ -120,11 +146,13 @@ CharacterDetails.propTypes = {
       })
     }).isRequired,
   }).isRequired,
+  customAttributes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
+    customAttributes: state.customAttributes['characters'],
   }
 }
 

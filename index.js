@@ -132,8 +132,8 @@ const FILE_DATA = {
     {"title": "another note", "id": 1, "content": "here is some content"}
   ],
   "customAttributes": {
-    "characters": [],
-    "places": [],
+    "characters": ['age', 'power', 'gender'],
+    "places": ['weather', 'planet'],
     "cards": [],
     "scenes": [],
     "lines": []

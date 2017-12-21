@@ -12,11 +12,14 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
+import HeaderTitle from '../components/headerTitle'
 
 class OutlineContainer extends Component {
   static navigationOptions = {
-    title: 'Outline'
+    headerTitle: <HeaderTitle title='Outline'/>,
+    headerRight: <TouchableOpacity><Ionicons name='md-add' size={30}/></TouchableOpacity>,
   }
 
   cardMapping = () => {

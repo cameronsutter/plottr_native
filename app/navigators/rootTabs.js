@@ -15,8 +15,8 @@ export default RootTabs = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Outline',
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name={'bars'}
-          size={26}
+        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
+          size={28}
           style={{ color: tintColor }}
         />
       )
@@ -27,8 +27,8 @@ export default RootTabs = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Notes',
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name={'pencil-square'}
-          size={26}
+        <Ionicons name={focused ? 'ios-create' : 'ios-create-outline'}
+          size={28}
           style={{ color: tintColor }}
         />
       )
@@ -40,7 +40,7 @@ export default RootTabs = TabNavigator({
       tabBarLabel: 'Characters',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-people' : 'ios-people-outline'}
-          size={26}
+          size={28}
           style={{ color: tintColor }}
         />
       )
@@ -51,11 +51,11 @@ export default RootTabs = TabNavigator({
     navigationOptions: {
       tabBarLabel: 'Places',
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name={'map'}
-          size={26}
+        <Ionicons name={focused ? 'ios-planet' : 'ios-planet-outline'}
+          size={28}
           style={{ color: tintColor }}
         />
       )
     }
   }
-})
+}, {tabBarOptions: {activeTintColor: '#ff7f32'}})

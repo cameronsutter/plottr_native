@@ -17,6 +17,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from './headerTitle'
 
 class CardDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -25,13 +26,14 @@ class CardDetails extends Component {
     if (params.dirty) {
       right = <Button
         title='Save'
+        color='#e5554f'
         onPress={params.handleSave ? params.handleSave : () => null}
       />
     } else {
       right = <Text style={styles.green}>Saved</Text>
     }
     return {
-      title: `${params.card.title}`,
+      headerTitle: <HeaderTitle title='Card Details'/>,
       headerRight: right,
     }
   }

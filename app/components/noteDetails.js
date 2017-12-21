@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import HeaderTitle from './headerTitle'
 
 class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,7 +29,7 @@ class NoteDetails extends Component {
       right = <Text style={styles.green}>Saved</Text>
     }
     return {
-      title: `${params.note.title}`,
+      headerTitle: <HeaderTitle title='Note Details'/>,
       headerRight: right,
     }
   }
