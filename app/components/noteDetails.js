@@ -9,22 +9,22 @@ import {
   TextInput,
   View,
   SectionList,
-  TouchableOpacity,
-  Button,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
+import SaveButton from './saveButton'
 
 class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     let right = null
-    if (params.dirty) {
-      right = <Button
-        title='Save'
-        onPress={params.handleSave ? params.handleSave : () => null}
-      />
+    if (params.newNote) {
+      right = <ActivityIndicator/>
+    } else if (params.dirty) {
+      let func = params.handleSave ? params.handleSave : () => null
+      right = <SaveButton onPress={func} />
     } else {
       right = <Text style={styles.green}>Saved</Text>
     }
@@ -35,22 +35,45 @@ class NoteDetails extends Component {
   }
 
   constructor(props) {
-    const { note } = props.navigation.state.params
     super(props)
-    this.state = {
-      title: note.title,
-      content: note.content,
+    const { params } = props.navigation.state
+    if (params.newNote) {
+      this.state = {
+        newNote: true,
+      }
+      this.title = 'New Note'
+      this.content = 'note contents go here'
+    } else {
+      this.state = {
+        title: params.note.title,
+        content: params.note.content,
+      }
+      this.title = params.note.title || 'Note title'
+      this.content = params.note.content || 'note content goes here'
     }
   }
 
   handleSave = () => {
     const { note } = this.props.navigation.state.params
-    this.props.actions.editNote(note.id, this.state)
+    let id = (note && note.id) || this.state.id
+    this.props.actions.editNote(id, {title: this.state.title, content: this.state.content})
     this.props.navigation.setParams({dirty: false})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
+    if (this.state.newNote) {
+      this.props.actions.addNote()
+      setTimeout(this.findNewNote, 500)
+    }
+  }
+
+  findNewNote = () => {
+    let note = this.props.notes[this.props.notes.length - 1] // notes add new ones to the end
+    if (note.title == '') {
+      this.setState({newNote: false, id: note.id, title: this.title, content: this.content})
+      this.props.navigation.setParams({newNote: false, dirty: true})
+    }
   }
 
   titleChanged = (text) => {
@@ -76,12 +99,12 @@ class NoteDetails extends Component {
   }
 
   render () {
-    const { note } = this.props.navigation.state.params
+    if (this.state.newNote) return <ActivityIndicator/>
     return <View style={styles.container}>
       <SectionList
         sections={[
-          {data: [note.title || ''], title: 'Title', renderItem: this.renderTitle},
-          {data: [note.content || ''], title: 'Content', renderItem: this.renderContent},
+          {data: [this.title], title: 'Title', renderItem: this.renderTitle},
+          {data: [this.content], title: 'Content', renderItem: this.renderContent},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
@@ -104,15 +127,17 @@ NoteDetails.propTypes = {
     navigate: PropTypes.func.isRequired,
     state: PropTypes.shape({
       params: PropTypes.shape({
-        note: PropTypes.object.isRequired,
+        note: PropTypes.object,
       })
     }).isRequired,
   }).isRequired,
+  notes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
+    notes: state.notes,
   }
 }
 

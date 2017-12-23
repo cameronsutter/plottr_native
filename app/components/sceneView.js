@@ -33,7 +33,19 @@ class SceneView extends Component {
 
   addCard = () => {
     const { scene } = this.props.navigation.state.params
-    this.props.navigation.navigate('Card', {sceneId: scene.id, newCard: true})
+    this.props.navigation.navigate('Card', {sceneId: scene.id, newCard: true, insertCard: this.receiveNewCard })
+  }
+
+  sortCards = () => {
+    let sortedCards = []
+    let sortedLines = _.sortBy(this.props.lines, 'position')
+    sortedLines.forEach(l => {
+      var card = _.find(this.props.cardsInScene, {lineId: l.id})
+      if (card) {
+        sortedCards.push(card)
+      }
+    })
+    return sortedCards
   }
 
   renderItem = (card) => {
@@ -59,9 +71,10 @@ class SceneView extends Component {
       <Text style={styles.noCardsText}>No Cards in this Scene</Text>
     </View>
     if (this.props.cardsInScene.length > 0) {
+      let sortedCards = this.sortCards()
       body = <FlatList
         style={styles.list}
-        data={this.props.cardsInScene}
+        data={sortedCards}
         keyExtractor={(card) => card.id}
         renderItem={({item}) => this.renderItem(item)}
       />
@@ -116,7 +129,6 @@ SceneView.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         scene: PropTypes.object.isRequired,
-        cards: PropTypes.array.isRequired,
       })
     }).isRequired,
   }).isRequired,
@@ -127,9 +139,9 @@ SceneView.propTypes = {
 }
 
 function mapStateToProps (state, ownProps) {
-  const { cardIds } = ownProps.navigation.state.params
+  const { scene } = ownProps.navigation.state.params
   let cardsInScene = state.cards.filter(c => {
-    return cardIds.includes(c.id)
+    return scene.id === c.sceneId
   })
   return {
     cardsInScene,

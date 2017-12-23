@@ -35,34 +35,9 @@ class OutlineContainer extends Component {
     this.props.navigation.setParams({addScene: this.addScene})
   }
 
-  cardMapping = () => {
-    return this.props.scenes.reduce((obj, scene) => {
-      obj[scene.id] = this.sortedSceneCards(scene.id)
-      return obj
-    }, {})
-  }
-
-  sortedSceneCards = (sceneId) => {
-    var cards = this.findSceneCards(sceneId)
-    const lines = _.sortBy(this.props.lines, 'position')
-    var sorted = []
-    lines.forEach((l) => {
-      var card = _.find(cards, {lineId: l.id})
-      if (card) {
-        sorted.push(card)
-      }
-    })
-    return sorted
-  }
-
-  findSceneCards = (sceneId) => {
-    return this.props.cards.filter(c => c.sceneId === sceneId)
-  }
-
-  renderItem = (scene, cardMap) => {
-    let cardIds = cardMap[scene.id].map(c => c.id)
+  renderItem = (scene) => {
     return <View key={`scene-${scene.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Scene', {scene, cardIds})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Scene', {scene})}>
         <View style={styles.touchableItem}>
           <Text style={styles.touchableItemText}>{scene.title}</Text>
           <Icon name={'angle-right'} size={25}></Icon>
@@ -72,13 +47,12 @@ class OutlineContainer extends Component {
   }
 
   render () {
-    let cardMap = this.cardMapping()
     let scenes = _.orderBy(this.props.scenes, 'position')
     return <View style={styles.container}>
       <FlatList
         data={scenes}
         keyExtractor={(scene) => scene.id}
-        renderItem={({item}) => this.renderItem(item, cardMap)}
+        renderItem={({item}) => this.renderItem(item)}
       />
     </View>
   }
