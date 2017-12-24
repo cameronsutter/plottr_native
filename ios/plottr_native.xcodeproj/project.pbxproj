@@ -47,9 +47,11 @@
 		D422167D7E874182A7F8A87A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66E34FD269B04C73A47CF796 /* Foundation.ttf */; };
 		DD0F737AA2674D3589E4ED88 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAFF6D72B7E41B2961F0392 /* libRNVectorIcons.a */; };
 		DDE5910E19084B3486062610 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2D481B535F74B8880AE5099 /* Zocial.ttf */; };
+		E42579901FEEFCC6004FC827 /* plottr_logo_10.png in Resources */ = {isa = PBXBuildFile; fileRef = E425798F1FEEFCC6004FC827 /* plottr_logo_10.png */; };
 		E42988A11FC521A4000D5735 /* plottr_logo_04.png in Resources */ = {isa = PBXBuildFile; fileRef = E429887C1FC521A3000D5735 /* plottr_logo_04.png */; };
 		E42C80E51FE49F3400A101FF /* Launch Screen2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42C80E41FE49F3400A101FF /* Launch Screen2.storyboard */; };
 		E44A34F71FD9E8DE006EB9DC /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */; };
+		E4A5DF361FEEFED60047F3EE /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A5DF111FEEFED60047F3EE /* launch_image.png */; };
 		F896D149B58741E1B7BF3D7C /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C50FB6981F4A4141A6E339D6 /* libRNDocumentPicker.a */; };
 /* End PBXBuildFile section */
 
@@ -353,9 +355,12 @@
 		D2D481B535F74B8880AE5099 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D74B2220572849469875A3F6 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		DD00F18829C94B10B474AE0A /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		E425798F1FEEFCC6004FC827 /* plottr_logo_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plottr_logo_10.png; path = "../../../Dropbox (C Louis S)/plottr_icons cropped/plottr_logo_10.png"; sourceTree = "<group>"; };
 		E429887C1FC521A3000D5735 /* plottr_logo_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plottr_logo_04.png; path = "../../../Dropbox (C Louis S)/plottr_icons cropped/plottr_logo_04.png"; sourceTree = "<group>"; };
 		E42C80E41FE49F3400A101FF /* Launch Screen2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen2.storyboard"; sourceTree = "<group>"; };
 		E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		E4A3484B1FEE2E42004B04B3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		E4A5DF111FEEFED60047F3EE /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
 		E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = plottr_native.entitlements; path = plottr_native/plottr_native.entitlements; sourceTree = "<group>"; };
 		E75DD22C63F74D989602FD70 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		E7EAD5BD4E094717B03710A3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -494,6 +499,8 @@
 		13B07FAE1A68108700A75B9A /* plottr_native */ = {
 			isa = PBXGroup;
 			children = (
+				E4A5DF111FEEFED60047F3EE /* launch_image.png */,
+				E425798F1FEEFCC6004FC827 /* plottr_logo_10.png */,
 				E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -613,6 +620,7 @@
 		E44A34F51FD9E8DE006EB9DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E4A3484B1FEE2E42004B04B3 /* MediaPlayer.framework */,
 				E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -720,6 +728,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = XUSV2KF89D;
+						LastSwiftMigration = 0920;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1096,7 +1105,9 @@
 				A055351CCD6B47E79ED571E4 /* MaterialCommunityIcons.ttf in Resources */,
 				9D4FE0D868044213A84FE208 /* MaterialIcons.ttf in Resources */,
 				4A475ED6D55A433A84357D05 /* Octicons.ttf in Resources */,
+				E4A5DF361FEEFED60047F3EE /* launch_image.png in Resources */,
 				CB8DC1E060534961B2B71581 /* SimpleLineIcons.ttf in Resources */,
+				E42579901FEEFCC6004FC827 /* plottr_logo_10.png in Resources */,
 				DDE5910E19084B3486062610 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1202,6 +1213,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = plottr_native/plottr_native.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1221,6 +1233,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "XUSV2KF89D.com.clouiss.plottr-native";
 				PRODUCT_NAME = plottr_native;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1229,6 +1243,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = plottr_native/plottr_native.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XUSV2KF89D;
@@ -1247,6 +1262,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "XUSV2KF89D.com.clouiss.plottr-native";
 				PRODUCT_NAME = plottr_native;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
