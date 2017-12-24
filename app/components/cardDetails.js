@@ -66,7 +66,6 @@ class CardDetails extends Component {
     let title = this.state.title
     let desc = this.state.description
     if (title == '') title = 'New Card'
-    if (desc == '') desc = 'description'
     this.props.actions.editCard(this.state.id, title, desc)
     this.props.actions.editCardCoordinates(this.state.id, this.state.lineId, this.state.sceneId)
     this.props.navigation.setParams({dirty: false})
@@ -112,13 +111,15 @@ class CardDetails extends Component {
     this.setState({description: text})
   }
 
-  renderTitle = ({index, item}) => {
+  renderTitle = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderDescription = ({index, item}) => {
+  renderDescription = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
@@ -210,10 +211,10 @@ class CardDetails extends Component {
       return <View style={styles.container}>
         <SectionList
           sections={[
-            {data: [this.title], title: 'Title', renderItem: this.renderTitle},
+            {data: [this.title || 'blank'], title: 'Title', renderItem: this.renderTitle},
             {data: ['lineId'], title: 'Line', renderItem: this.renderLine},
             {data: ['sceneId'], title: 'Scene', renderItem: this.renderScene},
-            {data: [this.description], title: 'Description', renderItem: this.renderDescription},
+            {data: [this.description || 'blank'], title: 'Description', renderItem: this.renderDescription},
           ]}
           renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
           keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}

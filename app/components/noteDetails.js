@@ -41,22 +41,17 @@ class NoteDetails extends Component {
       this.state = {
         newNote: true,
       }
-      this.title = 'New Note'
-      this.content = 'note contents go here'
     } else {
       this.state = {
-        title: params.note.title,
+        title: params.note.title || 'New note',
         content: params.note.content,
       }
-      this.title = params.note.title || 'Note title'
-      this.content = params.note.content || 'note content goes here'
+      this.note = params.note
     }
   }
 
   handleSave = () => {
-    const { note } = this.props.navigation.state.params
-    let id = (note && note.id) || this.state.id
-    this.props.actions.editNote(id, {title: this.state.title, content: this.state.content})
+    this.props.actions.editNote(this.note.id, this.state)
     this.props.navigation.setParams({dirty: false})
   }
 
@@ -71,7 +66,8 @@ class NoteDetails extends Component {
   findNewNote = () => {
     let note = this.props.notes[this.props.notes.length - 1] // notes add new ones to the end
     if (note.title == '') {
-      this.setState({newNote: false, id: note.id, title: this.title, content: this.content})
+      this.note = note
+      this.setState({newNote: false, title: note.title || 'New note', content: note.content})
       this.props.navigation.setParams({newNote: false, dirty: true})
     }
   }
@@ -86,13 +82,15 @@ class NoteDetails extends Component {
     this.setState({content: text})
   }
 
-  renderTitle = ({index, item}) => {
+  renderTitle = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderContent = ({index, item}) => {
+  renderContent = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
@@ -103,8 +101,8 @@ class NoteDetails extends Component {
     return <View style={styles.container}>
       <SectionList
         sections={[
-          {data: [this.title], title: 'Title', renderItem: this.renderTitle},
-          {data: [this.content], title: 'Content', renderItem: this.renderContent},
+          {data: [this.note.title || 'blank'], title: 'Title', renderItem: this.renderTitle},
+          {data: [this.note.content || 'blank'], title: 'Content', renderItem: this.renderContent},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}

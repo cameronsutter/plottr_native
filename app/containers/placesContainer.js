@@ -13,10 +13,24 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
+import AddButton from '../components/addButton'
 
 class PlacesContainer extends Component {
-  static navigationOptions = {
-    headerTitle: <HeaderTitle title='Places'/>
+  static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
+    return {
+      headerTitle: <HeaderTitle title='Places'/>,
+      headerRight: <AddButton onPress={params.addPlace ? params.addPlace : () => null} />,
+    }
+  }
+
+  addPlace = () => {
+    this.props.navigation.navigate('Details', {newPlace: true})
+  }
+
+  componentDidMount () {
+    this.props.navigation.setParams({addPlace: this.addPlace})
   }
 
   renderItem = (place) => {
@@ -24,7 +38,7 @@ class PlacesContainer extends Component {
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {place})}>
         <View style={styles.touchableItem}>
           <View>
-            <Text style={styles.nameText}>{place.name}</Text>
+            <Text style={styles.titleText}>{place.name}</Text>
             <Text style={styles.descriptionText}>{place.description}</Text>
           </View>
           <Icon name={'angle-right'} size={25}></Icon>
@@ -49,9 +63,7 @@ const styles = StyleSheet.create({
   listItem: AppStyles.listItem,
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
-  nameText: {
-    fontSize: 16,
-  },
+  titleText: AppStyles.titleText,
 })
 
 PlacesContainer.propTypes = {
@@ -61,7 +73,7 @@ PlacesContainer.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    places: state.places
+    places: state.places,
   }
 }
 

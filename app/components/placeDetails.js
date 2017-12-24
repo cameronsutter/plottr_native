@@ -9,22 +9,22 @@ import {
   TextInput,
   View,
   SectionList,
-  TouchableOpacity,
-  Button,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
+import SaveButton from './saveButton'
 
 class PlaceDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     let right = null
-    if (params.dirty) {
-      right = <Button
-        title='Save'
-        onPress={params.handleSave ? params.handleSave : () => null}
-      />
+    if (params.newPlace) {
+      right = <ActivityIndicator/>
+    } else if (params.dirty) {
+      let func = params.handleSave ? params.handleSave : () => null
+      right = <SaveButton onPress={func}/>
     } else {
       right = <Text style={styles.green}>Saved</Text>
     }
@@ -36,27 +36,58 @@ class PlaceDetails extends Component {
 
   constructor(props) {
     super(props)
-    const { place } = props.navigation.state.params
-    let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
-      obj[attr] = place[attr]
-      return obj
-    }, {})
-    this.state = {
-      name: place.name,
-      description: place.description,
-      notes: place.notes,
-      ...customAttrs,
+    const { params } = props.navigation.state
+    if (params.newPlace) {
+      this.state = {
+        newPlace: true,
+      }
+    } else {
+      let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
+        obj[attr] = params.place[attr]
+        return obj
+      }, {})
+      this.state = {
+        id: params.place.id,
+        name: params.place.name,
+        description: params.place.description,
+        notes: params.place.notes,
+        ...customAttrs,
+      }
+      this.place = {...this.state}
     }
   }
 
   handleSave = () => {
-    const { place } = this.props.navigation.state.params
-    this.props.actions.editPlace(place.id, this.state)
+    this.props.actions.editPlace(this.place.id, this.state)
     this.props.navigation.setParams({dirty: false})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
+    if (this.state.newPlace) {
+      this.props.actions.addPlace()
+      setTimeout(this.findNewPlace, 500)
+    }
+  }
+
+
+  findNewPlace = () => {
+    let place = this.props.places[this.props.places.length - 1] // places add new ones to the end
+    if (place.name == '') {
+      this.place = place
+      let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
+        obj[attr] = place[attr]
+        return obj
+      }, {})
+      this.setState({
+        newPlace: false,
+        name: place.name || 'New place',
+        description: place.description,
+        notes: place.notes,
+        ...customAttrs,
+      })
+      this.props.navigation.setParams({newPlace: false, dirty: true})
+    }
   }
 
   nameChanged = (text) => {
@@ -79,41 +110,43 @@ class PlaceDetails extends Component {
     this.setState({[attr]: text})
   }
 
-  renderName = ({index, item}) => {
+  renderName = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderDescription = ({index, item}) => {
+  renderDescription = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
-  renderNotes = ({index, item}) => {
+  renderNotes = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderCustomAttr = ({item}) => {
-    const { place } = this.props.navigation.state.params
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={place[item]}/>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={this.place[item]}/>
     </View>
   }
 
   render () {
-    const { place } = this.props.navigation.state.params
+    if (this.state.newPlace) return <ActivityIndicator/>
     let customAttrs = this.prepareCustomAttributes()
     return <View style={styles.container}>
       <SectionList
         sections={[
-          {data: [place.name || ''], title: 'Name', renderItem: this.renderName},
-          {data: [place.description || ''], title: 'Description', renderItem: this.renderDescription},
+          {data: [this.place.name || 'blank'], title: 'Name', renderItem: this.renderName},
+          {data: [this.place.description || 'blank'], title: 'Short Description', renderItem: this.renderDescription},
           ...customAttrs,
-          {data: [place.notes || ''], title: 'Notes', renderItem: this.renderNotes},
+          {data: [this.place.notes || 'blank'], title: 'Notes', renderItem: this.renderNotes},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(attr, index) => `${attr.substring(0, 3)}-${index}`}
@@ -142,17 +175,19 @@ PlaceDetails.propTypes = {
     navigate: PropTypes.func.isRequired,
     state: PropTypes.shape({
       params: PropTypes.shape({
-        place: PropTypes.object.isRequired,
+        place: PropTypes.object,
       })
     }).isRequired,
   }).isRequired,
+  places: PropTypes.array.isRequired,
   customAttributes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
-    customAttributes: state.customAttributes['places']
+    places: state.places,
+    customAttributes: state.customAttributes['places'],
   }
 }
 
