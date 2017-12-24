@@ -48,8 +48,6 @@ class CardDetails extends Component {
       this.state = {
         newCard: true,
       }
-      this.title = 'New card'
-      this.description = 'description goes here'
     } else {
       const { card } = params
       this.state = {
