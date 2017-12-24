@@ -38,7 +38,7 @@ class NotesContainer extends Component {
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {note})}>
         <View style={styles.touchableItem}>
           <View>
-            <Text style={styles.touchableItemText}>{note.title}</Text>
+            <Text style={styles.titleText}>{note.title}</Text>
             <Text style={styles.descriptionText}>{note.content.substring(0, 100)}</Text>
           </View>
           <Icon name={'angle-right'} size={25}></Icon>
@@ -63,9 +63,7 @@ const styles = StyleSheet.create({
   listItem: AppStyles.listItem,
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
-  touchableItemText: {
-    fontSize: 16,
-  },
+  titleText: AppStyles.titleText,
 })
 
 NotesContainer.propTypes = {

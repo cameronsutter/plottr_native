@@ -13,10 +13,24 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
+import AddButton from '../components/addButton'
 
 class CharactersContainer extends Component {
-  static navigationOptions = {
-    headerTitle: <HeaderTitle title='Characters'/>
+  static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
+    return {
+      headerTitle: <HeaderTitle title='Characters'/>,
+      headerRight: <AddButton onPress={params.addCharacter ? params.addCharacter : () => null} />,
+    }
+  }
+
+  addCharacter = () => {
+    this.props.navigation.navigate('Details', {newCharacter: true})
+  }
+
+  componentDidMount () {
+    this.props.navigation.setParams({addCharacter: this.addCharacter})
   }
 
   renderItem = (character) => {
@@ -24,7 +38,7 @@ class CharactersContainer extends Component {
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {character})}>
         <View style={styles.touchableItem}>
           <View>
-            <Text style={styles.nameText}>{character.name}</Text>
+            <Text style={styles.titleText}>{character.name}</Text>
             <Text style={styles.descriptionText}>{character.description}</Text>
           </View>
           <Icon name={'angle-right'} size={25}></Icon>
@@ -49,9 +63,7 @@ const styles = StyleSheet.create({
   listItem: AppStyles.listItem,
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
-  nameText: {
-    fontSize: 16,
-  },
+  titleText: AppStyles.titleText,
 })
 
 CharactersContainer.propTypes = {
@@ -61,7 +73,7 @@ CharactersContainer.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    characters: state.characters
+    characters: state.characters,
   }
 }
 

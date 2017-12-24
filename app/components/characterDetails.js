@@ -9,22 +9,22 @@ import {
   TextInput,
   View,
   SectionList,
-  TouchableOpacity,
-  Button,
+  ActivityIndicator,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
+import SaveButton from './saveButton'
 
 class CharacterDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     let right = null
-    if (params.dirty) {
-      right = <Button
-        title='Save'
-        onPress={params.handleSave ? params.handleSave : () => null}
-      />
+    if (params.newCharacter) {
+      right = <ActivityIndicator/>
+    } else if (params.dirty) {
+      let func = params.handleSave ? params.handleSave : () => null
+      right = <SaveButton onPress={func} />
     } else {
       right = <Text style={styles.green}>Saved</Text>
     }
@@ -36,27 +36,57 @@ class CharacterDetails extends Component {
 
   constructor(props) {
     super(props)
-    const { character } = props.navigation.state.params
-    let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
-      obj[attr] = character[attr]
-      return obj
-    }, {})
-    this.state = {
-      name: character.name,
-      description: character.description,
-      notes: character.notes,
-      ...customAttrs,
+    const { params } = props.navigation.state
+    if (params.newCharacter) {
+      this.state = {
+        newCharacter: true,
+      }
+    } else {
+      let customAttrs = props.customAttributes.reduce((obj, attr) => {
+        obj[attr] = params.character[attr]
+        return obj
+      }, {})
+      this.state = {
+        id: params.character.id,
+        name: params.character.name,
+        description: params.character.description,
+        notes: params.character.notes,
+        ...customAttrs,
+      }
+      this.character = {...this.state}
     }
   }
 
   handleSave = () => {
-    const { character } = this.props.navigation.state.params
-    this.props.actions.editCharacter(character.id, this.state)
+    this.props.actions.editCharacter(this.character.id, this.state)
     this.props.navigation.setParams({dirty: false})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
+    if (this.state.newCharacter) {
+      this.props.actions.addCharacter()
+      setTimeout(this.findNewCharacter, 500)
+    }
+  }
+
+  findNewCharacter = () => {
+    let character = this.props.characters[this.props.characters.length - 1] // characters add new ones to the end
+    if (character.name == '') {
+      this.character = character
+      let customAttrs = this.props.customAttributes.reduce((obj, attr) => {
+        obj[attr] = character[attr]
+        return obj
+      }, {})
+      this.setState({
+        newCharacter: false,
+        name: character.name || 'New character',
+        description: character.description,
+        notes: character.notes,
+        ...customAttrs,
+      })
+      this.props.navigation.setParams({newCharacter: false, dirty: true})
+    }
   }
 
   nameChanged = (text) => {
@@ -80,40 +110,42 @@ class CharacterDetails extends Component {
   }
 
   renderName = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderDescription = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderNotes = ({item}) => {
+    if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
       <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
   }
 
   renderCustomAttr = ({item}) => {
-    const { character } = this.props.navigation.state.params
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={character[item]}/>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={this.character[item]}/>
     </View>
   }
 
   render () {
-    const { character } = this.props.navigation.state.params
+    if (this.state.newCharacter) return <ActivityIndicator/>
     let customAttrs = this.prepareCustomAttributes()
     return <View style={styles.container}>
       <SectionList
         sections={[
-          {data: [character.name || ''], title: 'Name', renderItem: this.renderName},
-          {data: [character.description || ''], title: 'Description', renderItem: this.renderDescription},
+          {data: [this.character.name || 'blank'], title: 'Name', renderItem: this.renderName},
+          {data: [this.character.description || 'blank'], title: 'Short Description', renderItem: this.renderDescription},
           ...customAttrs,
-          {data: [character.notes || ''], title: 'Notes', renderItem: this.renderNotes},
+          {data: [this.character.notes || 'blank'], title: 'Notes', renderItem: this.renderNotes},
         ]}
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
@@ -142,16 +174,18 @@ CharacterDetails.propTypes = {
     navigate: PropTypes.func.isRequired,
     state: PropTypes.shape({
       params: PropTypes.shape({
-        character: PropTypes.object.isRequired,
+        character: PropTypes.object,
       })
     }).isRequired,
   }).isRequired,
+  characters: PropTypes.array.isRequired,
   customAttributes: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
+    characters: state.characters,
     customAttributes: state.customAttributes['characters'],
   }
 }

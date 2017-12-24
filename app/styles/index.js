@@ -26,6 +26,9 @@ export default AppStyles = {
     alignItems: 'center',
     flexDirection: 'row',
   },
+  titleText: {
+    fontSize: 16,
+  },
   descriptionText: {
     fontSize: 12,
     color: vars.grayText,
