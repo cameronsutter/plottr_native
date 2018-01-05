@@ -1,12 +1,15 @@
-import { FILE_SAVED, NEW_FILE } from 'constants/ActionTypes'
-import { ipcRenderer, remote } from 'electron'
-const win = remote.getCurrentWindow()
+import ActionTypes, { FILE_SAVED } from 'pltr'
+import { AsyncStorage } from 'react-native'
+// import RNFS from 'react-native-fs'
 
 const saver = store => next => action => {
   const result = next(action)
   if (action.type === FILE_SAVED) return result
-  var isNewFile = action.type === NEW_FILE
-  ipcRenderer.send('save-state', store.getState(), win.id, isNewFile)
+  // var isNewFile = action.type === NEW_FILE
+  const state = store.getState()
+  AsyncStorage.setItem('@Plottr:file', JSON.stringify(state))
+  // save back to the file
+  // RNFS.writeFile(state.file.fileName, state)
   return result
 }
 

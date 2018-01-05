@@ -12,9 +12,12 @@ import {
   NavigatorIOS,
   TouchableOpacity,
   NativeModules,
-} from 'react-native';
+  AsyncStorage,
+} from 'react-native'
 import RootTabs from './app/navigators/rootTabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import * as vars from './app/styles/vars'
+import Images from './images'
 
 const DocumentPicker = NativeModules.RNDocumentPicker
 
@@ -26,40 +29,57 @@ export class App extends Component {
 
     this.state = {
       plusIcon: null,
-      selectedTab: 'outline',
-      data: null
+      data: null,
+      fileName: null,
     }
   }
 
-  componentWillMount() {
-    const data = this.fakeData()
-    this.setState({ data })
-    store.dispatch(uiActions.loadFile(data.file.fileName, false, data, data.file.version))
+  async componentWillMount () {
+    // await AsyncStorage.removeItem('@Plottr:file')
     Icon.getImageSource('plus', 25).then((source) => this.setState({ plusIcon: source }))
+    try {
+      let strData = await AsyncStorage.getItem('@Plottr:file')
+      let fileName = await AsyncStorage.getItem('@Plottr:fileName')
+      if (strData !== null){
+        let data = JSON.parse(strData)
+        this.setState({ data, fileName })
+        store.dispatch(uiActions.loadFile(fileName, false, data, data.file.version))
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   fakeData () {
     return FILE_DATA
   }
 
-  openFile = () => {
+  openFile = async () => {
     DocumentPicker.show({
       filetype: ['public.item'],
-    }, async (error, url) => {
-      console.log('url')
-      console.log(url)
-      const response = await fetch(url.uri)
-      const data = await response.json()
-      console.log(data)
-      // alert(data)
-      this.setState({ data })
-      store.dispatch(uiActions.loadFile(data.file.fileName, false, data, data.file.version))
+    }, async (error, fileInfo) => {
+      console.log(fileInfo)
+      if (fileInfo.fileName.includes('.pltr')) {
+        const response = await fetch(fileInfo.uri)
+        const data = await response.json()
+        this.setState({ data, fileName: fileInfo.fileName })
+        store.dispatch(uiActions.loadFile(fileInfo.fileName, false, data, data.file.version))
+        try {
+          await AsyncStorage.setItem('@Plottr:file', JSON.stringify(data))
+          await AsyncStorage.setItem('@Plottr:fileName', fileInfo.fileName)
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        alert('Plottr cannot open that type of file')
+      }
     })
   }
 
   renderNoFile () {
     return <View style={styles.container}>
-      <Text>No file open!</Text>
+      <Text style={styles.welcomeText}>Welcome to Plottr</Text>
+      <Image source={Images.logo} style={styles.logo} />
       <TouchableOpacity onPress={this.openFile}>
         <View style={styles.button}><Text style={styles.buttonText}>Open a File</Text></View>
       </TouchableOpacity>
@@ -80,25 +100,33 @@ export class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#efefee',
+    backgroundColor: vars.grayBackground,
+    paddingTop: 50,
   },
-  tabContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  welcomeText: {
+    fontSize: 28,
+    fontWeight: 'bold',
   },
-  tabText: {
-    color: 'white',
+  logo: {
+    height: '35%',
+    resizeMode: 'contain',
+    margin: 40,
   },
   button: {
     marginTop: 20,
     padding: 8,
-    backgroundColor: '#ddd',
+    backgroundColor: vars.white,
+    borderColor: vars.orange,
+    borderWidth: 2,
     borderRadius: 4,
   },
-});
+  buttonText: {
+    color: vars.orange,
+    fontSize: 24,
+  },
+})
 
 AppRegistry.registerComponent('plottr_native', () => App);
 
