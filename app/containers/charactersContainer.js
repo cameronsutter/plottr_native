@@ -14,12 +14,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
+import ShareButton from '../components/shareButton'
 
 class CharactersContainer extends Component {
   static navigationOptions = ({ navigation }) => {
     let { params } = navigation.state
     params = params || {}
     return {
+      headerLeft: <ShareButton />,
       headerTitle: <HeaderTitle title='Characters'/>,
       headerRight: <AddButton onPress={params.addCharacter ? params.addCharacter : () => null} />,
     }

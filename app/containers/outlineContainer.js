@@ -16,12 +16,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
+import ShareButton from '../components/shareButton'
 
 class OutlineContainer extends Component {
   static navigationOptions = ({ navigation }) => {
     let { params } = navigation.state
     params = params || {}
     return {
+      headerLeft: <ShareButton />,
       headerTitle: <HeaderTitle title='Outline'/>,
       headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
     }
@@ -79,7 +81,7 @@ function mapStateToProps (state) {
   return {
     cards: state.cards,
     lines: state.lines,
-    scenes: state.scenes
+    scenes: state.scenes,
   }
 }
 

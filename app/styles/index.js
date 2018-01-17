@@ -9,6 +9,10 @@ export default AppStyles = {
     color: vars.orange,
     paddingRight: 20,
   },
+  shareButton: {
+    color: vars.orange,
+    paddingLeft: 20,
+  },
   containerView: {
     flex: 1,
     alignItems: 'stretch',

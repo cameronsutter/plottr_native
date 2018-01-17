@@ -14,12 +14,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
+import ShareButton from '../components/shareButton'
 
 class PlacesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
     let { params } = navigation.state
     params = params || {}
     return {
+      headerLeft: <ShareButton />,
       headerTitle: <HeaderTitle title='Places'/>,
       headerRight: <AddButton onPress={params.addPlace ? params.addPlace : () => null} />,
     }

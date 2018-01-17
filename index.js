@@ -34,6 +34,7 @@ export class App extends Component {
 
   async componentWillMount () {
     // await AsyncStorage.removeItem('@Plottr:file')
+    // await AsyncStorage.removeItem('@Plottr:fileName')
     Icon.getImageSource('plus', 25).then((source) => this.setState({ plusIcon: source }))
     try {
       let strData = await AsyncStorage.getItem('@Plottr:file')
@@ -52,7 +53,9 @@ export class App extends Component {
     DocumentPicker.show({
       filetype: ['public.item'],
     }, async (error, fileInfo) => {
+      // console.log('fileINfo', fileInfo)
       if (fileInfo.fileName.includes('.pltr')) {
+        // console.log('mime type', fileInfo.type)
         const response = await fetch(fileInfo.uri)
         const data = await response.json()
         this.setState({ data, fileName: fileInfo.uri })
@@ -69,13 +72,31 @@ export class App extends Component {
     })
   }
 
+  createNewFile = async () => {
+    let fileName = 'mobile.pltr'
+    this.setState({data: {}, fileName})
+    store.dispatch(uiActions.newFile('New Mobile Story'))
+    try {
+      await AsyncStorage.setItem('@Plottr:file', '{}')
+      await AsyncStorage.setItem('@Plottr:fileName', fileName)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   renderNoFile () {
     return <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome to Plottr</Text>
       <Image source={Images.logo} style={styles.logo} />
-      <TouchableOpacity onPress={this.openFile}>
-        <View style={styles.button}><Text style={styles.buttonText}>Open a File</Text></View>
-      </TouchableOpacity>
+      <View style={styles.row}>
+        <TouchableOpacity onPress={this.openFile}>
+          <View style={styles.button}><Text style={styles.buttonText}>Open</Text></View>
+        </TouchableOpacity>
+        <Text style={styles.orText}>Or</Text>
+        <TouchableOpacity onPress={this.createNewFile}>
+          <View style={styles.button}><Text style={styles.buttonText}>New</Text></View>
+        </TouchableOpacity>
+      </View>
     </View>
   }
 
@@ -98,6 +119,11 @@ const styles = StyleSheet.create({
     backgroundColor: vars.grayBackground,
     paddingTop: 50,
   },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   welcomeText: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -119,6 +145,11 @@ const styles = StyleSheet.create({
     color: vars.orange,
     fontSize: 24,
   },
+  orText: {
+    fontSize: 26,
+    margin: 20,
+    marginTop: 40,
+  }
 })
 
 AppRegistry.registerComponent('plottr_native', () => App)
