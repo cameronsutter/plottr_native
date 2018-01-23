@@ -18,7 +18,16 @@ class ShareButton extends Component {
     //   .then(({action, activityType}) => console.log(something))
     //   .catch(err => console.log(err))
     // console.log(this.props.data.file.fileName)
-    ActivityView.show({text: message})
+    let exclude = [
+      'addToReadingList',
+      'assignToContact',
+      'openInIBooks',
+      'postToFacebook',
+      'postToTwitter',
+      'saveToCameraRoll',
+      'markupAsPDF',
+    ]
+    ActivityView.show({text: message, exclude})
     // ActivityView.show({file: this.props.data.file.fileName})
   }
 
