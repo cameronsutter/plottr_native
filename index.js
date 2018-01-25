@@ -18,8 +18,12 @@ import RootTabs from './app/navigators/rootTabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as vars from './app/styles/vars'
 import Images from './images'
+import hash from 'node-random-chars'
+import { newFileData } from './helpers'
 
 const DocumentPicker = NativeModules.RNDocumentPicker
+
+const NEW_FILE_DATA = newFileData()
 
 const store = configureStore({})
 
@@ -32,23 +36,19 @@ export class App extends Component {
     showFileList: false,
   }
 
-  async componentWillMount () {
+  componentWillMount () {
     // await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, '[]')
-    // Icon.getImageSource('plus', 25).then((source) => this.setState({ plusIcon: source }))
-    try {
-      // let strData = await AsyncStorage.getItem('@Plottr:file')
-      // let fileName = await AsyncStorage.getItem('@Plottr:fileName')
-      let fileListStr = await AsyncStorage.getItem(`${KEY_PREFIX}fileList`)
-      if (fileListStr !== null){
-        let fileList = JSON.parse(fileListStr)
-        this.setState({ fileList })
-        // store.dispatch(uiActions.loadFile(fileName, false, data, data.file.version))
-      } else {
-        this.setState({ fileList: [] })
-        await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, '[]')
-      }
-    } catch (error) {
-      console.log(error)
+    this.fetchList()
+  }
+
+  fetchList = async () => {
+    let fileListStr = await AsyncStorage.getItem(`${KEY_PREFIX}fileList`)
+    if (fileListStr !== null){
+      let fileList = JSON.parse(fileListStr)
+      this.setState({ fileList })
+    } else {
+      this.setState({ fileList: [] })
+      await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, '[]')
     }
   }
 
@@ -83,7 +83,7 @@ export class App extends Component {
         this.setState({ fileChosen: true })
         store.dispatch(uiActions.loadFile(fileInfo.uri, false, data, data.file.version))
         let name = fileInfo.uri.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
-        let current = {onDevice: false, path: fileInfo.uri, name, data: JSON.stringify(data)}
+        let current = {onDevice: false, path: fileInfo.uri, name, data}
         this.addFileToList(current)
         await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, (this.state.fileList.length - 1).toString())
       } else {
@@ -93,22 +93,21 @@ export class App extends Component {
   }
 
   createNewFile = async () => {
-    let fileName = 'New Mobile Story'
     this.setState({ fileChosen: true })
-    store.dispatch(uiActions.newFile(fileName))
-    let current = {onDevice: true, path: '', name: fileName, data: '{}'}
+    store.dispatch(uiActions.newFile(NEW_FILE_DATA.storyName))
+    let current = {onDevice: true, path: '', name: NEW_FILE_DATA.storyName, data: NEW_FILE_DATA}
     this.addFileToList(current)
     await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, (this.state.fileList.length - 1).toString())
   }
 
   openFile = async (item, index) => {
     this.setState({ fileChosen: true })
-    let data = JSON.parse(item.data)
-    store.dispatch(uiActions.loadFile(item.path, false, data, data.file.version))
+    store.dispatch(uiActions.loadFile(item.path, false, item.data, item.data.file.version))
     await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, index.toString())
   }
 
   closeFile = () => {
+    this.fetchList()
     this.setState({ fileChosen: false })
     // MAYBE: unset AsyncStorage currentIndex
   }
@@ -125,7 +124,7 @@ export class App extends Component {
       style={styles.filesList}
       data={this.state.fileList}
       renderItem={this.renderFile}
-      keyExtractor={({index}) => `file-${index}`}
+      keyExtractor={() => `file-${hash.create(6)}`}
     />
   }
 
@@ -133,14 +132,16 @@ export class App extends Component {
     if (this.state.showFileList) {
       let fileList = this.renderFileList()
       return <View style={styles.container}>
-        <Text style={styles.yourFilesText}>Your files</Text>
-        <View style={styles.row}>
-          <TouchableOpacity onPress={this.chooseFile}>
-            <View style={styles.button}><Text style={styles.buttonText}>Import...</Text></View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.createNewFile}>
-            <View style={styles.button}><Text style={styles.buttonText}>New</Text></View>
-          </TouchableOpacity>
+        <Text style={styles.yourFilesText}>Files</Text>
+        <View style={styles.filesContainer}>
+          <View style={styles.row}>
+            <TouchableOpacity onPress={this.createNewFile}>
+              <View style={styles.button}><Text style={styles.buttonText}>New</Text></View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.chooseFile}>
+              <View style={styles.button}><Text style={styles.buttonText}>Import...</Text></View>
+            </TouchableOpacity>
+          </View>
           <View style={styles.divider} />
           { fileList }
         </View>
@@ -172,12 +173,16 @@ const styles = StyleSheet.create({
     backgroundColor: vars.grayBackground,
     paddingTop: 50,
   },
-  row: {
+  filesContainer: {
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'stretch',
     width: '100%',
     padding: 25,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   welcomeText: {
     fontSize: 28,

@@ -6,17 +6,19 @@ const { FILE_SAVED, FILE_LOADED, NEW_FILE } = ActionTypes
 const BLACKLIST = [FILE_SAVED, FILE_LOADED]
 
 
-function saveToAsync (state) {
+async function saveToAsync (state) {
   let currentIndexStr = await AsyncStorage.getItem(`${KEY_PREFIX}currentIndex`)
-  let currentIndex = parseInt(currentIndex)
+  let currentIndex = parseInt(currentIndexStr)
   let fileListStr = await AsyncStorage.getItem(`${KEY_PREFIX}fileList`)
   let fileList = JSON.parse(fileListStr)
   let current = {
     ...fileList[currentIndex],
     data: state,
   }
+  console.log('currentIndex', currentIndex, parseInt(currentIndexStr))
   fileList[currentIndex] = current
-  AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(fileList))
+  console.log(fileList)
+  await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(fileList))
 }
 
 const saver = store => next => action => {
