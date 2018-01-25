@@ -14,14 +14,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
-import ShareButton from '../components/shareButton'
+import MenuButton from '../components/menuButton'
 
 class NotesContainer extends Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation, screenProps }) => {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <ShareButton />,
+      headerLeft: <MenuButton close={screenProps.close} />,
       headerTitle: <HeaderTitle title='Notes'/>,
       headerRight: <AddButton onPress={params.addNote ? params.addNote : () => null}/>,
     }

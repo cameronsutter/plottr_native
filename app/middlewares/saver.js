@@ -1,15 +1,30 @@
 import { ActionTypes } from 'pltr'
 import { AsyncStorage } from 'react-native'
 
+const KEY_PREFIX = '@Plottr:'
 const { FILE_SAVED, FILE_LOADED, NEW_FILE } = ActionTypes
 const BLACKLIST = [FILE_SAVED, FILE_LOADED]
+
+
+function saveToAsync (state) {
+  let currentIndexStr = await AsyncStorage.getItem(`${KEY_PREFIX}currentIndex`)
+  let currentIndex = parseInt(currentIndex)
+  let fileListStr = await AsyncStorage.getItem(`${KEY_PREFIX}fileList`)
+  let fileList = JSON.parse(fileListStr)
+  let current = {
+    ...fileList[currentIndex],
+    data: state,
+  }
+  fileList[currentIndex] = current
+  AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(fileList))
+}
 
 const saver = store => next => action => {
   const result = next(action)
   if (BLACKLIST.includes(action.type)) return result
   // var isNewFile = action.type === NEW_FILE
   const state = store.getState()
-  AsyncStorage.setItem('@Plottr:file', JSON.stringify(state))
+  saveToAsync(state)
   // TODO: save back to the file
   return result
 }

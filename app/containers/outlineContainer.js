@@ -16,14 +16,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
-import ShareButton from '../components/shareButton'
+import MenuButton from '../components/menuButton'
 
 class OutlineContainer extends Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation, screenProps}) => {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <ShareButton />,
+      headerLeft: <MenuButton close={screenProps.close} />,
       headerTitle: <HeaderTitle title='Outline'/>,
       headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
     }
