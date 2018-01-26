@@ -15,9 +15,7 @@ async function saveToAsync (state) {
     ...fileList[currentIndex],
     data: state,
   }
-  console.log('currentIndex', currentIndex, parseInt(currentIndexStr))
   fileList[currentIndex] = current
-  console.log(fileList)
   await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(fileList))
 }
 

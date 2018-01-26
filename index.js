@@ -13,9 +13,10 @@ import {
   AsyncStorage,
   FlatList,
   ActivityIndicator,
+  AlertIOS,
 } from 'react-native'
 import RootTabs from './app/navigators/rootTabs'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from './app/styles/vars'
 import Images from './images'
 import hash from 'node-random-chars'
@@ -66,17 +67,14 @@ export class App extends Component {
     }, 700)
   }
 
-  addFileToList = async ({onDevice, path, name, data}) => {
+  addFileToList = async (newItem) => {
     let newFileList = [
       ...this.state.fileList,
-      {onDevice, path, name, data},
+      newItem,
     ]
     this.setState({ fileList: newFileList })
-    try {
-      await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(newFileList))
-    } catch (error) {
-      console.log(error)
-    }
+    await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(newFileList))
+    await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, (newFileList.length - 1).toString())
   }
 
   chooseFile = async () => {
@@ -93,7 +91,6 @@ export class App extends Component {
         let name = fileInfo.uri.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
         let current = {onDevice: false, path: fileInfo.uri, name, data}
         this.addFileToList(current)
-        await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, (this.state.fileList.length - 1).toString())
       } else {
         alert('Plottr cannot open that type of file')
       }
@@ -105,13 +102,40 @@ export class App extends Component {
     store.dispatch(uiActions.newFile(NEW_FILE_DATA.storyName))
     let current = {onDevice: true, path: '', name: NEW_FILE_DATA.storyName, data: NEW_FILE_DATA}
     this.addFileToList(current)
-    await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, (this.state.fileList.length - 1).toString())
   }
 
   openFile = async (item, index) => {
     this.setState({ fileChosen: true })
     store.dispatch(uiActions.loadFile(item.path, false, item.data, item.data.file.version))
     await AsyncStorage.setItem(`${KEY_PREFIX}currentIndex`, index.toString())
+  }
+
+  askToRemoveFile = (index) => {
+    AlertIOS.alert(
+      'Delete File',
+      'Are you sure? This can\'t be undone',
+      [{
+          text: 'Delete',
+          onPress: () => this.deleteFile(index),
+        }, {
+          text: 'Cancel',
+        },
+      ],
+    )
+  }
+
+  deleteFile = async (index) => {
+    let newList = [...this.state.fileList]
+    let deleted = newList.splice(index, 1)
+    this.setState({ fileList: newList })
+    await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(newList))
+    let deletedListStr = await AsyncStorage.getItem(`${KEY_PREFIX}deletedItems`)
+    let deletedList = []
+    if (deletedListStr !== null) {
+      deletedList = JSON.parse(deletedListStr)
+    }
+    deletedList.push(deleted)
+    AsyncStorage.setItem(`${KEY_PREFIX}deletedItems`, JSON.stringify(deletedList))
   }
 
   closeFile = () => {
@@ -121,9 +145,14 @@ export class App extends Component {
   }
 
   renderFile = ({ item, index }) => {
-    return <TouchableOpacity onPress={() => this.openFile(item, index)}>
-      <Text style={styles.fileNameText}>{item.name}</Text>
-    </TouchableOpacity>
+    return <View style={styles.fileListItem}>
+      <TouchableOpacity onPress={() => this.openFile(item, index)}>
+        <Text style={styles.fileNameText}>{item.name.substring(0, 20)}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => this.askToRemoveFile(index)}>
+        <View><Ionicons name='ios-remove-circle' size={36} style={{ color: vars.red }} /></View>
+      </TouchableOpacity>
+    </View>
   }
 
   renderFileList = () => {
@@ -187,6 +216,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     padding: 25,
+  },
+  fileListItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   row: {
     flexDirection: 'row',
