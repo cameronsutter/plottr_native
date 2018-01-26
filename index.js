@@ -144,13 +144,32 @@ export class App extends Component {
     // MAYBE: unset AsyncStorage currentIndex
   }
 
+  changeName = (index) => {
+    let list = [...this.state.fileList]
+    let current = list[index]
+    AlertIOS.prompt('Change Story Name', null, (newName) => {
+      current.name = newName
+      current.data.storyName = newName
+      list[index] = current
+      this.setState({fileList: list})
+      AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(list))
+    })
+  }
+
   renderFile = ({ item, index }) => {
     return <View style={styles.fileListItem}>
-      <TouchableOpacity onPress={() => this.openFile(item, index)}>
-        <Text style={styles.fileNameText}>{item.name.substring(0, 20)}</Text>
-      </TouchableOpacity>
+      <View style={[styles.row, styles.nameRow]}>
+        <TouchableOpacity onPress={() => this.changeName(index)}>
+          <View style={{paddingRight: 15}}>
+            <Ionicons name='md-create' size={30} style={{ color: vars.blue }} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.openFile(item, index)}>
+          <Text style={styles.fileNameText}>{item.name.substring(0, 20)}</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity onPress={() => this.askToRemoveFile(index)}>
-        <View><Ionicons name='ios-remove-circle' size={36} style={{ color: vars.red }} /></View>
+        <View><Ionicons name='ios-remove-circle' size={30} style={{ color: vars.red }} /></View>
       </TouchableOpacity>
     </View>
   }
@@ -220,6 +239,7 @@ const styles = StyleSheet.create({
   fileListItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical: 10,
   },
   row: {
     flexDirection: 'row',
@@ -250,15 +270,18 @@ const styles = StyleSheet.create({
   fileNameText: {
     color: vars.orange,
     fontSize: 22,
-    padding: 10,
   },
   filesList: {
   },
   divider: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: vars.black,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: vars.black,
     height: 1,
     marginVertical: 10,
+  },
+  nameRow: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 })
 
