@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { AsyncStorage, Share, TouchableOpacity } from 'react-native'
+import {
+  AsyncStorage,
+  Share,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AppStyles from '../styles'
+import DrawerStyles from '../styles/drawer'
 import ActivityView from 'react-native-activity-view'
 
 // maybe use https://www.npmjs.com/package/react-native-simple-share
@@ -32,7 +38,10 @@ class ShareButton extends Component {
 
   render () {
     return <TouchableOpacity onPress={this.openShare}>
-      <Ionicons name='ios-share-outline' size={34} style={AppStyles.shareButton}/>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Ionicons name='ios-share-outline' size={34} style={DrawerStyles.buttonIcon}/>
+        <Text style={DrawerStyles.buttonText}>Share</Text>
+      </View>
     </TouchableOpacity>
   }
 }

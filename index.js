@@ -15,12 +15,15 @@ import {
   ActivityIndicator,
   AlertIOS,
 } from 'react-native'
-import RootTabs from './app/navigators/rootTabs'
+import { DrawerWrapper } from './app/navigators/drawers'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import AppStyles from './app/styles'
 import * as vars from './app/styles/vars'
 import Images from './images'
 import hash from 'node-random-chars'
 import { newFileData } from './helpers'
+import FakeNavHeader from './app/components/fakeNavHeader'
+import AddButton from './app/components/addButton'
 
 const DocumentPicker = NativeModules.RNDocumentPicker
 
@@ -54,7 +57,15 @@ export class App extends Component {
       file = await AsyncStorage.getItem('@Plottr:file')
       name = await AsyncStorage.getItem('@Plottr:fileName')
       if (name !== null) {
-        list.push({onDevice: !!name.includes('.pltr'), path: name, data: JSON.parse(file)})
+        let onDevice = true
+        let fileName = ''
+        if (name.includes('.pltr')) {
+          onDevice = false
+          fileName = name.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
+        }
+        list.push({onDevice, name: fileName, path: name, data: JSON.parse(file)})
+        AsyncStorage.removeItem('@Plottr:file')
+        AsyncStorage.removeItem('@Plottr:fileName')
       }
       this.setState({ fileList: list })
       await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(list))
@@ -157,7 +168,7 @@ export class App extends Component {
   }
 
   renderFile = ({ item, index }) => {
-    return <View style={styles.fileListItem}>
+    return <View style={[styles.fileListItem, styles.listItem]}>
       <View style={[styles.row, styles.nameRow]}>
         <TouchableOpacity onPress={() => this.changeName(index)}>
           <View style={{paddingRight: 15}}>
@@ -187,23 +198,34 @@ export class App extends Component {
   renderNoFile () {
     if (this.state.showFileList) {
       let fileList = this.renderFileList()
+      let importButton = <TouchableOpacity onPress={this.chooseFile}>
+        <View style={styles.button}><Ionicons name='ios-cloud-download-outline' size={34} style={{color: vars.orange}}/></View>
+      </TouchableOpacity>
       return <View style={styles.container}>
-        <Text style={styles.yourFilesText}>Files</Text>
-        <View style={styles.filesContainer}>
-          <View style={styles.row}>
-            <TouchableOpacity onPress={this.createNewFile}>
-              <View style={styles.button}><Text style={styles.buttonText}>New</Text></View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.chooseFile}>
-              <View style={styles.button}><Text style={styles.buttonText}>Import...</Text></View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.divider} />
-          { fileList }
-        </View>
+        <FakeNavHeader
+          title='Files'
+          leftButton={importButton}
+          rightButton={<AddButton onPress={this.createNewFile}/>}
+        />
+        {fileList}
       </View>
+      // return <View style={styles.container}>
+      //   <Text style={styles.yourFilesText}>Files</Text>
+      //   <View style={styles.filesContainer}>
+      //     <View style={styles.row}>
+      //       <TouchableOpacity onPress={this.createNewFile}>
+      //         <View style={styles.button}><Text style={styles.buttonText}>New</Text></View>
+      //       </TouchableOpacity>
+      //       <TouchableOpacity onPress={this.chooseFile}>
+      //         <View style={styles.button}><Text style={styles.buttonText}>Import...</Text></View>
+      //       </TouchableOpacity>
+      //     </View>
+      //     <View style={styles.divider} />
+      //     { fileList }
+      //   </View>
+      // </View>
     } else {
-      return <View style={styles.container}>
+      return <View style={styles.logoContainer}>
         <Text style={styles.welcomeText}>Welcome to Plottr</Text>
         <Image source={Images.logo} style={styles.logo} />
       </View>
@@ -213,7 +235,7 @@ export class App extends Component {
   render() {
     if (this.state.fileChosen) {
       return <Provider store={store}>
-        <RootTabs screenProps={{close: this.closeFile}}/>
+        <DrawerWrapper screenProps={{close: this.closeFile}}/>
       </Provider>
     } else {
       return this.renderNoFile()
@@ -223,12 +245,20 @@ export class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    ...AppStyles.containerView,
+    ...AppStyles.listBackground,
+  },
+  logoContainer: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: vars.grayBackground,
     paddingTop: 50,
   },
+  listItem: AppStyles.listItem,
+  touchableItem: AppStyles.touchableItem,
+  descriptionText: AppStyles.descriptionText,
+  titleText: AppStyles.titleText,
   filesContainer: {
     flex: 1,
     justifyContent: 'space-around',
@@ -240,6 +270,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   row: {
     flexDirection: 'row',

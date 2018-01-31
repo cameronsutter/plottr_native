@@ -21,7 +21,7 @@ class NotesContainer extends Component {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <MenuButton close={screenProps.close} />,
+      headerLeft: <MenuButton close={screenProps.close} navigation={navigation} />,
       headerTitle: <HeaderTitle title='Notes'/>,
       headerRight: <AddButton onPress={params.addNote ? params.addNote : () => null}/>,
     }

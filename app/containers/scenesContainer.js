@@ -1,8 +1,9 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { characterActions } from 'pltr'
+import { sceneActions } from 'pltr'
 import {
   StyleSheet,
   Text,
@@ -11,49 +12,52 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
+import FakeNavHeader from '../components/fakeNavHeader'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
 
-class CharactersContainer extends Component {
+class ScenesContainer extends Component {
   static navigationOptions = ({ navigation, screenProps }) => {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <MenuButton close={screenProps.close} navigation={navigation} />,
-      headerTitle: <HeaderTitle title='Characters'/>,
-      headerRight: <AddButton onPress={params.addCharacter ? params.addCharacter : () => null} />,
+      drawerIcon: ({ tintColor, focused }) => (
+        <Ionicons name={focused ? 'ios-film' : 'ios-film-outline'}
+          size={28} style={{ color: tintColor }}
+        />
+      ),
     }
   }
 
-  addCharacter = () => {
-    this.props.navigation.navigate('Details', {newCharacter: true})
+  addScene = () => {
+    this.props.actions.addScene()
   }
 
-  componentDidMount () {
-    this.props.navigation.setParams({addCharacter: this.addCharacter})
-  }
-
-  renderItem = (character) => {
-    return <View key={`character-${character.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {character})}>
+  renderItem = (scene) => {
+    return <View key={`scene-${scene.id}`} style={styles.listItem}>
+      <TouchableOpacity>
         <View style={styles.touchableItem}>
-          <View>
-            <Text style={styles.titleText}>{character.name}</Text>
-            <Text style={styles.descriptionText}>{character.description}</Text>
-          </View>
-          <Icon name={'angle-right'} size={25}></Icon>
+          <Text style={styles.titleText}>{scene.title}</Text>
         </View>
       </TouchableOpacity>
     </View>
   }
 
   render () {
+    const { screenProps, navigation, scenes } = this.props
+    const sortedScenes = _.sortBy(scenes, 'position')
     return <View style={styles.container}>
+      <FakeNavHeader
+        title='Scenes'
+        leftButton={<MenuButton close={screenProps.close} navigation={navigation}/>}
+        rightButton={<AddButton onPress={this.addScene}/>}
+      />
       <FlatList
-        data={this.props.characters}
-        keyExtractor={(character) => character.id}
+        data={sortedScenes}
+        keyExtractor={(scene) => scene.id}
         renderItem={({item}) => this.renderItem(item)}
       />
     </View>
@@ -61,31 +65,35 @@ class CharactersContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: AppStyles.containerView,
+  container: {
+    ...AppStyles.containerView,
+    ...AppStyles.listBackground,
+  },
   listItem: AppStyles.listItem,
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
   titleText: AppStyles.titleText,
 })
 
-CharactersContainer.propTypes = {
+ScenesContainer.propTypes = {
   navigation: PropTypes.object.isRequired,
-  characters: PropTypes.array.isRequired,
+  scenes: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
-    characters: state.characters,
+    scenes: state.scenes,
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(characterActions, dispatch)
+    actions: bindActionCreators(sceneActions, dispatch)
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CharactersContainer)
+)(ScenesContainer)

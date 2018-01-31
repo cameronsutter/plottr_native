@@ -19,11 +19,11 @@ import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
 
 class OutlineContainer extends Component {
-  static navigationOptions = ({ navigation, screenProps}) => {
+  static navigationOptions = ({ navigation, screenProps }) => {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <MenuButton close={screenProps.close} />,
+      headerLeft: <MenuButton close={screenProps.close} navigation={navigation} />,
       headerTitle: <HeaderTitle title='Outline'/>,
       headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
     }

@@ -9,7 +9,7 @@ export default AppStyles = {
     color: vars.orange,
     paddingRight: 20,
   },
-  shareButton: {
+  leftNavButton: {
     color: vars.orange,
     paddingLeft: 20,
   },
@@ -17,6 +17,9 @@ export default AppStyles = {
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-start',
+  },
+  listBackground: {
+    backgroundColor: '#e4e3eb',
   },
   listItem: {
     borderColor: vars.grayBorder,

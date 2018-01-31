@@ -5,9 +5,12 @@ import {
   NotesNavigator,
   CharactersNavigator,
   PlacesNavigator,
- } from './stacks'
- import Icon from 'react-native-vector-icons/FontAwesome'
- import Ionicons from 'react-native-vector-icons/Ionicons'
+} from './stacks'
+import {
+  OutlineDrawer,
+} from './drawers'
+// import Icon from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default RootTabs = TabNavigator({
   Outline: {
@@ -16,10 +19,14 @@ export default RootTabs = TabNavigator({
       tabBarLabel: 'Outline',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
-          size={28}
-          style={{ color: tintColor }}
+          size={28} style={{ color: tintColor }}
         />
-      )
+      ),
+      drawerIcon: ({ tintColor, focused }) => (
+        <Ionicons name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
+          size={28} style={{ color: tintColor }}
+        />
+      ),
     }
   },
   Notes: {
