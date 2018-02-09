@@ -61,7 +61,7 @@ export class App extends Component {
         let fileName = ''
         if (name.includes('.pltr')) {
           onDevice = false
-          fileName = name.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
+          fileName = name.substring(name.lastIndexOf('/') + 1, name.lastIndexOf('.pltr'))
         }
         list.push({onDevice, name: fileName, path: name, data: JSON.parse(file)})
         AsyncStorage.removeItem('@Plottr:file')
