@@ -18,6 +18,7 @@
 {
   NSURL *jsCodeLocation;
 
+  // comment for release
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   // uncomment for release
