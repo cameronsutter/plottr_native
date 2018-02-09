@@ -18,10 +18,10 @@
 {
   NSURL *jsCodeLocation;
 
-  // comment for release
+  // comment for release (debug)
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
-  // uncomment for release
+  // uncomment for release (release)
 //  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation

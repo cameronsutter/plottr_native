@@ -2,9 +2,16 @@
 [https://help.apple.com/xcode/mac/current/#/dev2539d985f]
 
 1. Info.plist -> App Transport Security -> localhost -> NO
-1. Product -> Scheme -> Edit Scheme -> Release
+1. Product -> Scheme -> plottr_native_RELEASE
 1. AppDelegate.m -> uncomment/comment out jsCodeLocation lines
 1. Change Scheme Destination to Generic iOS Device
 1. Build
 1. Product -> Archive
 1. Organizer -> Verify, Upload
+
+
+Change back after release:
+1. Change Scheme Destination to iPhone 8
+1. AppDelegate.m -> uncomment/comment
+1. Product -> Scheme -> plottr_native
+1. Info.plist -> App Transport Security -> localhost -> YES
