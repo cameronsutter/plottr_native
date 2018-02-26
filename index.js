@@ -52,21 +52,6 @@ export class App extends Component {
       this.setState({ fileList })
     } else {
       let list = []
-      // TODO: remove after next build
-      // recover files from the old format
-      file = await AsyncStorage.getItem('@Plottr:file')
-      name = await AsyncStorage.getItem('@Plottr:fileName')
-      if (name !== null) {
-        let onDevice = true
-        let fileName = ''
-        if (name.includes('.pltr')) {
-          onDevice = false
-          fileName = name.substring(name.lastIndexOf('/') + 1, name.lastIndexOf('.pltr'))
-        }
-        list.push({onDevice, name: fileName, path: name, data: JSON.parse(file)})
-        AsyncStorage.removeItem('@Plottr:file')
-        AsyncStorage.removeItem('@Plottr:fileName')
-      }
       this.setState({ fileList: list })
       await AsyncStorage.setItem(`${KEY_PREFIX}fileList`, JSON.stringify(list))
     }

@@ -1,6 +1,6 @@
 {
   "name": "plottr_native",
-  "version": "0.1.25",
+  "version": "0.2.0",
   "private": true,
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1",

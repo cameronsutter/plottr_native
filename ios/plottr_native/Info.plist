@@ -20,7 +20,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.clouiss.pltr</string>
+				<string>com.clouiss.plottr.pltr</string>
 			</array>
 		</dict>
 	</array>
@@ -92,12 +92,12 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.archive</string>
+				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Plottr file</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.clouiss.pltr</string>
+			<string>com.clouiss.plottr.pltr</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>PlottrDocumentIcon</string>
 			<key>UTTypeSize64IconFile</key>
@@ -106,10 +106,34 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>pltr</string>
-				<key>public.mime-type</key>
-				<string>application/text</string>
 			</dict>
 		</dict>
 	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Plottr file</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.clouiss.plottr.pltr</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>PlottrDocumentIcon</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>PlottrDocumentIcon_256</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>pltr</string>
+			</dict>
+		</dict>
+	</array>
+  <key>UIFileSharingEnabled</key>
+  <true/>
+  <key>LSSupportsOpeningDocumentsInPlace</key>
+  <true/>
 </dict>
 </plist>

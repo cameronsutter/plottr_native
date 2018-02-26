@@ -16,16 +16,12 @@
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		15E2C9120DFC4FA890F3CA55 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCECC1DC7005401A85AB361D /* FontAwesome.ttf */; };
 		1DE63E6A189B423983C74178 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07FD5E539C4C401D9A3E07E3 /* Feather.ttf */; };
-		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */; };
 		2D02E4C41E0B4AEC006451C7 /* libRCTLinking-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E881DF850E9000B6D8A /* libRCTLinking-tvOS.a */; };
@@ -56,6 +52,8 @@
 		E4A5DF361FEEFED60047F3EE /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A5DF111FEEFED60047F3EE /* launch_image.png */; };
 		E4C282BC200821E500CE1612 /* PlottrDocumentIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */; };
 		E4C282BE2008220300CE1612 /* PlottrDocumentIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */; };
+		E4F0692E20322A2B00F30540 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F0692C20322A2A00F30540 /* AppDelegate.m */; };
+		E4F0692F20322A2B00F30540 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F0692D20322A2B00F30540 /* main.m */; };
 		F896D149B58741E1B7BF3D7C /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C50FB6981F4A4141A6E339D6 /* libRNDocumentPicker.a */; };
 /* End PBXBuildFile section */
 
@@ -339,12 +337,9 @@
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* plottr_native.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = plottr_native.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = plottr_native/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = plottr_native/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = plottr_native/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = plottr_native/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = plottr_native/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1548C39FE6094A0CBBEF94BB /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* plottr_native-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "plottr_native-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,6 +373,10 @@
 		E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon.png; sourceTree = "<group>"; };
 		E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon_256.png; sourceTree = "<group>"; };
 		E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = plottr_native.entitlements; path = plottr_native/plottr_native.entitlements; sourceTree = "<group>"; };
+		E4F0692B20322A2A00F30540 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E4F0692C20322A2A00F30540 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E4F0692D20322A2B00F30540 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E4FFFB49203222A000F407C9 /* plottr_native-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "plottr_native-Bridging-Header.h"; sourceTree = "<group>"; };
 		E75DD22C63F74D989602FD70 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		E7EAD5BD4E094717B03710A3 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		F0AB5B2A0E9A43EFBA831471 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
@@ -517,6 +516,9 @@
 		13B07FAE1A68108700A75B9A /* plottr_native */ = {
 			isa = PBXGroup;
 			children = (
+				E4F0692B20322A2A00F30540 /* AppDelegate.h */,
+				E4F0692C20322A2A00F30540 /* AppDelegate.m */,
+				E4F0692D20322A2B00F30540 /* main.m */,
 				E44F9BEC200FD7D2005196C6 /* splashscreen.png */,
 				E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */,
 				E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */,
@@ -524,14 +526,12 @@
 				E425798F1FEEFCC6004FC827 /* plottr_logo_10.png */,
 				E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				E429887C1FC521A3000D5735 /* plottr_logo_04.png */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				E42C80E41FE49F3400A101FF /* Launch Screen2.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
+				E4FFFB49203222A000F407C9 /* plottr_native-Bridging-Header.h */,
 			);
 			name = plottr_native;
 			sourceTree = "<group>";
@@ -760,7 +760,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = XUSV2KF89D;
-						LastSwiftMigration = 920;
+						LastSwiftMigration = 0920;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1211,8 +1211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				E4F0692E20322A2B00F30540 /* AppDelegate.m in Sources */,
+				E4F0692F20322A2B00F30540 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,8 +1220,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
-				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,6 +1285,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clouiss.plottr-native";
 				PRODUCT_NAME = plottr_native;
+				SWIFT_OBJC_BRIDGING_HEADER = "plottr_native-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1325,6 +1324,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.clouiss.plottr-native";
 				PRODUCT_NAME = plottr_native;
+				SWIFT_OBJC_BRIDGING_HEADER = "plottr_native-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
