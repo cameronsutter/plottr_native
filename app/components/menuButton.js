@@ -6,14 +6,13 @@ import AppStyles from '../styles'
 
 class MenuButton extends Component {
   render () {
-    return <TouchableOpacity onPress={() => this.props.navigation.navigate('DrawerOpen', {close: this.props.close})} >
+    return <TouchableOpacity onPress={() => this.props.navigation.navigate('DrawerOpen')} >
       <Ionicons name='ios-menu' size={34} style={AppStyles.leftNavButton}/>
     </TouchableOpacity>
   }
 }
 
 MenuButton.propTypes = {
-  close: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
 }
 

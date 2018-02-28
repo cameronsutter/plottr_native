@@ -1,12 +1,12 @@
-import RNMixpanel from 'react-native-mixpanel'
+// import RNMixpanel from 'react-native-mixpanel'
 import { NativeModules } from 'react-native'
 import { ActionTypes } from 'pltr'
-var mixpanel = NativeModules.RNMixpanel
+// var mixpanel = NativeModules.RNMixpanel
 
 console.log(NativeModules)
 console.log(mixpanel)
 
-mixpanel.sharedInstanceWithToken('f1b3d3cc4788a907468cdde7d2bd7340')
+// mixpanel.sharedInstanceWithToken('f1b3d3cc4788a907468cdde7d2bd7340')
 
 class MixpanelTracker {
   track (event, attrs = {}) {
@@ -14,7 +14,7 @@ class MixpanelTracker {
       platform: process.platform,
     }
     let attributes = Object.assign(baseAttrs, attrs)
-    mixpanel.trackWithProperties(event, attributes)
+    // mixpanel.trackWithProperties(event, attributes)
   }
 }
 

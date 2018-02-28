@@ -14,6 +14,7 @@ import {
   FlatList,
   ActivityIndicator,
   AlertIOS,
+  NativeEventEmitter,
 } from 'react-native'
 import { DrawerWrapper } from './app/navigators/drawers'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -24,8 +25,12 @@ import hash from 'node-random-chars'
 import { newFileData } from './helpers'
 import FakeNavHeader from './app/components/fakeNavHeader'
 import AddButton from './app/components/addButton'
+const { DocumentViewController, ReactNativeEventEmitter } = NativeModules
+const emitter = new NativeEventEmitter(ReactNativeEventEmitter)
 
-const DocumentPicker = NativeModules.RNDocumentPicker
+console.log('DocumentViewController', DocumentViewController)
+
+// const DocumentPicker = NativeModules.RNDocumentPicker
 
 const NEW_FILE_DATA = newFileData()
 
@@ -38,6 +43,17 @@ export class App extends Component {
     fileList: null,
     fileChosen: false,
     showFileList: false,
+  }
+
+  constructor (props) {
+    super(props)
+    console.log(props)
+    let data = JSON.parse(props.data)
+    store.dispatch(uiActions.loadFile(props.documentURL, false, data, data.file.version))
+    this.state = {
+      fileChosen: true,
+      fileURL: props.documentURL
+    }
   }
 
   componentWillMount () {
@@ -74,23 +90,23 @@ export class App extends Component {
   }
 
   chooseFile = async () => {
-    DocumentPicker.show({
-      filetype: ['public.item'],
-    }, async (error, fileInfo) => {
-      // console.log('fileINfo', fileInfo)
-      if (fileInfo.fileName.includes('.pltr')) {
-        // console.log('mime type', fileInfo.type)
-        const response = await fetch(fileInfo.uri)
-        const data = await response.json()
-        this.setState({ fileChosen: true })
-        store.dispatch(uiActions.loadFile(fileInfo.uri, false, data, data.file.version))
-        let name = fileInfo.uri.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
-        let current = {onDevice: false, path: fileInfo.uri, name, data}
-        this.addFileToList(current)
-      } else {
-        alert('Plottr cannot open that type of file')
-      }
-    })
+    // DocumentPicker.show({
+    //   filetype: ['public.item'],
+    // }, async (error, fileInfo) => {
+    //   // console.log('fileINfo', fileInfo)
+    //   if (fileInfo.fileName.includes('.pltr')) {
+    //     // console.log('mime type', fileInfo.type)
+    //     const response = await fetch(fileInfo.uri)
+    //     const data = await response.json()
+    //     this.setState({ fileChosen: true })
+    //     store.dispatch(uiActions.loadFile(fileInfo.uri, false, data, data.file.version))
+    //     let name = fileInfo.uri.substring(fileInfo.uri.lastIndexOf('/') + 1, fileInfo.uri.lastIndexOf('.pltr'))
+    //     let current = {onDevice: false, path: fileInfo.uri, name, data}
+    //     this.addFileToList(current)
+    //   } else {
+    //     alert('Plottr cannot open that type of file')
+    //   }
+    // })
   }
 
   createNewFile = async () => {
@@ -218,15 +234,18 @@ export class App extends Component {
   }
 
   render() {
+    // screenProps={{close: DocumentViewController.closeDocument}}
     if (this.state.fileChosen) {
       return <Provider store={store}>
-        <DrawerWrapper screenProps={{close: this.closeFile}}/>
+        <DrawerWrapper/>
       </Provider>
     } else {
       return this.renderNoFile()
     }
   }
 }
+
+// <DrawerWrapper screenProps={{close: DocumentViewController.closeDocument}}/>
 
 const styles = StyleSheet.create({
   container: {

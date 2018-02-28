@@ -1,5 +1,6 @@
 import { ActionTypes } from 'pltr'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, NativeModules } from 'react-native'
+const { DocumentViewController } = NativeModules
 
 const KEY_PREFIX = '@Plottr:'
 const { FILE_SAVED, FILE_LOADED, NEW_FILE } = ActionTypes
@@ -24,7 +25,8 @@ const saver = store => next => action => {
   if (BLACKLIST.includes(action.type)) return result
   // var isNewFile = action.type === NEW_FILE
   const state = store.getState()
-  saveToAsync(state)
+  DocumentViewController.updateDocument(JSON.stringify(state, null, 2))
+  // saveToAsync(state)
   // TODO: save back to the file
   return result
 }

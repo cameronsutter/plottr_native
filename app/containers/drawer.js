@@ -9,16 +9,18 @@ import {
   View,
   TouchableOpacity,
   LayoutAnimation,
+  NativeModules,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from '../styles/vars'
 import DrawerStyles from '../styles/drawer'
-import ShareButton from '../components/shareButton'
+const { DocumentViewController } = NativeModules
 
 class Drawer extends Component {
   closeFile = () => {
     LayoutAnimation.easeInEaseOut()
-    this.props.screenProps.close()
+    DocumentViewController.closeDocument(this.props.fileName)
+    // this.props.screenProps.close()
   }
 
   renderCloseButton = () => {
@@ -34,7 +36,6 @@ class Drawer extends Component {
     return <ScrollView>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <View style={styles.storyName}><Text style={styles.nameText}>{this.props.storyName}</Text></View>
-        <ShareButton />
         {this.renderCloseButton()}
         <View style={styles.hr}/>
         <DrawerItems {...this.props} />
@@ -65,11 +66,13 @@ const styles = StyleSheet.create({
 
 Drawer.propTypes = {
   storyName: PropTypes.string.isRequired,
+  fileName: PropTypes.string.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
     storyName: state.storyName,
+    fileName: state.file.fileName,
   }
 }
 

@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import DrawerStyles from '../styles/drawer'
-import ActivityView from 'react-native-activity-view'
+// import ActivityView from 'react-native-activity-view'
 
 // maybe use https://www.npmjs.com/package/react-native-simple-share
 
@@ -32,7 +32,7 @@ class ShareButton extends Component {
       'saveToCameraRoll',
       'markupAsPDF',
     ]
-    ActivityView.show({text: message, exclude})
+    // ActivityView.show({text: message, exclude})
     // ActivityView.show({file: this.props.data.file.fileName})
   }
 

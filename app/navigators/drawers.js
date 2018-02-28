@@ -12,7 +12,7 @@ export const DrawerWrapper = DrawerNavigator({
   Outline: {
     screen: RootTabs,
   },
-  Lines: {
+  Plotlines: {
     screen: LinesContainer,
   },
   Scenes: {
