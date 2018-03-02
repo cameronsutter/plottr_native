@@ -13,13 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return true }
 
     let localDocumentsDirectoryURL = URL(fileURLWithPath: documentPath)
     print(localDocumentsDirectoryURL)
+
     return true
   }
 
@@ -49,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Ensure the URL is a file URL
     guard inputURL.isFileURL else { return false }
 
+    print("app delegate")
+
     // Reveal / import the document at the URL
     guard let documentBrowserViewController = window?.rootViewController as? DocumentBrowserViewController else { return false }
 
@@ -64,6 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     return true
+  }
+
+  func openDocumentBrowser() {
+    self.window?.rootViewController = DocumentBrowserViewController()
   }
 
 

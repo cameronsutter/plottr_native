@@ -20,7 +20,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     // Update the style of the UIDocumentBrowserViewController
     //         browserUserInterfaceStyle = .dark
-    //         view.tintColor = .white
+//     view.tintColor = .white
 
     // Specify the allowed content types of your application via the Info.plist.
 
@@ -33,7 +33,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
   func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
     let newDocumentURL: URL? = nil
     print("Got to here: line 36")
-    print(newDocumentURL?.absoluteString)
+    print(newDocumentURL?.absoluteString ?? "there is no url for this new document")
     // Set the URL for the new document here. Optionally, you can present a template chooser before calling the importHandler.
     // Make sure the importHandler is always called, even if the user cancels the creation request.
     if newDocumentURL != nil {
@@ -66,41 +66,16 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
   // MARK: Document Presentation
 
   func presentDocument(at documentURL: URL) {
+    let doc = PlottrDocument(fileURL: documentURL)
+
+    if (DocumentViewController.sharedInstance() != nil) {
+      DocumentViewController.setSharedInstance(instance: nil)
+    }
 
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
-    documentViewController.document = PlottrDocument(fileURL: documentURL)
-
+    documentViewController.document = doc
     present(documentViewController, animated: true, completion: nil)
-//
-//
-//
-//
-//    PlottrDoc = Document(fileURL: documentURL)
-//    PlottrDoc!.open { (isOpen) in
-//      if (isOpen) {
-//        // debug
-//        //            let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")
-//
-//        // release
-//        let jsCodeLocation = URL(string: "main.jsbundle")
-//
-//        let initialData:NSDictionary = [
-//          "documentURL": documentURL.absoluteString,
-//          "data": self.PlottrDoc!.stringContents(),
-//          ]
-//
-//        let rootView = RCTRootView(
-//          bundleURL: jsCodeLocation,
-//          moduleName: "plottr_native",
-//          initialProperties: initialData as! [AnyHashable : Any],
-//          launchOptions: nil
-//        )
-//        let vc = UIViewController()
-//        vc.view = rootView
-//        self.present(vc, animated: true, completion: nil)
-//      }
-//    }
   }
 }
 

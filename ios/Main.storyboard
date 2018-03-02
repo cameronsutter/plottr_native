@@ -12,7 +12,7 @@
         <!--Document Browser View Controller-->
         <scene sceneID="Pu4-LR-JtW">
             <objects>
-                <viewController id="Jji-fe-zi2" customClass="DocumentBrowserViewController" customModule="plottr_native" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DocumentBrowser" id="Jji-fe-zi2" customClass="DocumentBrowserViewController" customModule="plottr_native" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tuh-W9-65W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                         <viewLayoutGuide key="safeArea" id="ab4-b4-l7Q"/>
                     </view>
                     <connections>
-                        <segue destination="Jji-fe-zi2" kind="show" identifier="backToDocBrowser" id="PwS-0H-oiD"/>
+                        <segue destination="Jji-fe-zi2" kind="showDetail" identifier="backToDocBrowser" action="showViewController:sender:" id="PwS-0H-oiD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4V-a5-fkr" userLabel="First Responder" sceneMemberID="firstResponder"/>

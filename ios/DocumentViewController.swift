@@ -13,26 +13,38 @@ import React
 class DocumentViewController: UIViewController {
 
   var document: PlottrDocument?
+  var vc: UIViewController?
+  static var _sharedInstance: DocumentViewController?
+
+  static func setSharedInstance(instance: DocumentViewController?) {
+    DocumentViewController._sharedInstance = instance
+  }
+
+  static func sharedInstance() -> DocumentViewController? {
+    return _sharedInstance
+  }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+
+    vc = UIViewController()
+
+    DocumentViewController._sharedInstance = self
 
     // Access the document
     document?.open(completionHandler: { (success) in
       if success {
         // Display the content of the document
         // debug
-//        let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")
+        //    let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")
 
         // release
         let jsCodeLocation = URL(string: "main.jsbundle")
 
         let initialData:NSDictionary = [
           "documentURL": (self.document?.fileURL)!.absoluteString,
-          "data": self.document?.stringContents() ?? "",
+          "data": self.document?.stringContents() ?? ""
         ]
-
-        self.document?.close(completionHandler: nil)
 
         let rootView = RCTRootView(
           bundleURL: jsCodeLocation,
@@ -40,9 +52,8 @@ class DocumentViewController: UIViewController {
           initialProperties: initialData as! [AnyHashable : Any],
           launchOptions: nil
         )
-        let vc = UIViewController()
-        vc.view = rootView
-        self.present(vc, animated: true, completion: nil)
+        self.vc?.view = rootView
+        self.present(self.vc!, animated: true, completion: nil)
       } else {
         // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
       }
@@ -51,26 +62,25 @@ class DocumentViewController: UIViewController {
 
   // MARK React Native methods
 
-  @objc func updateDocument(_ fileName: String, data: String) -> Void {
+  @objc func updateDocument(_ data: String) -> Void {
+    let docViewController = DocumentViewController._sharedInstance
+    let doc = docViewController?.document
     print("saving!!")
-    document?.updateStringContents(data: data)
-    document?.save(to: (document?.fileURL)!, for: UIDocumentSaveOperation.forOverwriting, completionHandler: nil)
+    doc?.updateStringContents(data: data)
+    docViewController?.document?.save(to: (doc?.fileURL)!, for: UIDocumentSaveOperation.forOverwriting, completionHandler: nil)
   }
 
-  @objc func closeDocument(_ fileName: String) -> Void {
-    print("closing!! \(document?.fileURL.absoluteString ?? "no document")")
-    let url = URL(fileURLWithPath: fileName)
-    document = PlottrDocument(fileURL: url)
-    print("with doc \(document?.fileURL.absoluteString ?? "no document")")
-    performSegue(withIdentifier: "backToDocBrowser", sender: nil)
+  @objc func closeDocument() -> Void {
+    let docViewController = DocumentViewController._sharedInstance
 
-//    document?.close(completionHandler: { (success) in
-//      print("now closed!!")
-////      let vc = UIViewController()
-////      vc.view = UIView()
-////      self.present(vc, animated: true, completion: nil)
-//      self.performSegue(withIdentifier: "backToDocBrowser", sender: nil)
-//    })
+    DispatchQueue.main.async {
+      self.vc?.removeFromParentViewController()
+      self.dismiss(animated: true, completion: {
+        docViewController?.document?.close(completionHandler: nil)
+      })
+      let appDelegate = UIApplication.shared.delegate as! AppDelegate
+      appDelegate.openDocumentBrowser()
+    }
   }
 }
 
