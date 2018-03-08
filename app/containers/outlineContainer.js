@@ -23,7 +23,7 @@ class OutlineContainer extends Component {
     let { params } = navigation.state
     params = params || {}
     return {
-      headerLeft: <MenuButton close={screenProps.close} navigation={navigation} />,
+      headerLeft: <MenuButton navigation={navigation} />,
       headerTitle: <HeaderTitle title='Outline'/>,
       headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
     }

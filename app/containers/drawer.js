@@ -19,8 +19,7 @@ const { DocumentViewController } = NativeModules
 class Drawer extends Component {
   closeFile = () => {
     LayoutAnimation.easeInEaseOut()
-    DocumentViewController.closeDocument(this.props.fileName)
-    // this.props.screenProps.close()
+    DocumentViewController.closeDocument()
   }
 
   renderCloseButton = () => {
@@ -66,13 +65,11 @@ const styles = StyleSheet.create({
 
 Drawer.propTypes = {
   storyName: PropTypes.string.isRequired,
-  fileName: PropTypes.string.isRequired,
 }
 
 function mapStateToProps (state) {
   return {
     storyName: state.storyName,
-    fileName: state.file.fileName,
   }
 }
 

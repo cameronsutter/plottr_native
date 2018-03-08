@@ -52,7 +52,7 @@ class ScenesContainer extends Component {
     return <View style={styles.container}>
       <FakeNavHeader
         title='Scenes'
-        leftButton={<MenuButton close={screenProps.close} navigation={navigation}/>}
+        leftButton={<MenuButton navigation={navigation}/>}
         rightButton={<AddButton onPress={this.addScene}/>}
       />
       <FlatList

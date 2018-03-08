@@ -65,7 +65,6 @@ class DocumentViewController: UIViewController {
   @objc func updateDocument(_ data: String) -> Void {
     let docViewController = DocumentViewController._sharedInstance
     let doc = docViewController?.document
-    print("saving!!")
     doc?.updateStringContents(data: data)
     docViewController?.document?.save(to: (doc?.fileURL)!, for: UIDocumentSaveOperation.forOverwriting, completionHandler: nil)
   }

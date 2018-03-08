@@ -69,7 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func openDocumentBrowser() {
-    self.window?.rootViewController = DocumentBrowserViewController()
+    guard let window = self.window else { return }
+    UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {
+      window.rootViewController = DocumentBrowserViewController()
+    }, completion:nil)
   }
 
 

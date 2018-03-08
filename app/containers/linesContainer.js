@@ -52,7 +52,7 @@ class LinesContainer extends Component {
     return <View style={styles.container}>
       <FakeNavHeader
         title='Story Lines'
-        leftButton={<MenuButton close={screenProps.close} navigation={navigation}/>}
+        leftButton={<MenuButton navigation={navigation}/>}
         rightButton={<AddButton onPress={this.addLine}/>}
       />
       <FlatList

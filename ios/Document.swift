@@ -23,8 +23,9 @@ class PlottrDocument: UIDocument {
   // save
   override func contents(forType typeName: String) throws -> Any {
     // Encode your document with an instance of NSData or NSFileWrapper
-    return NSData(base64Encoded: stringData, options: .ignoreUnknownCharacters) ?? Data()
+//    return NSData(base64Encoded: stringData, options: .ignoreUnknownCharacters) ?? Data()
     //        return Data()
+    return stringData.data(using: .utf8)!
   }
 
   // read
@@ -33,9 +34,9 @@ class PlottrDocument: UIDocument {
     print("loading....")
     print(fileURL.absoluteString)
 
-    let data = contents as! NSData
+//    let data = contents as! NSData
 
-    stringData = String(data: data as Data, encoding: .utf8)!
+    stringData = String(data: contents as! Data, encoding: .utf8)!
   }
 }
 
