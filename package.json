@@ -1,12 +1,7 @@
 {
   "name": "plottr_native",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "private": true,
-  "devDependencies": {
-    "babel-preset-react-native-stage-0": "^1.0.1",
-    "jest-expo": "^22.0.0",
-    "react-test-renderer": "16.0.0-beta.5"
-  },
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
@@ -15,6 +10,11 @@
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "devDependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest-expo": "^22.0.0",
+    "react-test-renderer": "16.0.0-beta.5"
   },
   "dependencies": {
     "node-random-chars": "^1.0.2",

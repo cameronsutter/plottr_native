@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let localDocumentsDirectoryURL = URL(fileURLWithPath: documentPath)
     print(localDocumentsDirectoryURL)
 
+    // setup shared DocumentBrowserViewController
+
     return true
   }
 

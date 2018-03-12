@@ -8,7 +8,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  LayoutAnimation,
   NativeModules,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -18,7 +17,6 @@ const { DocumentViewController } = NativeModules
 
 class Drawer extends Component {
   closeFile = () => {
-    LayoutAnimation.easeInEaseOut()
     DocumentViewController.closeDocument()
   }
 

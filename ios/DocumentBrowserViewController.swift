@@ -21,7 +21,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
 
     // Update the style of the UIDocumentBrowserViewController
     //         browserUserInterfaceStyle = .dark
-//     view.tintColor = .white
+     view.tintColor = .orange
 
     // Specify the allowed content types of your application via the Info.plist.
 
@@ -37,11 +37,71 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     print(newDocumentURL?.absoluteString ?? "there is no url for this new document")
     // Set the URL for the new document here. Optionally, you can present a template chooser before calling the importHandler.
     // Make sure the importHandler is always called, even if the user cancels the creation request.
-    if newDocumentURL != nil {
-      importHandler(newDocumentURL, .move)
-    } else {
-      importHandler(nil, .none)
-    }
+    let alert = UIAlertController(title: "What is the story's name?", message: nil, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+    alert.addTextField(configurationHandler: { textField in
+      textField.placeholder = "Story name..."
+    })
+
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+
+      if let name = alert.textFields?.first?.text {
+
+        let fileManager = FileManager.default
+        var documentDirectory = URL(fileURLWithPath: "")
+        do {
+          documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+        } catch {
+          print("error")
+        }
+
+        var escapedFileName = name.replacingOccurrences(of: " ", with: "_")
+        escapedFileName = "\(escapedFileName).pltr"
+
+        let fileURL = documentDirectory.appendingPathComponent(escapedFileName)
+
+//        guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return }
+//
+//        let filePath = "\(documentPath)/\(name).pltr"
+//
+//        let fileURL = URL(fileURLWithPath: filePath)
+
+        let doc = PlottrDocument(fileURL: fileURL)
+        let basicJSON = "{\"storyName\":\"\(name)\", \"newFile\":true}"
+        doc.updateStringContents(data: basicJSON)
+        doc.save(to: fileURL, for: .forCreating, completionHandler: { (saved) in
+          print("saving new file \(saved)")
+          self.presentDocument(at: fileURL)
+          if newDocumentURL != nil {
+            importHandler(fileURL, .move)
+          } else {
+            importHandler(nil, .none)
+          }
+        })
+//        doc.open(completionHandler: { (success) in
+//          print("opened new file: \(success)")
+//          if (success) {
+//            let basicJSON = "{\"storyName\":\"\(name)\", \"newFile\":true}"
+//            doc.updateStringContents(data: basicJSON)
+//            doc.save(to: fileURL, for: .forCreating, completionHandler: { (saved) in
+//              print("saving new file")
+//              doc.close(completionHandler: { (closed) in
+//                print("closing new file")
+//                self.presentDocument(at: fileURL)
+//              })
+//              if newDocumentURL != nil {
+//                importHandler(fileURL, .move)
+//              } else {
+//                importHandler(nil, .none)
+//              }
+//            })
+//          }
+//        })
+      }
+    }))
+
+    self.present(alert, animated: true)
   }
 
   func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentURLs documentURLs: [URL]) {

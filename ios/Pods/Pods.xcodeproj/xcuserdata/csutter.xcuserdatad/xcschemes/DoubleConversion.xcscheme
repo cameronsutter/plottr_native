@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '898803BBD8E1AAAA9E7CF625A3FB7D73'
-               BlueprintName = 'DoubleConversion'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'DoubleConversion.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "898803BBD8E1AAAA9E7CF625A3FB7D73"
+               BlueprintName = "DoubleConversion"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "DoubleConversion.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
