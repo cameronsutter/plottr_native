@@ -28,7 +28,7 @@ class PlacesContainer extends Component {
   }
 
   addPlace = () => {
-    this.props.navigation.navigate('Details', {newPlace: true})
+    this.props.navigation.navigate('PlaceDetails', {newPlace: true})
   }
 
   componentDidMount () {
@@ -37,7 +37,7 @@ class PlacesContainer extends Component {
 
   renderItem = (place) => {
     return <View key={`place-${place.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {place})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('PlaceDetails', {place})}>
         <View style={styles.touchableItem}>
           <View>
             <Text style={styles.titleText}>{place.name}</Text>

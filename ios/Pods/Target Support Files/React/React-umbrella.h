@@ -56,7 +56,6 @@
 #import "RCTURLRequestHandler.h"
 #import "RCTUtils.h"
 #import "RCTVersion.h"
-#import "React-Bridging-Header.h"
 #import "RCTAccessibilityManager.h"
 #import "RCTAlertManager.h"
 #import "RCTAppState.h"

@@ -1,4 +1,5 @@
 import * as vars from './vars'
+import { StyleSheet } from 'react-native'
 
 export default AppStyles = {
   headerTitle: {
@@ -8,6 +9,18 @@ export default AppStyles = {
   addButton: {
     color: vars.orange,
     paddingRight: 20,
+  },
+  deleteButtonContainer: {
+    justifyContent: 'center',
+    padding: 13,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: vars.grayBorder,
+    backgroundColor: vars.grayBackground,
+  },
+  deleteButton: {
+    fontSize: 16,
+    color: vars.red,
+    textAlign: 'center',
   },
   leftNavButton: {
     color: vars.orange,

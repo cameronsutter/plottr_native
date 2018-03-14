@@ -23,25 +23,25 @@ const navigationOptions = {
 // headerStyle: {backgroundColor: '#ff7f32'}
 
 export const OutlineNavigator = StackNavigator({
-  List: { screen: OutlineContainer },
+  Outline: { screen: OutlineContainer },
   Scene: { screen: SceneView },
   Card: { screen: CardDetails },
   AddScene: { screen: SceneDetails },
 }, navigationOptions)
 
 export const NotesNavigator = StackNavigator({
-  List: { screen: NotesContainer },
-  Details: { screen: NoteDeails }
+  Notes: { screen: NotesContainer },
+  NoteDetails: { screen: NoteDeails }
 }, navigationOptions)
 
 export const CharactersNavigator = StackNavigator({
-  List: { screen: CharactersContainer },
-  Details: { screen: CharacterDetails }
+  Characters: { screen: CharactersContainer },
+  CharacterDetails: { screen: CharacterDetails }
 }, navigationOptions)
 
 export const PlacesNavigator = StackNavigator({
-  List: { screen: PlacesContainer },
-  Details: { screen: PlaceDetails }
+  Places: { screen: PlacesContainer },
+  PlaceDetails: { screen: PlaceDetails }
 }, navigationOptions)
 
 

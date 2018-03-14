@@ -90,13 +90,13 @@ class SceneDetails extends Component {
   render () {
     if (this.state.scene) {
       return <View style={styles.detailsView}>
-      <SectionList
-        sections={[
-          {data: [this.title], title: 'Title', renderItem: this.renderTitle},
-        ]}
-        renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
-        keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
-      />
+        <SectionList
+          sections={[
+            {data: [this.title], title: 'Title', renderItem: this.renderTitle},
+          ]}
+          renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
+          keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
+        />
       </View>
     } else {
       return <ActivityIndicator />

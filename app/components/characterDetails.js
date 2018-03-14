@@ -10,11 +10,13 @@ import {
   View,
   SectionList,
   ActivityIndicator,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
 import SaveButton from './saveButton'
+import DeleteButton from './deleteButton'
 
 class CharacterDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -109,6 +111,20 @@ class CharacterDetails extends Component {
     this.setState({[attr]: text})
   }
 
+  deleteCharacter = () => {
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${this.character.name}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteCharacter(this.character.id)
+          this.props.navigation.goBack()
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
+    )
+  }
+
   renderName = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
@@ -150,6 +166,7 @@ class CharacterDetails extends Component {
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
       />
+      <DeleteButton onPress={this.deleteCharacter}/>
     </View>
   }
 

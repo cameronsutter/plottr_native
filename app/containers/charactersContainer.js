@@ -28,7 +28,7 @@ class CharactersContainer extends Component {
   }
 
   addCharacter = () => {
-    this.props.navigation.navigate('Details', {newCharacter: true})
+    this.props.navigation.navigate('CharacterDetails', {newCharacter: true})
   }
 
   componentDidMount () {
@@ -37,7 +37,7 @@ class CharactersContainer extends Component {
 
   renderItem = (character) => {
     return <View key={`character-${character.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {character})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('CharacterDetails', {character})}>
         <View style={styles.touchableItem}>
           <View>
             <Text style={styles.titleText}>{character.name}</Text>

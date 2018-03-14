@@ -28,7 +28,7 @@ class NotesContainer extends Component {
   }
 
   addNote = () => {
-    this.props.navigation.navigate('Details', {newNote: true})
+    this.props.navigation.navigate('NoteDetails', {newNote: true})
   }
 
   componentDidMount () {
@@ -37,7 +37,7 @@ class NotesContainer extends Component {
 
   renderItem = (note) => {
     return <View key={`note-${note.id}`} style={styles.listItem}>
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {note})}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('NoteDetails', { note })}>
         <View style={styles.touchableItem}>
           <View>
             <Text style={styles.titleText}>{note.title}</Text>

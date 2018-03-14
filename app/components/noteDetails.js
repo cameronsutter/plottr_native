@@ -10,11 +10,13 @@ import {
   View,
   SectionList,
   ActivityIndicator,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
 import SaveButton from './saveButton'
+import DeleteButton from './deleteButton'
 
 class NoteDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -82,6 +84,20 @@ class NoteDetails extends Component {
     this.setState({content: text})
   }
 
+  deleteNote = () => {
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${this.note.title}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteNote(this.note.id)
+          this.props.navigation.goBack()
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
+    )
+  }
+
   renderTitle = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
@@ -107,6 +123,7 @@ class NoteDetails extends Component {
         renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
       />
+      <DeleteButton onPress={this.deleteNote}/>
     </View>
   }
 }

@@ -14,12 +14,14 @@ import {
   Button,
   Picker,
   LayoutAnimation,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
 import HeaderTitle from './headerTitle'
 import SaveButton from './saveButton'
+import DeleteButton from './deleteButton'
 
 class CardDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -107,6 +109,20 @@ class CardDetails extends Component {
   descriptionChanged = (text) => {
     this.props.navigation.setParams({dirty: true})
     this.setState({description: text})
+  }
+
+  deleteCard = () => {
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${this.state.title}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteCard(this.state.id)
+          this.props.navigation.goBack()
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
+    )
   }
 
   renderTitle = ({item}) => {
@@ -217,6 +233,7 @@ class CardDetails extends Component {
           renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
           keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
         />
+        <DeleteButton onPress={this.deleteCard}/>
       </View>
     }
   }

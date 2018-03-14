@@ -3380,9 +3380,9 @@ plist@^1.2.0:
     xmlbuilder "4.0.0"
     xmldom "0.1.x"
 
-pltr@Plotinator/pltr#v0.0.6:
-  version "0.0.6"
-  resolved "https://codeload.github.com/Plotinator/pltr/tar.gz/44238dcdcd6951ad1a89665f800c33e0b0639939"
+pltr@Plotinator/pltr#v1.0.1:
+  version "1.0.1"
+  resolved "https://codeload.github.com/Plotinator/pltr/tar.gz/11fe8f2790015a77df4fabaf961a06fa0a7aa9c3"
   dependencies:
     lodash "^4.17.4"
     redux "^3.5.2"
