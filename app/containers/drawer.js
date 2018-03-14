@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
+import { uiActions } from 'pltr'
 import {
   StyleSheet,
   ScrollView,
@@ -9,6 +11,7 @@ import {
   View,
   TouchableOpacity,
   NativeModules,
+  AlertIOS,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from '../styles/vars'
@@ -20,6 +23,14 @@ class Drawer extends Component {
     DocumentViewController.closeDocument()
   }
 
+  editStoryName = () => {
+    AlertIOS.prompt(
+      'New Story Name:',
+      null,
+      text => this.props.actions.changeStoryName(text)
+    )
+  }
+
   renderCloseButton = () => {
     return <TouchableOpacity onPress={this.closeFile}>
       <View style={DrawerStyles.buttonWrapper}>
@@ -29,10 +40,20 @@ class Drawer extends Component {
     </TouchableOpacity>
   }
 
+  renderEditButton = () => {
+    return <TouchableOpacity style={styles.editButtonWrapper} onPress={this.editStoryName}>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Ionicons name='ios-quote' size={26} style={DrawerStyles.buttonIcon} />
+        <Text style={DrawerStyles.buttonText}>Edit Story Name</Text>
+      </View>
+    </TouchableOpacity>
+  }
+
   render () {
     return <ScrollView>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <View style={styles.storyName}><Text style={styles.nameText}>{this.props.storyName}</Text></View>
+        {this.renderEditButton()}
         {this.renderCloseButton()}
         <View style={styles.hr}/>
         <DrawerItems {...this.props} />
@@ -59,10 +80,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 10,
   },
+  editButtonWrapper: {
+    marginVertical: 10,
+  },
 })
 
 Drawer.propTypes = {
   storyName: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired,
 }
 
 function mapStateToProps (state) {
@@ -73,6 +98,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    actions: bindActionCreators(uiActions, dispatch)
   }
 }
 
