@@ -140,7 +140,7 @@ class CardDetails extends Component {
   }
 
   renderLines = () => {
-    return this.props.lines.map((l) => <Picker.Item key={`l-${l.id}`} label={l.title} value={l.id}/> )
+    return this.props.lines.map((l) => <Picker.Item key={`l-${l.id}`} label={l.title || 'New Plotline'} value={l.id}/> )
   }
 
   toggleEditLine = () => {
@@ -172,7 +172,7 @@ class CardDetails extends Component {
     return <View>
       <TouchableOpacity onPress={this.toggleEditLine}>
         <View style={styles.fakeInputWrapper}>
-          <Text style={[styles.input, color]}>{line.title}</Text>
+          <Text style={[styles.input, color]}>{line.title || 'New Plotline'}</Text>
         </View>
       </TouchableOpacity>
       { picker }

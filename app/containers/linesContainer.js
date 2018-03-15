@@ -8,16 +8,19 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   TouchableOpacity,
+  ActionSheetIOS,
+  AlertIOS,
+  Alert,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
 import FakeNavHeader from '../components/fakeNavHeader'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
+import * as vars from '../styles/vars'
 
 class LinesContainer extends Component {
   static navigationOptions = ({ navigation, screenProps }) => {
@@ -36,11 +39,63 @@ class LinesContainer extends Component {
     this.props.actions.addLine()
   }
 
-  renderItem = (line) => {
-    return <View key={`line-${line.id}`} style={styles.listItem}>
-      <TouchableOpacity>
+  showActionSheet = (line) => {
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['Rename', 'Change Color', 'Delete', 'Cancel'],
+        cancelButtonIndex: 3,
+        destructiveButtonIndex: 2,
+        title: 'Edit Plotline',
+        message: line.title || 'New Plotline',
+      },
+      (idx) => {
+        switch (idx) {
+          case 0:
+            // rename
+            AlertIOS.prompt(
+              'New Plotline Name:',
+              `currently: ${line.title || 'New Plotline'}`,
+              text => this.props.actions.editLineTitle(line.id, text)
+            )
+            break
+          case 1:
+            // change color
+            AlertIOS.prompt(
+              'New Color:',
+              `currently: ${line.color}`,
+              text => this.props.actions.editLineColor(line.id, text)
+            )
+            break
+          case 2:
+            // delete
+            Alert.alert(
+              'Are you sure you want to delete',
+              `${line.title || 'New Plotline'}?`,
+              [
+                {text: 'Yes', onPress: () => {
+                  this.props.actions.deleteLine(line.id)
+                }},
+                {text: 'No', onPress: () => {}, style: 'cancel'},
+              ]
+            )
+            break
+          default:
+            return
+        }
+      }
+    )
+  }
+
+  reorder = (nextOrder) => {
+    console.log(nextOrder)
+    Alert.alert(nextOrder.join(','))
+  }
+
+  renderItem = ({data, active}) => {
+    return <View key={`line-${data.id}`} style={styles.listItem}>
+      <TouchableOpacity onPress={() => this.showActionSheet(data)}>
         <View style={styles.touchableItem}>
-          <Text style={[styles.titleText, {color: line.color || vars.black}]}>{line.title}</Text>
+          <Text style={[styles.titleText, {color: data.color || vars.black}]}>{data.title || 'New Plotline'}</Text>
+          <Ionicons name='ios-move' size={20} style={{ color: vars.black }} />
         </View>
       </TouchableOpacity>
     </View>
@@ -49,20 +104,27 @@ class LinesContainer extends Component {
   render () {
     const { screenProps, navigation, lines } = this.props
     const sortedLines = _.sortBy(lines, 'position')
+    const data = sortedLines.reduce((obj, line, idx) => obj[idx] = line, {})
     return <View style={styles.container}>
       <FakeNavHeader
-        title='Story Lines'
+        title='Plotlines'
         leftButton={<MenuButton navigation={navigation}/>}
         rightButton={<AddButton onPress={this.addLine}/>}
       />
-      <FlatList
-        data={sortedLines}
-        keyExtractor={(line) => line.id}
-        renderItem={({item}) => this.renderItem(item)}
+      <SortableList
+        data={data}
+        renderRow={this.renderItem}
+        onChangeOrder={this.reorder}
       />
     </View>
   }
 }
+
+// <FlatList
+//   data={sortedLines}
+//   keyExtractor={(line) => line.id}
+//   renderItem={({item}) => this.renderItem(item)}
+// />
 
 const styles = StyleSheet.create({
   container: {

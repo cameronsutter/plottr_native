@@ -38,6 +38,7 @@ class OutlineContainer extends Component {
   }
 
   renderItem = (scene) => {
+    scene.title = scene.title || 'New Scene'
     return <View key={`scene-${scene.id}`} style={styles.listItem}>
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Scene', {scene})}>
         <View style={styles.touchableItem}>

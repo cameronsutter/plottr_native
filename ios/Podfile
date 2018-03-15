@@ -16,6 +16,7 @@ target 'plottr_native' do
     'BatchedBridge',
     'RCTLinkingIOS',
     'RCTAnimation',
+    'RCTActionSheet',
     # Add any other subspecs you want to use in your project
   ]
   # Explicitly include Yoga if you are using RN >= 0.42.0

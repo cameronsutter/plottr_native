@@ -154,6 +154,7 @@
 #import "RCTSamplingProfilerPackagerMethod.h"
 #import "RCTInspector.h"
 #import "RCTInspectorPackagerConnection.h"
+#import "RCTActionSheetManager.h"
 #import "RCTAnimationDriver.h"
 #import "RCTDecayAnimation.h"
 #import "RCTEventAnimation.h"

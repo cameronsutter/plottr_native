@@ -57,7 +57,7 @@ class SceneView extends Component {
         <View style={[styles.touchableItem, borderColor]}>
           <View>
             <Text style={styles.cardTitleText}>{card.title}</Text>
-            <Text style={[styles.lineTitleText, color]}>{line.title}</Text>
+            <Text style={[styles.lineTitleText, color]}>{line.title || 'New Plotline'}</Text>
             <Text style={styles.descriptionText}>{card.description.substring(0, 100)}</Text>
           </View>
           <Icon name={'angle-right'} size={25}></Icon>

@@ -46,6 +46,8 @@ PODS:
     - React/PrivateDatabase
   - React/jschelpers_legacy (0.51.1)
   - React/PrivateDatabase (0.51.1)
+  - React/RCTActionSheet (0.51.1):
+    - React/Core
   - React/RCTAnimation (0.51.1):
     - React/Core
   - React/RCTBlob (0.51.1):
@@ -75,6 +77,7 @@ DEPENDENCIES:
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
   - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTLinkingIOS (from `../node_modules/react-native`)
@@ -107,6 +110,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 8b7c1aef0c05eff01043261376de25fc1fae19e3
+PODFILE CHECKSUM: 86dfa953ace18b7f17a5ea75e846ad96b085f18e
 
 COCOAPODS: 1.4.0

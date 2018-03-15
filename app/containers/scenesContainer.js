@@ -10,6 +10,9 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  ActionSheetIOS,
+  AlertIOS,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -36,11 +39,49 @@ class ScenesContainer extends Component {
     this.props.actions.addScene()
   }
 
+  showActionSheet = (scene) => {
+    ActionSheetIOS.showActionSheetWithOptions({
+        options: ['Rename', 'Delete', 'Cancel'],
+        cancelButtonIndex: 2,
+        destructiveButtonIndex: 1,
+        title: 'Edit Scene',
+        message: scene.title || 'New Scene',
+      },
+      (idx) => {
+        switch (idx) {
+          case 0:
+            // rename
+            AlertIOS.prompt(
+              'New Scene Name:',
+              `currently: ${scene.title || 'New Scene'}`,
+              text => this.props.actions.editSceneTitle(scene.id, text)
+            )
+            break
+          case 1:
+            // delete
+            Alert.alert(
+              'Are you sure you want to delete',
+              `${scene.title || 'New Scene'}?`,
+              [
+                {text: 'Yes', onPress: () => {
+                  this.props.actions.deleteScene(scene.id)
+                }},
+                {text: 'No', onPress: () => {}, style: 'cancel'},
+              ]
+            )
+            break
+          default:
+            return
+        }
+      }
+    )
+  }
+
   renderItem = (scene) => {
     return <View key={`scene-${scene.id}`} style={styles.listItem}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => this.showActionSheet(scene)}>
         <View style={styles.touchableItem}>
-          <Text style={styles.titleText}>{scene.title}</Text>
+          <Text style={styles.titleText}>{scene.title || 'New Scene'}</Text>
         </View>
       </TouchableOpacity>
     </View>
