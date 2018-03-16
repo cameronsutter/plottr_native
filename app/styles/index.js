@@ -36,7 +36,7 @@ export default AppStyles = {
   },
   listItem: {
     borderColor: vars.grayBorder,
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     backgroundColor: vars.white,
   },
   touchableItem: {

@@ -23,7 +23,7 @@ import MenuButton from '../components/menuButton'
 import * as vars from '../styles/vars'
 
 class LinesContainer extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => {
+  static navigationOptions = ({ navigation }) => {
     let { params } = navigation.state
     params = params || {}
     return {
@@ -33,6 +33,32 @@ class LinesContainer extends Component {
         />
       ),
     }
+  }
+
+  sortLines = (lines) => {
+    const sortedLines = _.sortBy(lines, 'position')
+    const data = sortedLines.reduce((obj, line, idx) => {
+      obj[idx] = line
+      return obj
+    }, {})
+    return { data, sortedLines }
+  }
+
+  setOrder = (sortedLines) => {
+    this.order = sortedLines.map((l,idx) => idx)
+  }
+
+  constructor (props) {
+    super(props)
+    const lineData = this.sortLines(props.lines)
+    this.setOrder(lineData.sortedLines)
+    this.state = lineData
+  }
+
+  componentWillReceiveProps (newProps) {
+    const lineData = this.sortLines(newProps.lines)
+    this.setOrder(lineData.sortedLines)
+    this.setState(lineData)
   }
 
   addLine = () => {
@@ -85,56 +111,72 @@ class LinesContainer extends Component {
     )
   }
 
-  reorder = (nextOrder) => {
-    console.log(nextOrder)
-    Alert.alert(nextOrder.join(','))
+  saveOrder = (nextOrder) => {
+    this.order = nextOrder
+  }
+
+  reorder = () => {
+    const lines = this.order.map((idx, position) => {
+      var line = this.state.sortedLines[idx]
+      line.position = position
+      return line
+    })
+    this.props.actions.reorderLines(lines)
   }
 
   renderItem = ({data, active}) => {
-    return <View key={`line-${data.id}`} style={styles.listItem}>
+    let itemStyles = [styles.listItem]
+    if (active) itemStyles.push(styles.activeItem)
+    return <View key={`line-${data.id}`} style={itemStyles}>
       <TouchableOpacity onPress={() => this.showActionSheet(data)}>
         <View style={styles.touchableItem}>
           <Text style={[styles.titleText, {color: data.color || vars.black}]}>{data.title || 'New Plotline'}</Text>
-          <Ionicons name='ios-move' size={20} style={{ color: vars.black }} />
         </View>
       </TouchableOpacity>
+      <Ionicons name='ios-move' size={20} style={{ color: vars.black, paddingRight: 20 }} />
     </View>
   }
 
   render () {
-    const { screenProps, navigation, lines } = this.props
-    const sortedLines = _.sortBy(lines, 'position')
-    const data = sortedLines.reduce((obj, line, idx) => obj[idx] = line, {})
     return <View style={styles.container}>
       <FakeNavHeader
         title='Plotlines'
-        leftButton={<MenuButton navigation={navigation}/>}
+        leftButton={<MenuButton navigation={this.props.navigation}/>}
         rightButton={<AddButton onPress={this.addLine}/>}
       />
       <SortableList
-        data={data}
+        data={this.state.data}
         renderRow={this.renderItem}
-        onChangeOrder={this.reorder}
+        onReleaseRow={this.reorder}
+        onChangeOrder={this.saveOrder}
+        style={styles.list}
       />
     </View>
   }
 }
-
-// <FlatList
-//   data={sortedLines}
-//   keyExtractor={(line) => line.id}
-//   renderItem={({item}) => this.renderItem(item)}
-// />
 
 const styles = StyleSheet.create({
   container: {
     ...AppStyles.containerView,
     ...AppStyles.listBackground,
   },
-  listItem: AppStyles.listItem,
+  listItem: {
+    ...AppStyles.listItem,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
   titleText: AppStyles.titleText,
+  list: {
+    height: '100%',
+  },
+  activeItem: {
+    backgroundColor: vars.grayBackground,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: vars.black,
+  },
 })
 
 LinesContainer.propTypes = {
