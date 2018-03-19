@@ -7,6 +7,9 @@ import NotesContainer from '../containers/notesContainer'
 import LinesContainer from '../containers/linesContainer'
 import ScenesContainer from '../containers/scenesContainer'
 import TagsContainer from '../containers/tagsContainer'
+import CharacterCustomAttributes from '../components/characterCustomAttributes'
+import PlaceCustomAttributes from '../components/placeCustomAttributes'
+import * as vars from '../styles/vars'
 
 export const DrawerWrapper = DrawerNavigator({
   Outline: {
@@ -21,6 +24,12 @@ export const DrawerWrapper = DrawerNavigator({
   Tags: {
     screen: TagsContainer,
   },
-}, {contentComponent: Drawer})
+  CharacterCustom: {
+    screen: CharacterCustomAttributes,
+  },
+  PlaceCustom: {
+    screen: PlaceCustomAttributes,
+  },
+}, {contentComponent: Drawer, contentOptions: {inactiveTintColor: vars.orange, labelStyle: {color: vars.black}}})
 
 //use icon: ios-stats for custom attributes

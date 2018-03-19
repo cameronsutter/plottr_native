@@ -14,7 +14,6 @@ import {
   AlertIOS,
   Alert,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
 import FakeNavHeader from '../components/fakeNavHeader'
@@ -24,9 +23,7 @@ import MenuButton from '../components/menuButton'
 import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => {
-    let { params } = navigation.state
-    params = params || {}
+  static navigationOptions = ({ navigation }) => {
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-pricetag' : 'ios-pricetag-outline'}
@@ -97,7 +94,7 @@ class ScenesContainer extends Component {
   }
 
   render () {
-    const { screenProps, navigation, tags } = this.props
+    const { navigation, tags } = this.props
     const sortedTags = _.sortBy(tags, 'title')
     return <View style={styles.container}>
       <FakeNavHeader

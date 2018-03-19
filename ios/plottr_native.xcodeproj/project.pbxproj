@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		05E435B92D5D40D49ED10C45 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DD9C4076B554834A1CFBFB5 /* EvilIcons.ttf */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -24,7 +25,6 @@
 		E42988A11FC521A4000D5735 /* plottr_logo_04.png in Resources */ = {isa = PBXBuildFile; fileRef = E429887C1FC521A3000D5735 /* plottr_logo_04.png */; };
 		E42C80E51FE49F3400A101FF /* Launch Screen2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42C80E41FE49F3400A101FF /* Launch Screen2.storyboard */; };
 		E44A34F71FD9E8DE006EB9DC /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */; };
-		E44F9BED200FD7D2005196C6 /* splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E44F9BEC200FD7D2005196C6 /* splashscreen.png */; };
 		E454C29A2044993100B6DCF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454C2992044993100B6DCF6 /* AppDelegate.swift */; };
 		E454C29C204499DE00B6DCF6 /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454C29B204499DE00B6DCF6 /* DocumentBrowserViewController.swift */; };
 		E454C2A020449ABE00B6DCF6 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454C29F20449ABE00B6DCF6 /* DocumentViewController.swift */; };
@@ -35,6 +35,7 @@
 		E4AFAE1A20472F0F00430692 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE1920472F0F00430692 /* EventEmitter.swift */; };
 		E4AFAE4420472FC500430692 /* ReactNativeEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */; };
 		E4AFAE462047302800430692 /* ReactNativeEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE452047302800430692 /* ReactNativeEventEmitter.m */; };
+		E4BF8EA5205B8D3600006328 /* splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BF8EA4205B8D3600006328 /* splashscreen.png */; };
 		E4C282BC200821E500CE1612 /* PlottrDocumentIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */; };
 		E4C282BE2008220300CE1612 /* PlottrDocumentIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */; };
 		E4D8C4182052FF4100E1AE27 /* Pods_plottr_native.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D8C4192052FF4100E1AE27 /* Pods_plottr_native.framework */; };
@@ -72,7 +73,6 @@
 		E429887C1FC521A3000D5735 /* plottr_logo_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plottr_logo_04.png; path = "../../../Dropbox (C Louis S)/plottr_icons cropped/plottr_logo_04.png"; sourceTree = "<group>"; };
 		E42C80E41FE49F3400A101FF /* Launch Screen2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen2.storyboard"; sourceTree = "<group>"; };
 		E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		E44F9BEC200FD7D2005196C6 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
 		E454C2992044993100B6DCF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E454C29B204499DE00B6DCF6 /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		E454C29F20449ABE00B6DCF6 /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +83,7 @@
 		E4AFAE1920472F0F00430692 /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeEventEmitter.swift; sourceTree = "<group>"; };
 		E4AFAE452047302800430692 /* ReactNativeEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeEventEmitter.m; sourceTree = "<group>"; };
+		E4BF8EA4205B8D3600006328 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
 		E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon.png; sourceTree = "<group>"; };
 		E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon_256.png; sourceTree = "<group>"; };
 		E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = plottr_native.entitlements; path = plottr_native/plottr_native.entitlements; sourceTree = "<group>"; };
@@ -141,12 +142,12 @@
 		13B07FAE1A68108700A75B9A /* plottr_native */ = {
 			isa = PBXGroup;
 			children = (
+				E4BF8EA4205B8D3600006328 /* splashscreen.png */,
 				E454C2992044993100B6DCF6 /* AppDelegate.swift */,
 				E454C29B204499DE00B6DCF6 /* DocumentBrowserViewController.swift */,
 				E454C29F20449ABE00B6DCF6 /* DocumentViewController.swift */,
 				E4636EC620462AB100132E30 /* DocumentBridge.m */,
 				E454C2A120449BA800B6DCF6 /* Document.swift */,
-				E44F9BEC200FD7D2005196C6 /* splashscreen.png */,
 				E4C282BD2008220300CE1612 /* PlottrDocumentIcon_256.png */,
 				E4C282BB200821E500CE1612 /* PlottrDocumentIcon.png */,
 				E4A5DF111FEEFED60047F3EE /* launch_image.png */,
@@ -350,8 +351,8 @@
 				05E435B92D5D40D49ED10C45 /* EvilIcons.ttf in Resources */,
 				E42988A11FC521A4000D5735 /* plottr_logo_04.png in Resources */,
 				1DE63E6A189B423983C74178 /* Feather.ttf in Resources */,
-				E44F9BED200FD7D2005196C6 /* splashscreen.png in Resources */,
 				15E2C9120DFC4FA890F3CA55 /* FontAwesome.ttf in Resources */,
+				E4BF8EA5205B8D3600006328 /* splashscreen.png in Resources */,
 				D422167D7E874182A7F8A87A /* Foundation.ttf in Resources */,
 				E4C282BE2008220300CE1612 /* PlottrDocumentIcon_256.png in Resources */,
 				659030603DAF4BF194A05E10 /* Ionicons.ttf in Resources */,

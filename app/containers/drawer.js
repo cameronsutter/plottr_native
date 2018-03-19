@@ -43,7 +43,7 @@ class Drawer extends Component {
   renderEditButton = () => {
     return <TouchableOpacity style={styles.editButtonWrapper} onPress={this.editStoryName}>
       <View style={DrawerStyles.buttonWrapper}>
-        <Ionicons name='ios-quote' size={26} style={DrawerStyles.buttonIcon} />
+        <Ionicons name='ios-quote-outline' size={26} style={DrawerStyles.buttonIcon} />
         <Text style={DrawerStyles.buttonText}>Edit Story Name</Text>
       </View>
     </TouchableOpacity>
@@ -52,10 +52,11 @@ class Drawer extends Component {
   render () {
     return <ScrollView>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-        <View style={styles.storyName}><Text style={styles.nameText}>{this.props.storyName}</Text></View>
-        {this.renderEditButton()}
-        {this.renderCloseButton()}
-        <View style={styles.hr}/>
+        <View style={styles.headerContainer}>
+          <View style={styles.storyName}><Text style={styles.nameText}>{this.props.storyName}</Text></View>
+          {this.renderEditButton()}
+          {this.renderCloseButton()}
+        </View>
         <DrawerItems {...this.props} />
       </SafeAreaView>
     </ScrollView>
@@ -75,10 +76,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  hr: {
-    borderBottomColor: vars.black,
+  headerContainer: {
     borderBottomWidth: 1,
-    marginVertical: 10,
+    borderBottomColor: vars.black,
   },
   editButtonWrapper: {
     marginVertical: 10,

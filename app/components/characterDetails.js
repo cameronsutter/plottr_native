@@ -11,6 +11,7 @@ import {
   SectionList,
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
@@ -142,8 +143,17 @@ class CharacterDetails extends Component {
   renderNotes = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onFocus={this.scroll} onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item} />
     </View>
+  }
+
+  scroll = () => {
+    var num = 2 + this.props.customAttributes.length
+    try {
+      this.scrollView.scrollToLocation({sectionIndex: num, itemIndex: 0, viewOffset: 45})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   renderCustomAttr = ({item}) => {
@@ -155,8 +165,10 @@ class CharacterDetails extends Component {
   render () {
     if (this.state.newCharacter) return <ActivityIndicator/>
     let customAttrs = this.prepareCustomAttributes()
-    return <View style={styles.container}>
+    return <KeyboardAvoidingView style={styles.container}>
       <SectionList
+        ref={(ref) => this.scrollView = ref}
+        style={{paddingBottom: 300}}
         sections={[
           {data: [this.character.name || 'blank'], title: 'Name', renderItem: this.renderName},
           {data: [this.character.description || 'blank'], title: 'Short Description', renderItem: this.renderDescription},
@@ -167,7 +179,7 @@ class CharacterDetails extends Component {
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
       />
       <DeleteButton onPress={this.deleteCharacter}/>
-    </View>
+    </KeyboardAvoidingView>
   }
 
   prepareCustomAttributes () {

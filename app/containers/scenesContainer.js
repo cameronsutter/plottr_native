@@ -24,8 +24,6 @@ import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
-    let { params } = navigation.state
-    params = params || {}
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-film' : 'ios-film-outline'}
@@ -125,7 +123,7 @@ class ScenesContainer extends Component {
           <Text style={styles.titleText}>{data.title || 'New Scene'}</Text>
         </View>
       </TouchableOpacity>
-      <Ionicons name='ios-move' size={20} style={{ color: vars.black, paddingRight: 20 }} />
+      <Ionicons name='ios-move' size={20} style={{ color: vars.black, paddingRight: 30 }} />
     </View>
   }
 
@@ -165,9 +163,15 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   activeItem: {
-    backgroundColor: vars.grayBackground,
+    transform: [{
+      scale: 1.1,
+    }],
+    shadowRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: vars.black,
+    shadowColor: 'rgba(0,0,0,0.2)',
+    shadowOpacity: 1,
+    shadowOffset: {height: 2, width: 2},
   },
 })
 

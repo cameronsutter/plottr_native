@@ -24,8 +24,6 @@ import * as vars from '../styles/vars'
 
 class LinesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
-    let { params } = navigation.state
-    params = params || {}
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-options' : 'ios-options-outline'}
@@ -133,7 +131,7 @@ class LinesContainer extends Component {
           <Text style={[styles.titleText, {color: data.color || vars.black}]}>{data.title || 'New Plotline'}</Text>
         </View>
       </TouchableOpacity>
-      <Ionicons name='ios-move' size={20} style={{ color: vars.black, paddingRight: 20 }} />
+      <Ionicons name='ios-move' size={20} style={{ color: vars.black, paddingRight: 30 }} />
     </View>
   }
 
@@ -173,9 +171,15 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   activeItem: {
-    backgroundColor: vars.grayBackground,
+    transform: [{
+      scale: 1.1,
+    }],
+    shadowRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: vars.black,
+    shadowColor: 'rgba(0,0,0,0.2)',
+    shadowOpacity: 1,
+    shadowOffset: {height: 2, width: 2},
   },
 })
 

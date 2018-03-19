@@ -13,6 +13,6 @@ export default DrawerStyles = {
   },
   buttonIcon: {
     color: vars.orange,
-    marginRight: 40,
+    marginRight: 35,
   },
 }
