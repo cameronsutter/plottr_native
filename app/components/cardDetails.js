@@ -96,7 +96,7 @@ class CardDetails extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (!this.state.newCard) {
+    if (!this.state.isNewCard) {
       let card = _.find(newProps.cards, {id: this.state.card.id})
       if (card) {
         this.setState({ card })
@@ -231,7 +231,6 @@ class CardDetails extends Component {
   renderAttachments = () => {
     const { navigation } = this.props
     const { card } = this.state
-    console.log(card.places)
     let characterLengthText = card.characters.length > 0 ? ` (${card.characters.length})` : ''
     let placeLengthText = card.places.length > 0 ? ` (${card.places.length})` : ''
     let tagLengthText = card.tags.length > 0 ? ` (${card.tags.length})` : ''

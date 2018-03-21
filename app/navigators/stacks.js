@@ -33,7 +33,8 @@ export const OutlineNavigator = StackNavigator({
 
 export const NotesNavigator = StackNavigator({
   Notes: { screen: NotesContainer },
-  NoteDetails: { screen: NoteDeails }
+  NoteDetails: { screen: NoteDeails },
+  Attachments: { screen: AttachmentsSelector },
 }, navigationOptions)
 
 export const CharactersNavigator = StackNavigator({
