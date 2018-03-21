@@ -46,47 +46,41 @@ class CardDetails extends Component {
     const { params } = props.navigation.state
     this.renderedLines = this.renderLines()
     this.renderedScenes = this.renderScenes()
-    if (params.newCard) {
-      this.state = {
-        newCard: true,
-      }
-    } else {
-      const { card } = params
-      this.state = {
-        ...card,
-        editLine: false,
-        editScene: false,
-      }
-      this.title = card.title
-      this.description = card.description
+    this.state = {
+      isNewCard: !!params.card.newCard,
+      editLine: false,
+      editScene: false,
+      card: params.card,
     }
   }
 
   handleSave = () => {
-    let title = this.state.title
-    let desc = this.state.description
+    const { card } = this.state
+    let title = card.title
+    let desc = card.description
     if (title == '') title = 'New Card'
-    this.props.actions.editCard(this.state.id, title, desc)
-    this.props.actions.editCardCoordinates(this.state.id, this.state.lineId, this.state.sceneId)
+    this.props.actions.editCard(card.id, title, desc)
+    this.props.actions.editCardCoordinates(card.id, card.lineId, card.sceneId)
     this.props.navigation.setParams({dirty: false})
     LayoutAnimation.easeInEaseOut()
     this.setState({editLine: false, editScene: false})
+    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
     this.props.navigation.setParams({handleSave: this.handleSave})
-    if (this.state.newCard) {
+    if (this.state.isNewCard) {
       this.props.actions.addCard(this.buildNewCard())
       setTimeout(this.findNewCard, 500)
     }
   }
 
-  buildNewCard () {
+  buildNewCard = () => {
     return {
       title: '',
       description: '',
-      lineId: 0,
-      sceneId: this.props.navigation.state.params.sceneId,
+      lineId: this.state.card.lineId,
+      sceneId: this.state.card.sceneId,
       tags: [],
       characters: [],
       places: [],
@@ -96,28 +90,41 @@ class CardDetails extends Component {
   findNewCard = () => {
     let card = this.props.cards[0]
     if (card.title == '') {
-      this.setState({newCard: false, ...card})
+      this.setState({isNewCard: false, card})
       this.props.navigation.setParams({newCard: false, dirty: true})
+    }
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (!this.state.newCard) {
+      let card = _.find(newProps.cards, {id: this.state.card.id})
+      if (card) {
+        this.setState({ card })
+      }
     }
   }
 
   titleChanged = (text) => {
     this.props.navigation.setParams({dirty: true})
-    this.setState({title: text})
+    let card = this.state.card
+    card.title = text
+    this.setState({ card })
   }
 
   descriptionChanged = (text) => {
     this.props.navigation.setParams({dirty: true})
-    this.setState({description: text})
+    let card = this.state.card
+    card.description = text
+    this.setState({ card })
   }
 
   deleteCard = () => {
     Alert.alert(
       'Are you sure you want to delete',
-      `${this.state.title}?`,
+      `${this.state.card.title}?`,
       [
         {text: 'Yes', onPress: () => {
-          this.props.actions.deleteCard(this.state.id)
+          this.props.actions.deleteCard(this.state.card.id)
           this.props.navigation.goBack()
         }},
         {text: 'No', onPress: () => {}, style: 'cancel'},
@@ -125,18 +132,25 @@ class CardDetails extends Component {
     )
   }
 
-  renderTitle = ({item}) => {
-    if (item === 'blank') item = ''
+  renderTitle = () => {
+    let title = this.state.card.title
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput autoFocus={title == ''} onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={title}/>
     </View>
   }
 
-  renderDescription = ({item}) => {
-    if (item === 'blank') item = ''
+  renderDescription = () => {
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onFocus={this.scroll} onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={this.state.card.description}/>
     </View>
+  }
+
+  scroll = () => {
+    try {
+      this.scrollView.scrollToLocation({sectionIndex: 4, itemIndex: 0, viewOffset: 45})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   renderLines = () => {
@@ -145,25 +159,23 @@ class CardDetails extends Component {
 
   toggleEditLine = () => {
     LayoutAnimation.easeInEaseOut()
-    let newValue = true
-    if (this.state.editLine) {
-      newValue = false
-    }
-    this.setState({editLine: newValue})
+    this.setState({editLine: !this.state.editLine})
   }
 
   changeLine = (value) => {
-    this.setState({lineId: parseInt(value)})
+    let card = this.state.card
+    card.lineId = parseInt(value)
+    this.setState({ card })
     this.props.navigation.setParams({dirty: true})
   }
 
   renderLine = ({index, item}) => {
-    let line = _.find(this.props.lines, {id: this.state.lineId})
+    let line = _.find(this.props.lines, {id: this.state.card.lineId})
     let color = {color: line.color}
     let picker = null
     if (this.state.editLine) {
       picker = <Picker
-          selectedValue={this.state.lineId}
+          selectedValue={this.state.card.lineId}
           onValueChange={this.changeLine}
         >
         { this.renderedLines }
@@ -185,25 +197,23 @@ class CardDetails extends Component {
 
   toggleEditScene = () => {
     LayoutAnimation.easeInEaseOut()
-    let newValue = true
-    if (this.state.editScene) {
-      newValue = false
-    }
-    this.setState({editScene: newValue})
+    this.setState({editScene: !this.state.editScene})
   }
 
   changeScene = (value) => {
-    this.setState({sceneId: parseInt(value)})
+    let card = this.state.card
+    card.sceneId = parseInt(value)
+    this.setState({ card })
     this.props.navigation.setParams({dirty: true})
   }
 
   renderScene = ({index, item}) => {
-    let line = _.find(this.props.scenes, {id: this.state.sceneId})
+    let line = _.find(this.props.scenes, {id: this.state.card.sceneId})
     let picker = null
     if (this.state.editScene) {
       picker = <Picker
-        selectedValue={this.state.sceneId}
-        onValueChange={this.changeScene}
+          selectedValue={this.state.card.sceneId}
+          onValueChange={this.changeScene}
         >
         { this.renderedScenes }
       </Picker>
@@ -218,17 +228,52 @@ class CardDetails extends Component {
     </View>
   }
 
+  renderAttachments = () => {
+    const { navigation } = this.props
+    const { card } = this.state
+    console.log(card.places)
+    let characterLengthText = card.characters.length > 0 ? ` (${card.characters.length})` : ''
+    let placeLengthText = card.places.length > 0 ? ` (${card.places.length})` : ''
+    let tagLengthText = card.tags.length > 0 ? ` (${card.tags.length})` : ''
+    return <View>
+      <View style={styles.listItem}>
+        <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'characters', cardId: card.id, selected: card.characters})}>
+          <View style={styles.attachmentItem}>
+            <Text>Characters{characterLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.listItem}>
+        <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'places', cardId: card.id, selected: card.places})}>
+          <View style={styles.attachmentItem}>
+            <Text>Places{placeLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.listItem, {borderBottomWidth: 0}]}>
+        <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'tags', cardId: card.id, selected: card.tags})}>
+          <View style={styles.attachmentItem}>
+            <Text>Tags{tagLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
+  }
+
   render () {
-    if (this.state.newCard) {
+    if (this.state.isNewCard) {
       return <ActivityIndicator/>
     } else {
       return <View style={styles.container}>
         <SectionList
+          ref={(ref) => this.scrollView = ref}
+          style={{paddingBottom: 300}}
           sections={[
-            {data: [this.title || 'blank'], title: 'Title', renderItem: this.renderTitle},
+            {data: ['title'], title: 'Title', renderItem: this.renderTitle},
             {data: ['lineId'], title: 'Line', renderItem: this.renderLine},
             {data: ['sceneId'], title: 'Scene', renderItem: this.renderScene},
-            {data: [this.description || 'blank'], title: 'Description', renderItem: this.renderDescription},
+            {data: ['attachments'], title: 'Attachments', renderItem: this.renderAttachments},
+            {data: ['description'], title: 'Description', renderItem: this.renderDescription},
           ]}
           renderSectionHeader={({section}) => <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>{section.title}</Text></View>}
           keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
@@ -249,6 +294,14 @@ const styles = StyleSheet.create({
   fakeInputWrapper: {
     ...AppStyles.inputWrapper,
     paddingTop: 5,
+  },
+  listItem: AppStyles.listItem,
+  attachmentItem: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 })
 

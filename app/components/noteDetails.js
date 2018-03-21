@@ -55,6 +55,7 @@ class NoteDetails extends Component {
   handleSave = () => {
     this.props.actions.editNote(this.note.id, this.state)
     this.props.navigation.setParams({dirty: false})
+    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -108,14 +109,24 @@ class NoteDetails extends Component {
   renderContent = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onFocus={this.scroll} onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
+  }
+
+  scroll = () => {
+    try {
+      this.scrollView.scrollToLocation({sectionIndex: 1, itemIndex: 0, viewOffset: 45})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render () {
     if (this.state.newNote) return <ActivityIndicator/>
     return <View style={styles.container}>
       <SectionList
+        ref={(ref) => this.scrollView = ref}
+        style={{paddingBottom: 300}}
         sections={[
           {data: [this.note.title || 'blank'], title: 'Title', renderItem: this.renderTitle},
           {data: [this.note.content || 'blank'], title: 'Content', renderItem: this.renderContent},

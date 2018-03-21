@@ -4,6 +4,7 @@ import OutlineContainer from '../containers/outlineContainer'
 import SceneView from '../components/sceneView'
 import CardDetails from '../components/cardDetails'
 import SceneDetails from '../components/sceneDetails'
+import AttachmentsSelector from '../components/attachmentsSelector'
 
 import NotesContainer from '../containers/notesContainer'
 import NoteDeails from '../components/noteDetails'
@@ -27,6 +28,7 @@ export const OutlineNavigator = StackNavigator({
   Scene: { screen: SceneView },
   Card: { screen: CardDetails },
   AddScene: { screen: SceneDetails },
+  Attachments: { screen: AttachmentsSelector },
 }, navigationOptions)
 
 export const NotesNavigator = StackNavigator({

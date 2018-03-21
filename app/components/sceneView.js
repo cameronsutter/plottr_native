@@ -22,8 +22,7 @@ class SceneView extends Component {
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
     return {
-      headerTitle: <HeaderTitle title={params.scene.title} />,
-      headerRight: <AddButton onPress={params.addCard ? params.addCard : () => null}/>
+      headerTitle: <HeaderTitle title={params.scene.title} />
     }
   }
 
@@ -31,36 +30,48 @@ class SceneView extends Component {
     this.props.navigation.setParams({addCard: this.addCard})
   }
 
-  addCard = () => {
-    const { scene } = this.props.navigation.state.params
-    this.props.navigation.navigate('Card', {sceneId: scene.id, newCard: true, insertCard: this.receiveNewCard })
-  }
-
   sortCards = () => {
-    let sortedCards = []
+    const { scene } = this.props.navigation.state.params
+    let realCards = []
+    let emptyCards = []
     let sortedLines = _.sortBy(this.props.lines, 'position')
     sortedLines.forEach(l => {
       var card = _.find(this.props.cardsInScene, {lineId: l.id})
       if (card) {
-        sortedCards.push(card)
+        realCards.push(card)
+      } else {
+        emptyCards.push({newCard: true, sceneId: scene.id, lineId: l.id, title: 'Add', description: ''})
       }
     })
-    return sortedCards
+    return [...realCards, ...emptyCards]
   }
 
-  renderItem = (card) => {
+  renderItem = ({ item, index }) => {
+    const card = item
     let line = _.find(this.props.lines, {id: card.lineId})
-    let color = {color: line.color}
-    let borderColor = {borderColor: line.color}
-    return <View key={`card-${card.id}`} style={styles.listItem}>
+    let cardStyles = [{borderColor: line.color}]
+    let titleStyles = []
+    let lineStyles = [{color: line.color}]
+    let description = <Text style={styles.descriptionText}>
+      {card.description && card.description.substring(0, 100)}
+    </Text>
+    let icon = <Icon name={'angle-right'} size={25}></Icon>
+    if (card.newCard) {
+      cardStyles.push(styles.newCard)
+      titleStyles.push(styles.newCardTitle)
+      lineStyles.push(styles.newCardLineText)
+      description = null
+      icon = null
+    }
+    return <View style={styles.listItem}>
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Card', { card })}>
-        <View style={[styles.touchableItem, borderColor]}>
+        <View style={[styles.touchableItem, ...cardStyles]}>
           <View>
-            <Text style={styles.cardTitleText}>{card.title}</Text>
-            <Text style={[styles.lineTitleText, color]}>{line.title || 'New Plotline'}</Text>
-            <Text style={styles.descriptionText}>{card.description.substring(0, 100)}</Text>
+            <Text style={[styles.cardTitleText, ...titleStyles]}>{card.title}</Text>
+            <Text style={[styles.lineTitleText, ...lineStyles]}>{line.title || 'New Plotline'}</Text>
+            { description }
           </View>
-          <Icon name={'angle-right'} size={25}></Icon>
+          { icon }
         </View>
       </TouchableOpacity>
     </View>
@@ -75,8 +86,8 @@ class SceneView extends Component {
       body = <FlatList
         style={styles.list}
         data={sortedCards}
-        keyExtractor={(card) => card.id}
-        renderItem={({item}) => this.renderItem(item)}
+        keyExtractor={(card, index) => card.id !== undefined ? `card-${card.id}` : `card-new-card-${index}`}
+        renderItem={this.renderItem}
       />
     }
     return <View style={styles.container}>
@@ -120,6 +131,21 @@ const styles = StyleSheet.create({
   },
   noCardsText: {
     fontSize: 24,
+  },
+  newCard: {
+    borderStyle: 'dashed',
+    backgroundColor: '#e4e3eb',
+    justifyContent: 'center',
+  },
+  newCardTitle: {
+    color: vars.grayText,
+    fontSize: 12,
+    textAlign: 'center',
+    fontWeight: 'normal',
+  },
+  newCardLineText: {
+    marginTop: 5,
+    marginBottom: 2,
   },
 })
 

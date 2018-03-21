@@ -63,6 +63,7 @@ class CharacterDetails extends Component {
   handleSave = () => {
     this.props.actions.editCharacter(this.character.id, this.state)
     this.props.navigation.setParams({dirty: false})
+    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -158,7 +159,7 @@ class CharacterDetails extends Component {
 
   renderCustomAttr = ({item}) => {
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={this.character[item]}/>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)} style={styles.input} multiline={true} defaultValue={this.character[item]}/>
     </View>
   }
 

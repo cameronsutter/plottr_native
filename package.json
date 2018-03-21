@@ -1,6 +1,6 @@
 {
   "name": "plottr_native",
-  "version": "0.3.3",
+  "version": "1.0.3",
   "private": true,
   "scripts": {
     "start": "react-native start",

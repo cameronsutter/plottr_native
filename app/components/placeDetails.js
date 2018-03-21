@@ -62,6 +62,7 @@ class PlaceDetails extends Component {
   handleSave = () => {
     this.props.actions.editPlace(this.place.id, this.state)
     this.props.navigation.setParams({dirty: false})
+    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -143,8 +144,17 @@ class PlaceDetails extends Component {
   renderNotes = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onFocus={this.scroll} onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item}/>
     </View>
+  }
+
+  scroll = () => {
+    var num = 2 + this.props.customAttributes.length
+    try {
+      this.scrollView.scrollToLocation({sectionIndex: num, itemIndex: 0, viewOffset: 45})
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   renderCustomAttr = ({item}) => {
@@ -158,6 +168,8 @@ class PlaceDetails extends Component {
     let customAttrs = this.prepareCustomAttributes()
     return <View style={styles.container}>
       <SectionList
+        ref={(ref) => this.scrollView = ref}
+        style={{paddingBottom: 300}}
         sections={[
           {data: [this.place.name || 'blank'], title: 'Name', renderItem: this.renderName},
           {data: [this.place.description || 'blank'], title: 'Short Description', renderItem: this.renderDescription},
