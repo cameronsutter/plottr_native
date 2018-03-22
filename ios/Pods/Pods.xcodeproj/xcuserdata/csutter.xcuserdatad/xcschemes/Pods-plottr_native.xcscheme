@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "92DCB5D270F1340F9C35B78E88EFFF1D"
+               BlueprintIdentifier = "6636E9D35F8DB04950F218F9C5DF448E"
                BuildableName = "Pods_plottr_native.framework"
                BlueprintName = "Pods-plottr_native"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "92DCB5D270F1340F9C35B78E88EFFF1D"
+            BlueprintIdentifier = "6636E9D35F8DB04950F218F9C5DF448E"
             BuildableName = "Pods_plottr_native.framework"
             BlueprintName = "Pods-plottr_native"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -31,6 +31,7 @@
 		E454C2A220449BA800B6DCF6 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454C2A120449BA800B6DCF6 /* Document.swift */; };
 		E4636EA0204622A000132E30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4636E9F204622A000132E30 /* Main.storyboard */; };
 		E4636EC720462AB100132E30 /* DocumentBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E4636EC620462AB100132E30 /* DocumentBridge.m */; };
+		E4A5C60320636CB000E2D298 /* libRNMixpanel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4A5C60020636C8900E2D298 /* libRNMixpanel.a */; };
 		E4A5DF361FEEFED60047F3EE /* launch_image.png in Resources */ = {isa = PBXBuildFile; fileRef = E4A5DF111FEEFED60047F3EE /* launch_image.png */; };
 		E4AFAE1A20472F0F00430692 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE1920472F0F00430692 /* EventEmitter.swift */; };
 		E4AFAE4420472FC500430692 /* ReactNativeEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */; };
@@ -48,6 +49,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "plottr_native-tvOS";
+		};
+		E4A5C5FF20636C8900E2D298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4A5C5FA20636C8900E2D298 /* RNMixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FDC64AF01BF1690D0044C1B4;
+			remoteInfo = RNMixpanel;
+		};
+		E4A5C60120636C8900E2D298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4A5C5FA20636C8900E2D298 /* RNMixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5EAEEA411F0555B100C6FED8;
+			remoteInfo = "RNMixpanel-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -79,6 +94,7 @@
 		E454C2A120449BA800B6DCF6 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E4636E9F204622A000132E30 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E4636EC620462AB100132E30 /* DocumentBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DocumentBridge.m; sourceTree = "<group>"; };
+		E4A5C5FA20636C8900E2D298 /* RNMixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMixpanel.xcodeproj; path = "../node_modules/react-native-mixpanel/RNMixpanel.xcodeproj"; sourceTree = "<group>"; };
 		E4A5DF111FEEFED60047F3EE /* launch_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_image.png; sourceTree = "<group>"; };
 		E4AFAE1920472F0F00430692 /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeEventEmitter.swift; sourceTree = "<group>"; };
@@ -99,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4A5C60320636CB000E2D298 /* libRNMixpanel.a in Frameworks */,
 				E4D8C4182052FF4100E1AE27 /* Pods_plottr_native.framework in Frameworks */,
 				E44A34F71FD9E8DE006EB9DC /* CloudKit.framework in Frameworks */,
 			);
@@ -171,6 +188,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E4A5C5FA20636C8900E2D298 /* RNMixpanel.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -208,6 +226,15 @@
 				E44A34F61FD9E8DE006EB9DC /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4A5C5FB20636C8900E2D298 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E4A5C60020636C8900E2D298 /* libRNMixpanel.a */,
+				E4A5C60220636C8900E2D298 /* libRNMixpanel-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		E4D2D3821FC4D806001042B0 /* Recovered References */ = {
@@ -330,6 +357,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E4A5C5FB20636C8900E2D298 /* Products */;
+					ProjectRef = E4A5C5FA20636C8900E2D298 /* RNMixpanel.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* plottr_native */,
@@ -338,6 +371,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E4A5C60020636C8900E2D298 /* libRNMixpanel.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMixpanel.a;
+			remoteRef = E4A5C5FF20636C8900E2D298 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E4A5C60220636C8900E2D298 /* libRNMixpanel-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNMixpanel-tvOS.a";
+			remoteRef = E4A5C60120636C8900E2D298 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -442,6 +492,7 @@
 				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
 				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
 				"${BUILT_PRODUCTS_DIR}/GLog/glog.framework",
+				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/React/React.framework",
 				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
@@ -451,6 +502,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNVectorIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",

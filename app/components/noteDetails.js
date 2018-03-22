@@ -64,7 +64,7 @@ class NoteDetails extends Component {
   findNewNote = () => {
     let note = this.props.notes[this.props.notes.length - 1] // notes add new ones to the end
     if (note.title == '') {
-      this.setState({newNote: false, note})
+      this.setState({isNewNote: false, note})
       this.props.navigation.setParams({newNote: false, dirty: true})
     }
   }
@@ -79,16 +79,18 @@ class NoteDetails extends Component {
   }
 
   titleChanged = (text) => {
-    this.props.navigation.setParams({dirty: true})
+    const { navigation } = this.props
+    if (!navigation.state.params.dirty) navigation.setParams({dirty: true})
     let note = this.state.note
     note.title = text
     this.setState({ note })
   }
 
   contentChanged = (text) => {
-    this.props.navigation.setParams({dirty: true})
+    const { navigation } = this.props
+    if (!navigation.state.params.dirty) navigation.setParams({dirty: true})
     let note = this.state.note
-    note.title = text
+    note.content = text
     this.setState({ note })
   }
 

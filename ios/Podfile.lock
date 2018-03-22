@@ -20,6 +20,7 @@ PODS:
     - DoubleConversion
     - GLog
   - GLog (0.3.4)
+  - Mixpanel (3.2.8)
   - React (0.51.1):
     - React/Core (= 0.51.1)
   - React/BatchedBridge (0.51.1):
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
+  - Mixpanel
   - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -106,10 +108,11 @@ SPEC CHECKSUMS:
   DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
   Folly: b7255b29f1d693c375d642d0f04f0592181156d9
   GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
+  Mixpanel: 3ce48d42a5b28e4bb822776058b2713a4b1a6909
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 86dfa953ace18b7f17a5ea75e846ad96b085f18e
+PODFILE CHECKSUM: 058a78fca74b197e5c8d02236ff924758de1db49
 
 COCOAPODS: 1.4.0

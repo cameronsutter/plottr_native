@@ -13,6 +13,8 @@ import { DrawerWrapper } from './app/navigators/drawers'
 import { newFileData } from './helpers'
 const { DocumentViewController, ReactNativeEventEmitter } = NativeModules
 const emitter = new NativeEventEmitter(ReactNativeEventEmitter)
+import Mixpanel from 'react-native-mixpanel'
+Mixpanel.sharedInstanceWithToken('f1b3d3cc4788a907468cdde7d2bd7340')
 Ionicons.loadFont()
 Icon.loadFont()
 
@@ -32,6 +34,7 @@ export class App extends Component {
       data.storyName = storyName
     }
     store.dispatch(uiActions.loadFile(props.documentURL, false, data, data.file.version))
+    Mixpanel.trackWithProperties('open_file', {new_file: data.newFile})
   }
 
   render() {
