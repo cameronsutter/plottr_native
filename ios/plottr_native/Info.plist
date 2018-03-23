@@ -11,8 +11,7 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>PlottrDocumentIcon.png</string>
-				<string>PlottrDocumentIcon_256.png</string>
+				<string>PlottrDocumentIcon320.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Plottr file</string>
@@ -35,11 +34,25 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>0.4.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>9487362b84ddd36b3ea1b5450ecc8f50849b2615</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -66,7 +79,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -113,9 +126,9 @@
 			<key>UTTypeIdentifier</key>
 			<string>com.clouiss.plottr.pltr</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>PlottrDocumentIcon</string>
+			<string>PlottrDocumentIcon320</string>
 			<key>UTTypeSize64IconFile</key>
-			<string>PlottrDocumentIcon_256</string>
+			<string>PlottrDocumentIcon64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -135,9 +148,9 @@
 			<key>UTTypeIdentifier</key>
 			<string>com.clouiss.plottr.pltr</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>PlottrDocumentIcon</string>
+			<string>PlottrDocumentIcon320</string>
 			<key>UTTypeSize64IconFile</key>
-			<string>PlottrDocumentIcon_256</string>
+			<string>PlottrDocumentIcon64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

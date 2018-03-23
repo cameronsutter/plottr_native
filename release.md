@@ -7,7 +7,7 @@
 1. Change Scheme Destination to Generic iOS Device
 1. Build
 1. Product -> Archive
-1. Organizer -> Verify, Upload
+1. Organizer -> Validate, Upload
 
 
 Change back after release:

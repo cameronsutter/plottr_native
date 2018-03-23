@@ -14,7 +14,10 @@ PODS:
   - boost/preprocessor-includes (1.59.0)
   - boost/shared_ptr-includes (1.59.0)
   - boost/string_algorithms-includes (1.59.0)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
   - DoubleConversion (1.1.5)
+  - Fabric (1.7.5)
   - Folly (2016.09.26.00):
     - boost
     - DoubleConversion
@@ -23,6 +26,9 @@ PODS:
   - Mixpanel (3.2.8)
   - React (0.51.1):
     - React/Core (= 0.51.1)
+  - react-native-mixpanel (0.0.6):
+    - Mixpanel
+    - React
   - React/BatchedBridge (0.51.1):
     - React/Core
     - React/cxxreact_legacy
@@ -71,10 +77,13 @@ PODS:
   - yoga (0.51.1.React)
 
 DEPENDENCIES:
+  - Crashlytics
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - Fabric
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
   - Mixpanel
+  - react-native-mixpanel (from `../node_modules/react-native-mixpanel`)
   - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -98,6 +107,8 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/GLog.podspec
   React:
     :path: ../node_modules/react-native
+  react-native-mixpanel:
+    :path: ../node_modules/react-native-mixpanel
   RNVectorIcons:
     :path: ../node_modules/react-native-vector-icons
   yoga:
@@ -105,14 +116,17 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 30a15ffb6d9aa4646dd3caffc960753f4cb4ca4e
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
+  Fabric: ae7146a5f505ea370a1e44820b4b1dc8890e2890
   Folly: b7255b29f1d693c375d642d0f04f0592181156d9
   GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
   Mixpanel: 3ce48d42a5b28e4bb822776058b2713a4b1a6909
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
+  react-native-mixpanel: 0683bc3f3f8db8f9d79a8ba8584ee51030338a2f
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 058a78fca74b197e5c8d02236ff924758de1db49
+PODFILE CHECKSUM: ea25c4ae90a83a8bd007c858f115205c65176a7f
 
 COCOAPODS: 1.4.0

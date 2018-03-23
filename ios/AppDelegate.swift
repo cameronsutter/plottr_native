@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,12 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+
+    // Fabric/Crashlytics
+    Fabric.with([Crashlytics.self])
+
     guard let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { return true }
 
     let localDocumentsDirectoryURL = URL(fileURLWithPath: documentPath)
     print(localDocumentsDirectoryURL)
 
-    // setup shared DocumentBrowserViewController
+    // TODO: setup shared DocumentBrowserViewController
 
     return true
   }

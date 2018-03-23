@@ -29,7 +29,8 @@ target 'plottr_native' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'Mixpanel'
-
-  pod 'react-native-mixpanel', :path => '../node_modules/react-native-mixpanel'
+  # pod 'react-native-mixpanel', :path => '../node_modules/react-native-mixpanel'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end

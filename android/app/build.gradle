@@ -140,6 +140,8 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-mixpanel')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-mixpanel')
+    compile project(':react-native-vector-icons')
     compile project(':react-native-vector-icons')
     compile project(':react-native-vector-icons')
     compile project(':react-native-fs')

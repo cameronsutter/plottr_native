@@ -12,10 +12,13 @@ import {
   TouchableOpacity,
   NativeModules,
   AlertIOS,
+  Linking,
+  Image,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from '../styles/vars'
 import DrawerStyles from '../styles/drawer'
+import images from '../../images'
 const { DocumentViewController } = NativeModules
 
 class Drawer extends Component {
@@ -29,6 +32,22 @@ class Drawer extends Component {
       null,
       text => this.props.actions.changeStoryName(text)
     )
+  }
+
+  displayHelp = () => {
+    Linking.openURL('mailto:family@plottrapp.com?subject=Plottr mobile help')
+  }
+
+  displayRequest = () => {
+    Linking.openURL('https://gitreports.com/issue/cameronsutter/plottr_native')
+  }
+
+  displayEmailUpdates = () => {
+    Linking.openURL('http://eepurl.com/dkSg41')
+  }
+
+  displayPlottrDesktop = () => {
+    Linking.openURL('https://gumroad.com/l/fgSJ/mobile')
   }
 
   renderCloseButton = () => {
@@ -49,6 +68,46 @@ class Drawer extends Component {
     </TouchableOpacity>
   }
 
+  renderHelpButton = () => {
+    return <TouchableOpacity onPress={this.displayHelp}>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Ionicons name='ios-help-buoy' size={20} style={DrawerStyles.buttonIcon} />
+        <Text style={DrawerStyles.buttonText}>Help</Text>
+      </View>
+    </TouchableOpacity>
+  }
+
+  renderFeatureButton = () => {
+    return <TouchableOpacity style={styles.featureButtonWrapper} onPress={this.displayRequest}>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Ionicons name='ios-bulb-outline' size={26} style={DrawerStyles.buttonIcon} />
+        <Text style={DrawerStyles.buttonText}>Request a Feature</Text>
+      </View>
+    </TouchableOpacity>
+  }
+
+  renderEmailButton = () => {
+    return <TouchableOpacity style={styles.featureButtonWrapper} onPress={this.displayEmailUpdates}>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Ionicons name='ios-mail-outline' size={22} style={DrawerStyles.buttonIcon} />
+        <Text style={DrawerStyles.buttonText}>Get email updates</Text>
+      </View>
+    </TouchableOpacity>
+  }
+
+  renderPlottrButton = () => {
+    let buttonStyles = {
+      ...DrawerStyles.buttonIcon,
+    }
+    delete buttonStyles.color
+    return <TouchableOpacity style={styles.featureButtonWrapper} onPress={this.displayPlottrDesktop}>
+      <View style={DrawerStyles.buttonWrapper}>
+        <Image source={images.logo} resizeMode='contain' style={[buttonStyles, styles.logo]} />
+        <Text style={DrawerStyles.buttonText}>Plottr Desktop</Text>
+      </View>
+    </TouchableOpacity>
+  }
+
   render () {
     return <ScrollView>
       <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -58,6 +117,12 @@ class Drawer extends Component {
           {this.renderCloseButton()}
         </View>
         <DrawerItems {...this.props} />
+        <View style={styles.footerContainer}>
+          {this.renderHelpButton()}
+          {this.renderFeatureButton()}
+          {this.renderEmailButton()}
+          {this.renderPlottrButton()}
+        </View>
       </SafeAreaView>
     </ScrollView>
   }
@@ -82,6 +147,19 @@ const styles = StyleSheet.create({
   },
   editButtonWrapper: {
     marginVertical: 10,
+  },
+  featureButtonWrapper: {
+    marginTop: 15,
+  },
+  footerContainer: {
+    marginTop: 5,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: vars.black,
+  },
+  logo: {
+    height: 18,
+    width: 18,
   },
 })
 
