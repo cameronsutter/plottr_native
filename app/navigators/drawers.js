@@ -9,7 +9,7 @@ import ScenesContainer from '../containers/scenesContainer'
 import TagsContainer from '../containers/tagsContainer'
 import CharacterCustomAttributes from '../components/characterCustomAttributes'
 import PlaceCustomAttributes from '../components/placeCustomAttributes'
-import ColorPicker from '../components/colorpicker'
+import ColorWheel from '../components/colorwheel'
 import * as vars from '../styles/vars'
 
 const navigationOptions = {
@@ -23,7 +23,21 @@ const TagStack = StackNavigator(
       screen: TagsContainer,
     },
     ColorPicker: {
-      screen: ColorPicker,
+      screen: ColorWheel,
+    },
+  }, {
+    mode: 'modal',
+    navigationOptions,
+  }
+)
+
+const LineStack = StackNavigator(
+  {
+    Plotlines: {
+      screen: LinesContainer,
+    },
+    ColorPicker: {
+      screen: ColorWheel,
     },
   }, {
     mode: 'modal',
@@ -36,7 +50,7 @@ export const DrawerWrapper = DrawerNavigator({
     screen: RootTabs,
   },
   Plotlines: {
-    screen: LinesContainer,
+    screen: LineStack,
   },
   Scenes: {
     screen: ScenesContainer,

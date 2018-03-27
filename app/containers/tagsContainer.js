@@ -65,12 +65,10 @@ class ScenesContainer extends Component {
             )
             break
           case 1:
+            // change color
             let data = {
               color: tag.color,
               chooseAction: (newColor) => {
-                console.log(newColor)
-                console.log(tag.id)
-                console.log(tag.title)
                 this.props.actions.editTag(tag.id, tag.title, newColor)
               }
             }

@@ -39,7 +39,6 @@
 		E4AFAE4420472FC500430692 /* ReactNativeEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */; };
 		E4AFAE462047302800430692 /* ReactNativeEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE452047302800430692 /* ReactNativeEventEmitter.m */; };
 		E4BAFE722069A08D003EED35 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BAFE712069A08D003EED35 /* ThumbnailProvider.swift */; };
-		E4BAFE762069A08D003EED35 /* Plottr-Thumbnail-Ext.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E4BAFE6F2069A08D003EED35 /* Plottr-Thumbnail-Ext.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E4BAFE7F2069A51F003EED35 /* PlottrDocumentIcon320.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7B2069A510003EED35 /* PlottrDocumentIcon320.png */; };
 		E4BAFE802069A51F003EED35 /* PlottrDocumentIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7C2069A515003EED35 /* PlottrDocumentIcon58.png */; };
 		E4BAFE812069A51F003EED35 /* PlottrDocumentIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7D2069A519003EED35 /* PlottrDocumentIcon29.png */; };
@@ -71,28 +70,7 @@
 			remoteGlobalIDString = 5EAEEA411F0555B100C6FED8;
 			remoteInfo = "RNMixpanel-tvOS";
 		};
-		E4BAFE742069A08D003EED35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E4BAFE6E2069A08D003EED35;
-			remoteInfo = "Plottr-Thumbnail-Ext";
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E4BAFE7A2069A091003EED35 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				E4BAFE762069A08D003EED35 /* Plottr-Thumbnail-Ext.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -327,12 +305,10 @@
 				537AA275F7326E2BBA9D1119 /* [CP] Embed Pods Frameworks */,
 				A7272504D2CF78547B7A74C0 /* [CP] Copy Pods Resources */,
 				E48227FD20659D8F0093465A /* ShellScript */,
-				E4BAFE7A2069A091003EED35 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E4BAFE752069A08D003EED35 /* PBXTargetDependency */,
 			);
 			name = plottr_native;
 			productName = "Hello World";
@@ -686,11 +662,6 @@
 			target = 2D02E47A1E0B4A5D006451C7 /* plottr_native-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
-		E4BAFE752069A08D003EED35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E4BAFE6E2069A08D003EED35 /* Plottr-Thumbnail-Ext */;
-			targetProxy = E4BAFE742069A08D003EED35 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -698,7 +669,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7ADD4CBD9A874F242F46310 /* Pods-plottr_native.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -736,7 +706,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 66DCE54C93041321321F569D /* Pods-plottr_native.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;

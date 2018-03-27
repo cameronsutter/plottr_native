@@ -30,10 +30,12 @@ class PlottrDocument: UIDocument {
     stringData = String(data: contents as! Data, encoding: .utf8)!
   }
 
+  /*
   override func fileAttributesToWrite(to url: URL, for saveOperation: UIDocumentSaveOperation) throws -> [AnyHashable : Any] {
     let thumbnail = UIImage(named: "PlottrDocumentIcon")
     return [URLResourceKey.hasHiddenExtensionKey: true, URLResourceKey.thumbnailDictionaryKey: [ URLThumbnailDictionaryItem.NSThumbnail1024x1024SizeKey: thumbnail ] ]
   }
+  */
 }
 
 

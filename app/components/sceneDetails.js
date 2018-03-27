@@ -59,7 +59,7 @@ class SceneDetails extends Component {
 
   findNewScene = () => {
     let scene = this.props.scenes[0]
-    if (scene.title == '') {
+    if (scene.title == 'New Scene') {
       let title = `Scene ${scene.position + 1}`
       this.title = title // this is so the sectionList always has a title to render
       scene.title = title

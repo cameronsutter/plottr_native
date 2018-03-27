@@ -25,12 +25,17 @@ import * as vars from '../styles/vars'
 
 class LinesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-options' : 'ios-options-outline'}
           size={28} style={{ color: tintColor }}
         />
       ),
+      headerLeft: <MenuButton navigation={navigation} />,
+      headerTitle: <HeaderTitle title='Plotlines'/>,
+      headerRight: <AddButton onPress={params.addLine ? params.addLine : () => null}/>,
     }
   }
 
@@ -60,6 +65,10 @@ class LinesContainer extends Component {
     this.setState(lineData)
   }
 
+  componentDidMount () {
+    this.props.navigation.setParams({addLine: this.addLine})
+  }
+
   addLine = () => {
     this.props.actions.addLine()
   }
@@ -84,11 +93,13 @@ class LinesContainer extends Component {
             break
           case 1:
             // change color
-            AlertIOS.prompt(
-              'New Color:',
-              `currently: ${line.color}`,
-              text => this.props.actions.editLineColor(line.id, text)
-            )
+            let data = {
+              color: line.color,
+              chooseAction: (newColor) => {
+                this.props.actions.editLineColor(line.id, newColor)
+              }
+            }
+            this.props.navigation.navigate('ColorPicker', data)
             break
           case 2:
             // delete
@@ -138,11 +149,6 @@ class LinesContainer extends Component {
 
   render () {
     return <View style={styles.container}>
-      <FakeNavHeader
-        title='Plotlines'
-        leftButton={<MenuButton navigation={this.props.navigation}/>}
-        rightButton={<AddButton onPress={this.addLine}/>}
-      />
       <ScrollView>
         <SortableList
           data={this.state.data}

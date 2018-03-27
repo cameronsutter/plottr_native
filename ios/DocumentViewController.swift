@@ -58,6 +58,7 @@ class DocumentViewController: UIViewController {
         self.present(self.vc!, animated: true, completion: nil)
       } else {
         // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
+        print("failed import")
       }
     })
   }
@@ -68,10 +69,12 @@ class DocumentViewController: UIViewController {
     let docViewController = DocumentViewController._sharedInstance
     let doc = docViewController?.document
     doc?.updateStringContents(data: data)
-    docViewController?.document?.save(to: (doc?.fileURL)!, for: UIDocumentSaveOperation.forOverwriting, completionHandler: nil)
+    docViewController?.document?.save(to: (doc?.fileURL)!, for: UIDocumentSaveOperation.forOverwriting, completionHandler: { (saved) in
+    })
   }
 
   @objc func closeDocument() -> Void {
+    print(DocumentViewController._sharedInstance ?? "no shared instance")
     let docViewController = DocumentViewController._sharedInstance
 
     DispatchQueue.main.async {

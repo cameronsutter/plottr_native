@@ -78,20 +78,14 @@ class SceneView extends Component {
   }
 
   render () {
-    let body = <View style={styles.noCardsContainer}>
-      <Text style={styles.noCardsText}>No Cards in this Scene</Text>
-    </View>
-    if (this.props.cardsInScene.length > 0) {
-      let sortedCards = this.sortCards()
-      body = <FlatList
+    let sortedCards = this.sortCards()
+    return <View style={styles.container}>
+      <FlatList
         style={styles.list}
         data={sortedCards}
         keyExtractor={(card, index) => card.id !== undefined ? `card-${card.id}` : `card-new-card-${index}`}
         renderItem={this.renderItem}
       />
-    }
-    return <View style={styles.container}>
-      { body }
     </View>
   }
 }
@@ -109,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     padding: 10,
-    marginTop: 15,
+    marginVertical: 8,
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: vars.white,

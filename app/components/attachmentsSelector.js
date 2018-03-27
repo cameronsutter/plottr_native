@@ -108,12 +108,14 @@ class AttachmentsSelector extends Component {
 
   renderItem = ({ item }) => {
     let color = {}
-    if (this.state.type === 'tags') color = {color: item.color}
+    let type = this.state.type
+    if (type === 'tags') color = {color: item.color}
+    let defaultTitle = `New ${type.substr(0,1).toUpperCase()}${type.substr(1, type.length - 2)}`
     return <View key={`item-${item.id}`} style={styles.listItem}>
       <TouchableOpacity onPress={() => this.toggleItem(item.id)}>
         <View style={[styles.touchableItem, {height: 60}]}>
           <View>
-            <Text style={[styles.titleText, color]}>{item.name || item.title}</Text>
+            <Text style={[styles.titleText, color]}>{item.name || item.title || defaultTitle}</Text>
           </View>
           {this.renderCheck(item.id)}
         </View>
