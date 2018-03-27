@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		05E435B92D5D40D49ED10C45 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DD9C4076B554834A1CFBFB5 /* EvilIcons.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -37,6 +38,13 @@
 		E4AFAE1A20472F0F00430692 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE1920472F0F00430692 /* EventEmitter.swift */; };
 		E4AFAE4420472FC500430692 /* ReactNativeEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */; };
 		E4AFAE462047302800430692 /* ReactNativeEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E4AFAE452047302800430692 /* ReactNativeEventEmitter.m */; };
+		E4BAFE722069A08D003EED35 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BAFE712069A08D003EED35 /* ThumbnailProvider.swift */; };
+		E4BAFE762069A08D003EED35 /* Plottr-Thumbnail-Ext.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E4BAFE6F2069A08D003EED35 /* Plottr-Thumbnail-Ext.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E4BAFE7F2069A51F003EED35 /* PlottrDocumentIcon320.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7B2069A510003EED35 /* PlottrDocumentIcon320.png */; };
+		E4BAFE802069A51F003EED35 /* PlottrDocumentIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7C2069A515003EED35 /* PlottrDocumentIcon58.png */; };
+		E4BAFE812069A51F003EED35 /* PlottrDocumentIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7D2069A519003EED35 /* PlottrDocumentIcon29.png */; };
+		E4BAFE822069A51F003EED35 /* PlottrDocumentIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE7E2069A51E003EED35 /* PlottrDocumentIcon64.png */; };
+		E4BAFE842069A6F7003EED35 /* PlottrDocumentIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BAFE832069A6F4003EED35 /* PlottrDocumentIcon.png */; };
 		E4BF8EA5205B8D3600006328 /* splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = E4BF8EA4205B8D3600006328 /* splashscreen.png */; };
 		E4D8C4182052FF4100E1AE27 /* Pods_plottr_native.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D8C4192052FF4100E1AE27 /* Pods_plottr_native.framework */; };
 /* End PBXBuildFile section */
@@ -63,7 +71,28 @@
 			remoteGlobalIDString = 5EAEEA411F0555B100C6FED8;
 			remoteInfo = "RNMixpanel-tvOS";
 		};
+		E4BAFE742069A08D003EED35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4BAFE6E2069A08D003EED35;
+			remoteInfo = "Plottr-Thumbnail-Ext";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E4BAFE7A2069A091003EED35 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E4BAFE762069A08D003EED35 /* Plottr-Thumbnail-Ext.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -100,6 +129,14 @@
 		E4AFAE1920472F0F00430692 /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		E4AFAE4320472FC500430692 /* ReactNativeEventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactNativeEventEmitter.swift; sourceTree = "<group>"; };
 		E4AFAE452047302800430692 /* ReactNativeEventEmitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeEventEmitter.m; sourceTree = "<group>"; };
+		E4BAFE6F2069A08D003EED35 /* Plottr-Thumbnail-Ext.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Plottr-Thumbnail-Ext.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4BAFE712069A08D003EED35 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
+		E4BAFE732069A08D003EED35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4BAFE7B2069A510003EED35 /* PlottrDocumentIcon320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon320.png; sourceTree = "<group>"; };
+		E4BAFE7C2069A515003EED35 /* PlottrDocumentIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon58.png; sourceTree = "<group>"; };
+		E4BAFE7D2069A519003EED35 /* PlottrDocumentIcon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon29.png; sourceTree = "<group>"; };
+		E4BAFE7E2069A51E003EED35 /* PlottrDocumentIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon64.png; sourceTree = "<group>"; };
+		E4BAFE832069A6F4003EED35 /* PlottrDocumentIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlottrDocumentIcon.png; sourceTree = "<group>"; };
 		E4BF8EA4205B8D3600006328 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
 		E4D2D3AD1FC4D885001042B0 /* plottr_native.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = plottr_native.entitlements; path = plottr_native/plottr_native.entitlements; sourceTree = "<group>"; };
 		E4D8C4192052FF4100E1AE27 /* Pods_plottr_native.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_plottr_native.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +171,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4BAFE6C2069A08D003EED35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -158,6 +202,7 @@
 		13B07FAE1A68108700A75B9A /* plottr_native */ = {
 			isa = PBXGroup;
 			children = (
+				E4BAFE832069A6F4003EED35 /* PlottrDocumentIcon.png */,
 				E4BF8EA4205B8D3600006328 /* splashscreen.png */,
 				E454C2992044993100B6DCF6 /* AppDelegate.swift */,
 				E454C29B204499DE00B6DCF6 /* DocumentBrowserViewController.swift */,
@@ -197,6 +242,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* plottr_native */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				E4BAFE702069A08D003EED35 /* Plottr-Thumbnail-Ext */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				0B242B0C47904633BCAD025A /* Resources */,
 				E4D2D3821FC4D806001042B0 /* Recovered References */,
@@ -214,6 +260,7 @@
 				13B07F961A680F5B00A75B9A /* plottr_native.app */,
 				2D02E47B1E0B4A5D006451C7 /* plottr_native-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* plottr_native-tvOSTests.xctest */,
+				E4BAFE6F2069A08D003EED35 /* Plottr-Thumbnail-Ext.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +281,19 @@
 				E4A5C60220636C8900E2D298 /* libRNMixpanel-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E4BAFE702069A08D003EED35 /* Plottr-Thumbnail-Ext */ = {
+			isa = PBXGroup;
+			children = (
+				E4BAFE7D2069A519003EED35 /* PlottrDocumentIcon29.png */,
+				E4BAFE7C2069A515003EED35 /* PlottrDocumentIcon58.png */,
+				E4BAFE7E2069A51E003EED35 /* PlottrDocumentIcon64.png */,
+				E4BAFE7B2069A510003EED35 /* PlottrDocumentIcon320.png */,
+				E4BAFE712069A08D003EED35 /* ThumbnailProvider.swift */,
+				E4BAFE732069A08D003EED35 /* Info.plist */,
+			);
+			path = "Plottr-Thumbnail-Ext";
 			sourceTree = "<group>";
 		};
 		E4D2D3821FC4D806001042B0 /* Recovered References */ = {
@@ -267,10 +327,12 @@
 				537AA275F7326E2BBA9D1119 /* [CP] Embed Pods Frameworks */,
 				A7272504D2CF78547B7A74C0 /* [CP] Copy Pods Resources */,
 				E48227FD20659D8F0093465A /* ShellScript */,
+				E4BAFE7A2069A091003EED35 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E4BAFE752069A08D003EED35 /* PBXTargetDependency */,
 			);
 			name = plottr_native;
 			productName = "Hello World";
@@ -313,12 +375,30 @@
 			productReference = 2D02E4901E0B4A5D006451C7 /* plottr_native-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		E4BAFE6E2069A08D003EED35 /* Plottr-Thumbnail-Ext */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4BAFE792069A091003EED35 /* Build configuration list for PBXNativeTarget "Plottr-Thumbnail-Ext" */;
+			buildPhases = (
+				E4BAFE6B2069A08D003EED35 /* Sources */,
+				E4BAFE6C2069A08D003EED35 /* Frameworks */,
+				E4BAFE6D2069A08D003EED35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Plottr-Thumbnail-Ext";
+			productName = "Plottr-Thumbnail-Ext";
+			productReference = E4BAFE6F2069A08D003EED35 /* Plottr-Thumbnail-Ext.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -344,6 +424,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
+					E4BAFE6E2069A08D003EED35 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = XUSV2KF89D;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "plottr_native" */;
@@ -368,6 +453,7 @@
 				13B07F861A680F5B00A75B9A /* plottr_native */,
 				2D02E47A1E0B4A5D006451C7 /* plottr_native-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* plottr_native-tvOSTests */,
+				E4BAFE6E2069A08D003EED35 /* Plottr-Thumbnail-Ext */,
 			);
 		};
 /* End PBXProject section */
@@ -433,6 +519,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4BAFE6D2069A08D003EED35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4BAFE7F2069A51F003EED35 /* PlottrDocumentIcon320.png in Resources */,
+				E4BAFE802069A51F003EED35 /* PlottrDocumentIcon58.png in Resources */,
+				E4BAFE822069A51F003EED35 /* PlottrDocumentIcon64.png in Resources */,
+				E4BAFE842069A6F7003EED35 /* PlottrDocumentIcon.png in Resources */,
+				E4BAFE812069A51F003EED35 /* PlottrDocumentIcon29.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -495,7 +593,6 @@
 				"${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework",
 				"${BUILT_PRODUCTS_DIR}/React/React.framework",
-				"${BUILT_PRODUCTS_DIR}/react-native-mixpanel/react_native_mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -506,7 +603,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNVectorIcons.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +670,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4BAFE6B2069A08D003EED35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4BAFE722069A08D003EED35 /* ThumbnailProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -582,6 +686,11 @@
 			target = 2D02E47A1E0B4A5D006451C7 /* plottr_native-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
+		E4BAFE752069A08D003EED35 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4BAFE6E2069A08D003EED35 /* Plottr-Thumbnail-Ext */;
+			targetProxy = E4BAFE742069A08D003EED35 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -589,10 +698,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7ADD4CBD9A874F242F46310 /* Pods-plottr_native.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = plottr_native/plottr_native.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = XUSV2KF89D;
@@ -625,10 +736,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 66DCE54C93041321321F569D /* Pods-plottr_native.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = plottr_native/plottr_native.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XUSV2KF89D;
 				HEADER_SEARCH_PATHS = (
@@ -864,6 +977,75 @@
 			};
 			name = Release;
 		};
+		E4BAFE772069A08E003EED35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = XUSV2KF89D;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Plottr-Thumbnail-Ext/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clouiss.plottr-native.Plottr-Thumbnail-Ext";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E4BAFE782069A08E003EED35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = XUSV2KF89D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Plottr-Thumbnail-Ext/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.clouiss.plottr-native.Plottr-Thumbnail-Ext";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -899,6 +1081,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4BAFE792069A091003EED35 /* Build configuration list for PBXNativeTarget "Plottr-Thumbnail-Ext" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4BAFE772069A08E003EED35 /* Debug */,
+				E4BAFE782069A08E003EED35 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

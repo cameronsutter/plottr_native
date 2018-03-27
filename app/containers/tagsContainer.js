@@ -24,17 +24,26 @@ import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-pricetag' : 'ios-pricetag-outline'}
           size={28} style={{ color: tintColor }}
         />
       ),
+      headerLeft: <MenuButton navigation={navigation} />,
+      headerTitle: <HeaderTitle title='Tags'/>,
+      headerRight: <AddButton onPress={params.addTag ? params.addTag : () => null}/>,
     }
   }
 
   addTag = () => {
     this.props.actions.addTag()
+  }
+
+  componentDidMount () {
+    this.props.navigation.setParams({addTag: this.addTag})
   }
 
   showActionSheet = (tag) => {
@@ -56,12 +65,16 @@ class ScenesContainer extends Component {
             )
             break
           case 1:
-            // change color
-            AlertIOS.prompt(
-              'New Color:',
-              `currently: ${tag.color || 'none'}`,
-              text => this.props.actions.editTag(tag.id, tag.title, text)
-            )
+            let data = {
+              color: tag.color,
+              chooseAction: (newColor) => {
+                console.log(newColor)
+                console.log(tag.id)
+                console.log(tag.title)
+                this.props.actions.editTag(tag.id, tag.title, newColor)
+              }
+            }
+            this.props.navigation.navigate('ColorPicker', data)
             break
           case 2:
             // delete
@@ -97,11 +110,6 @@ class ScenesContainer extends Component {
     const { navigation, tags } = this.props
     const sortedTags = _.sortBy(tags, 'title')
     return <View style={styles.container}>
-      <FakeNavHeader
-        title='Tags'
-        leftButton={<MenuButton navigation={navigation}/>}
-        rightButton={<AddButton onPress={this.addTag}/>}
-      />
       <FlatList
         data={sortedTags}
         keyExtractor={(tag) => tag.id}

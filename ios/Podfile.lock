@@ -26,9 +26,6 @@ PODS:
   - Mixpanel (3.2.8)
   - React (0.51.1):
     - React/Core (= 0.51.1)
-  - react-native-mixpanel (0.0.6):
-    - Mixpanel
-    - React
   - React/BatchedBridge (0.51.1):
     - React/Core
     - React/cxxreact_legacy
@@ -83,7 +80,6 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - GLog (from `../node_modules/react-native/third-party-podspecs/GLog.podspec`)
   - Mixpanel
-  - react-native-mixpanel (from `../node_modules/react-native-mixpanel`)
   - React/BatchedBridge (from `../node_modules/react-native`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
@@ -107,8 +103,6 @@ EXTERNAL SOURCES:
     :podspec: ../node_modules/react-native/third-party-podspecs/GLog.podspec
   React:
     :path: ../node_modules/react-native
-  react-native-mixpanel:
-    :path: ../node_modules/react-native-mixpanel
   RNVectorIcons:
     :path: ../node_modules/react-native-vector-icons
   yoga:
@@ -123,10 +117,9 @@ SPEC CHECKSUMS:
   GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
   Mixpanel: 3ce48d42a5b28e4bb822776058b2713a4b1a6909
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
-  react-native-mixpanel: 0683bc3f3f8db8f9d79a8ba8584ee51030338a2f
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: ea25c4ae90a83a8bd007c858f115205c65176a7f
+PODFILE CHECKSUM: b4894f7225bbe51dfd0b68582ea4c050b7ff453f
 
 COCOAPODS: 1.4.0

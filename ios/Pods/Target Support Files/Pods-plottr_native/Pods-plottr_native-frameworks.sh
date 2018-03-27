@@ -140,7 +140,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/react-native-mixpanel/react_native_mixpanel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -150,7 +149,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Mixpanel/Mixpanel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React/React.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/react-native-mixpanel/react_native_mixpanel.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/yoga/yoga.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

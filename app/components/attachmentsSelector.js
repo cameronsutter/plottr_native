@@ -100,7 +100,7 @@ class AttachmentsSelector extends Component {
 
   renderCheck = (id) => {
     if (this.state.selected.includes(id)) {
-      return <Ionicons name={'ios-checkmark-circle'} style={{color: vars.green}} size={30}></Ionicons>
+      return <Ionicons name='ios-checkmark-circle' style={{color: vars.green}} size={30}></Ionicons>
     } else {
       return null
     }

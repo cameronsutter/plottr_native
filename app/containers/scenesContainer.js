@@ -12,6 +12,7 @@ import {
   ActionSheetIOS,
   AlertIOS,
   Alert,
+  ScrollView,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -134,13 +135,15 @@ class ScenesContainer extends Component {
         leftButton={<MenuButton navigation={this.props.navigation}/>}
         rightButton={<AddButton onPress={this.addScene}/>}
       />
-      <SortableList
-        data={this.state.data}
-        renderRow={this.renderItem}
-        onReleaseRow={this.reorder}
-        onChangeOrder={this.saveOrder}
-        style={styles.list}
-      />
+      <ScrollView>
+        <SortableList
+          data={this.state.data}
+          renderRow={this.renderItem}
+          onReleaseRow={this.reorder}
+          onChangeOrder={this.saveOrder}
+          style={styles.list}
+        />
+      </ScrollView>
     </View>
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DrawerNavigator } from 'react-navigation'
+import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import RootTabs from './rootTabs'
 import Drawer from '../containers/drawer'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -9,7 +9,27 @@ import ScenesContainer from '../containers/scenesContainer'
 import TagsContainer from '../containers/tagsContainer'
 import CharacterCustomAttributes from '../components/characterCustomAttributes'
 import PlaceCustomAttributes from '../components/placeCustomAttributes'
+import ColorPicker from '../components/colorpicker'
 import * as vars from '../styles/vars'
+
+const navigationOptions = {
+  headerStyle: {height: 60},
+  headerTintColor: '#ff7f32',
+}
+
+const TagStack = StackNavigator(
+  {
+    Tags: {
+      screen: TagsContainer,
+    },
+    ColorPicker: {
+      screen: ColorPicker,
+    },
+  }, {
+    mode: 'modal',
+    navigationOptions,
+  }
+)
 
 export const DrawerWrapper = DrawerNavigator({
   Outline: {
@@ -22,7 +42,7 @@ export const DrawerWrapper = DrawerNavigator({
     screen: ScenesContainer,
   },
   Tags: {
-    screen: TagsContainer,
+    screen: TagStack,
   },
   CharacterCustom: {
     screen: CharacterCustomAttributes,
