@@ -83,7 +83,8 @@ class SceneDetails extends Component {
 
   renderTitle = ({item}) => {
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.titleChanged} style={styles.input} defaultValue={item}/>
+      <TextInput onChangeText={this.titleChanged} style={styles.input}
+        defaultValue={item} clearButtonMode='while-editing'/>
     </View>
   }
 

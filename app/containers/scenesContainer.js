@@ -13,6 +13,7 @@ import {
   AlertIOS,
   Alert,
   ScrollView,
+  LayoutAnimation,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -25,12 +26,17 @@ import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
+    let { params } = navigation.state
+    params = params || {}
     return {
       drawerIcon: ({ tintColor, focused }) => (
         <Ionicons name={focused ? 'ios-film' : 'ios-film-outline'}
           size={28} style={{ color: tintColor }}
         />
       ),
+      headerLeft: <MenuButton navigation={navigation} />,
+      headerTitle: <HeaderTitle title='Scenes'/>,
+      headerRight: <AddButton onPress={params.addScene ? params.addScene : () => null}/>,
     }
   }
 
@@ -60,7 +66,12 @@ class ScenesContainer extends Component {
     this.setState(sceneData)
   }
 
+  componentDidMount () {
+    this.props.navigation.setParams({addScene: this.addScene})
+  }
+
   addScene = () => {
+    LayoutAnimation.easeInEaseOut()
     this.props.actions.addScene()
   }
 
@@ -112,6 +123,7 @@ class ScenesContainer extends Component {
       scene.position = position
       return scene
     })
+    LayoutAnimation.easeInEaseOut()
     this.props.actions.reorderScenes(scenes)
   }
 
@@ -130,20 +142,13 @@ class ScenesContainer extends Component {
 
   render () {
     return <View style={styles.container}>
-      <FakeNavHeader
-        title='Scenes'
-        leftButton={<MenuButton navigation={this.props.navigation}/>}
-        rightButton={<AddButton onPress={this.addScene}/>}
+      <SortableList
+        data={this.state.data}
+        renderRow={this.renderItem}
+        onReleaseRow={this.reorder}
+        onChangeOrder={this.saveOrder}
+        style={styles.list}
       />
-      <ScrollView>
-        <SortableList
-          data={this.state.data}
-          renderRow={this.renderItem}
-          onReleaseRow={this.reorder}
-          onChangeOrder={this.saveOrder}
-          style={styles.list}
-        />
-      </ScrollView>
     </View>
   }
 }

@@ -12,7 +12,7 @@ import {
   ActionSheetIOS,
   AlertIOS,
   Alert,
-  ScrollView,
+  LayoutAnimation,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -70,6 +70,7 @@ class LinesContainer extends Component {
   }
 
   addLine = () => {
+    LayoutAnimation.easeInEaseOut()
     this.props.actions.addLine()
   }
 
@@ -131,6 +132,7 @@ class LinesContainer extends Component {
       line.position = position
       return line
     })
+    LayoutAnimation.easeInEaseOut()
     this.props.actions.reorderLines(lines)
   }
 
@@ -149,15 +151,13 @@ class LinesContainer extends Component {
 
   render () {
     return <View style={styles.container}>
-      <ScrollView>
-        <SortableList
-          data={this.state.data}
-          renderRow={this.renderItem}
-          onReleaseRow={this.reorder}
-          onChangeOrder={this.saveOrder}
-          style={styles.list}
-        />
-      </ScrollView>
+      <SortableList
+        data={this.state.data}
+        renderRow={this.renderItem}
+        onReleaseRow={this.reorder}
+        onChangeOrder={this.saveOrder}
+        style={styles.list}
+      />
     </View>
   }
 }

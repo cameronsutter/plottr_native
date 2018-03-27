@@ -135,7 +135,9 @@ class CardDetails extends Component {
   renderTitle = () => {
     let title = this.state.card.title
     return <View style={styles.inputWrapper}>
-      <TextInput autoFocus={title == ''} onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={title}/>
+      <TextInput autoFocus={title == ''}
+        onChangeText={this.titleChanged} style={styles.input}
+        defaultValue={title} clearButtonMode='while-editing'/>
     </View>
   }
 

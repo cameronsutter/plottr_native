@@ -56,13 +56,12 @@ export default AppStyles = {
   detailsView: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: vars.white,
+    backgroundColor: vars.dullBackground,
   },
   sectionHeader: {
     padding: 10,
     alignSelf: 'stretch',
     backgroundColor: vars.grayBackground,
-    marginBottom: 5,
   },
   sectionHeaderText: {
     textAlign: 'center',
@@ -71,12 +70,11 @@ export default AppStyles = {
   },
   input: {
     width: '100%',
-    fontSize: 15,
+    fontSize: 16,
   },
   inputWrapper: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
+    padding: 10,
+    backgroundColor: vars.white,
   },
   greenSaved: {
     color: vars.green,

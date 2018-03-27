@@ -9,7 +9,6 @@ import {
 import {
   OutlineDrawer,
 } from './drawers'
-// import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default RootTabs = TabNavigator({

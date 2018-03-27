@@ -130,14 +130,16 @@ class PlaceDetails extends Component {
   renderName = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.nameChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onChangeText={this.nameChanged} style={styles.input}
+        defaultValue={item} clearButtonMode='while-editing'/>
     </View>
   }
 
   renderDescription = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={item}/>
+      <TextInput onChangeText={this.descriptionChanged} style={styles.input}
+        defaultValue={item} clearButtonMode='while-editing'/>
     </View>
   }
 
@@ -159,7 +161,9 @@ class PlaceDetails extends Component {
 
   renderCustomAttr = ({item}) => {
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}style={styles.input} multiline={true} defaultValue={this.place[item]}/>
+      <TextInput onChangeText={(text) => this.customAttrChanged(text, item)}
+        style={styles.input} defaultValue={this.place[item]}
+        clearButtonMode='while-editing'/>
     </View>
   }
 

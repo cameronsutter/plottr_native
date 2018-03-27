@@ -110,7 +110,8 @@ class NoteDetails extends Component {
 
   renderTitle = () => {
     return <View style={styles.inputWrapper}>
-      <TextInput onChangeText={this.titleChanged} style={styles.input} multiline={true} defaultValue={this.state.note.title}/>
+      <TextInput onChangeText={this.titleChanged} style={styles.input}
+        defaultValue={this.state.note.title} clearButtonMode='while-editing'/>
     </View>
   }
 

@@ -53,7 +53,7 @@ export const DrawerWrapper = DrawerNavigator({
     screen: LineStack,
   },
   Scenes: {
-    screen: ScenesContainer,
+    screen: StackNavigator({Scenes: {screen: ScenesContainer}}, {navigationOptions}),
   },
   Tags: {
     screen: TagStack,
