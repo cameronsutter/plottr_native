@@ -32,7 +32,7 @@ export default AppStyles = {
     justifyContent: 'flex-start',
   },
   listBackground: {
-    backgroundColor: '#e4e3eb',
+    backgroundColor: vars.dullBackground,
   },
   listItem: {
     borderColor: vars.grayBorder,
