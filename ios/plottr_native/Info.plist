@@ -67,13 +67,9 @@
 			<dict>
 				<key>NSAllowsArbitraryLoads</key>
 				<true/>
-				<key>NSAllowsArbitraryLoadsInWebContent</key>
-				<true/>
 				<key>NSAllowsLocalNetworking</key>
 				<true/>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>
