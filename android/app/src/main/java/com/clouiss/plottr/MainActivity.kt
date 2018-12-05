@@ -20,9 +20,6 @@ import java.io.InputStreamReader
 import android.provider.OpenableColumns
 
 
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private val CREATE_REQUEST_CODE = 40
@@ -45,14 +42,16 @@ class MainActivity : AppCompatActivity() {
     fun chooseDocument(view: View) {
 
         val openIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-//        openIntent.addCategory(Intent.CATEGORY_OPENABLE)
-        openIntent.setType("*/*")
+        openIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        openIntent.setType("text/com.clouiss.plottr.pltr")
         startActivityForResult(openIntent, OPEN_REQUEST_CODE)
     }
 
     fun createDocument(view: View) {
         val createIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-        createIntent.setType("text/plain")
+        createIntent.setType("text/com.clouiss.plottr.pltr")
+        createIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        createIntent.putExtra(Intent.EXTRA_TITLE, "story.pltr")
         startActivityForResult(createIntent, CREATE_REQUEST_CODE)
     }
 
@@ -118,10 +117,12 @@ class MainActivity : AppCompatActivity() {
         val returnCursor = contentResolver.query(uri, null, null, null, null)
         if (returnCursor != null && returnCursor!!.moveToFirst()) {
             val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            val sizeIndex = returnCursor!!.getColumnIndex(OpenableColumns.SIZE)
+//            val sizeIndex = returnCursor!!.getColumnIndex(OpenableColumns.SIZE)
+            returnCursor!!
             fileName = returnCursor!!.getString(nameIndex)
             returnCursor!!.close()
         }
+
         return fileName
     }
 

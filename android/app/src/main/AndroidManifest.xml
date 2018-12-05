@@ -17,8 +17,21 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter
+                android:label="@string/pltr_description"
+                android:priority="0">
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="com.clouiss.plottr.LAUNCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:scheme="file" />
+                <data android:mimeType="text/com.clouiss.plottr.pltr" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\\.pltr" />
             </intent-filter>
 
             <meta-data

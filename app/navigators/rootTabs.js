@@ -1,5 +1,5 @@
 import React from 'react'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, TabBarBottom } from 'react-navigation'
 import {
   OutlineNavigator,
   NotesNavigator,
@@ -64,4 +64,4 @@ export default RootTabs = TabNavigator({
       )
     }
   }
-}, {tabBarOptions: {activeTintColor: '#ff7f32'}})
+}, {tabBarOptions: {activeTintColor: '#ff7f32'}, tabBarPosition: 'bottom', tabBarComponent: TabBarBottom })

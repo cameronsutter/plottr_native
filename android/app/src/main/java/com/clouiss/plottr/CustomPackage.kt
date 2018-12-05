@@ -6,6 +6,7 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ReactShadowNode
 import com.facebook.react.uimanager.ViewManager
+import com.kevinejohn.RNMixpanel.RNMixpanelModule;
 
 class CustomPackage : ReactPackage {
     override fun createViewManagers(reactContext: ReactApplicationContext?): MutableList<ViewManager<View, ReactShadowNode<*>>> {
@@ -16,6 +17,7 @@ class CustomPackage : ReactPackage {
         var list = mutableListOf<NativeModule>()
         if (reactContext != null) {
             list.add(Document(reactContext))
+            list.add(RNMixpanelModule(reactContext))
         }
         return list
     }

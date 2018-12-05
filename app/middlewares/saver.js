@@ -1,6 +1,6 @@
 import { ActionTypes } from 'pltr'
-import { AsyncStorage, NativeModules } from 'react-native'
-const { DocumentViewController } = NativeModules
+import { AsyncStorage, Platform, NativeModules } from 'react-native'
+const { DocumentViewController, Document } = NativeModules
 
 const KEY_PREFIX = '@Plottr:'
 const { FILE_SAVED, FILE_LOADED, NEW_FILE, EDIT_CARD_DETAILS } = ActionTypes
@@ -11,7 +11,12 @@ const saver = store => next => action => {
   if (BLACKLIST.includes(action.type)) return result
   // var isNewFile = action.type === NEW_FILE
   const state = store.getState()
-  DocumentViewController.updateDocument(JSON.stringify(state, null, 2))
+  const stringState = JSON.stringify(state, null, 2)
+  if (Platform.OS === 'ios') {
+    DocumentViewController.updateDocument(stringState)
+  } else if (Platform.OS === 'android') {
+    Document.saveDocument(stringState)
+  }
   return result
 }
 
