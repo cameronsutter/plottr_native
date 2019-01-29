@@ -14,12 +14,14 @@ import {
   AlertIOS,
   Linking,
   Image,
+  Platform,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from '../styles/vars'
 import DrawerStyles from '../styles/drawer'
 import images from '../../images'
 const { DocumentViewController } = NativeModules
+import prompt from 'react-native-prompt-android'
 
 class Drawer extends Component {
   closeFile = () => {
@@ -27,11 +29,25 @@ class Drawer extends Component {
   }
 
   editStoryName = () => {
-    AlertIOS.prompt(
-      'New Story Name:',
-      null,
-      text => this.props.actions.changeStoryName(text)
-    )
+    if (Platform.OS == 'ios') {
+      AlertIOS.prompt(
+        'New Story Name:',
+        null,
+        text => this.props.actions.changeStoryName(text)
+      )
+    } else {
+      prompt(
+        'New Story Name:',
+        null,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: text => this.props.actions.changeStoryName(text)}
+        ],
+        {
+          placeholder: this.props.storyName,
+        }
+      )
+    }
   }
 
   displayHelp = () => {
@@ -140,6 +156,11 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 18,
     fontWeight: 'bold',
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    })
   },
   headerContainer: {
     borderBottomWidth: 1,

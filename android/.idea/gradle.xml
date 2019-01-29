@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-mixpanel/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-prompt-android/android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

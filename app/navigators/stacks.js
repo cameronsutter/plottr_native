@@ -49,6 +49,3 @@ export const PlacesNavigator = StackNavigator({
 
 
 // , {navigationOptions: {headerBackTitleStyle: {backgroundColor: 'white'}, headerStyle: {backgroundColor: '#ff7f32'}}}
-// , {navigationOptions: {headerBackTitleStyle: {backgroundColor: 'white'}, headerStyle: {backgroundColor: '#ff7f32'}}}
-// , {navigationOptions: {headerBackTitleStyle: {backgroundColor: 'white'}, headerStyle: {backgroundColor: '#ff7f32'}}}
-// , {navigationOptions: {headerBackTitleStyle: {backgroundColor: 'white'}, headerStyle: {backgroundColor: '#ff7f32'}}}
