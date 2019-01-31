@@ -35,7 +35,7 @@ class ReactActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModulePath("index")
                 .addPackage(MainReactPackage())
-                .addPackage(CustomPackage())
+                .addPackage(CustomPackage(this))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build()
@@ -102,6 +102,13 @@ class ReactActivity : AppCompatActivity(), DefaultHardwareBackBtnHandler {
         if (mReactRootView != null) {
             mReactRootView.unmountReactApplication()
         }
+    }
+
+    fun closeDocument () {
+        if (mReactRootView != null) {
+            mReactRootView.unmountReactApplication()
+        }
+        finish()
     }
 
     override fun onBackPressed() {

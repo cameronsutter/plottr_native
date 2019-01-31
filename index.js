@@ -37,6 +37,7 @@ export class App extends Component {
     let data = JSON.parse(props.data)
     if (data.newFile) {
       let storyName = data.storyName || props.storyName
+      if (storyName.includes('.pltr')) storyName = storyName.replace('.pltr', '')
       data = NEW_FILE_DATA
       data.storyName = storyName
     }

@@ -4,6 +4,7 @@ import android.app.PendingIntent.getActivity
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
 import android.os.ParcelFileDescriptor
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -18,9 +19,11 @@ class Document : ReactContextBaseJavaModule {
     var docUri: String = ""
     var docData: String = ""
     val context: Context
+    val reactActivity : ReactActivity
 
-    constructor(reactContext: ReactApplicationContext) : super(reactContext) {
+    constructor(reactContext: ReactApplicationContext, activity : ReactActivity) : super(reactContext) {
         context = reactContext
+        reactActivity = activity
     }
 
     override fun getName(): String {
@@ -50,5 +53,11 @@ class Document : ReactContextBaseJavaModule {
         } catch (e : IOException) {
             e.printStackTrace();
         }
+    }
+
+    @ReactMethod
+    fun closeDocument() {
+        val mainHandler = Handler(context.mainLooper)
+        mainHandler.post { reactActivity.closeDocument() }
     }
 }

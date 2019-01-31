@@ -20,12 +20,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as vars from '../styles/vars'
 import DrawerStyles from '../styles/drawer'
 import images from '../../images'
-const { DocumentViewController } = NativeModules
+const { DocumentViewController, Document } = NativeModules
 import prompt from 'react-native-prompt-android'
 
 class Drawer extends Component {
   closeFile = () => {
-    DocumentViewController.closeDocument()
+    if (Platform.OS === 'ios') {
+      DocumentViewController.closeDocument()
+    } else if (Platform.OS === 'android') {
+      Document.closeDocument()
+    }
   }
 
   editStoryName = () => {

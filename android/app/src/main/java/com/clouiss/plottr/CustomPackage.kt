@@ -10,17 +10,24 @@ import com.kevinejohn.RNMixpanel.RNMixpanelModule;
 import im.shimo.react.prompt.RNPromptModule;
 
 class CustomPackage : ReactPackage {
+
+    val reactActivity : ReactActivity
+
+    constructor(activity : ReactActivity) {
+        reactActivity = activity
+    }
+
     override fun createViewManagers(reactContext: ReactApplicationContext?): MutableList<ViewManager<View, ReactShadowNode<*>>> {
         return mutableListOf<ViewManager<View, ReactShadowNode<*>>>()
     }
 
     override fun createNativeModules(reactContext: ReactApplicationContext?): MutableList<NativeModule> {
-        var list = mutableListOf<NativeModule>()
+        var nativeModules = mutableListOf<NativeModule>()
         if (reactContext != null) {
-            list.add(Document(reactContext))
-            list.add(RNMixpanelModule(reactContext))
-            list.add(RNPromptModule(reactContext))
+            nativeModules.add(Document(reactContext, reactActivity))
+            nativeModules.add(RNMixpanelModule(reactContext))
+            nativeModules.add(RNPromptModule(reactContext))
         }
-        return list
+        return nativeModules
     }
 }
