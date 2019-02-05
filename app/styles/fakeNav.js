@@ -1,5 +1,5 @@
 import * as vars from './vars'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 export default FakeNavStyles = {
   header: {
@@ -8,10 +8,18 @@ export default FakeNavStyles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
-    height: 60,
     borderBottomColor: vars.black,
     borderBottomWidth: StyleSheet.hairlineWidth,
+    ...Platform.select({
+      ios: {
+        height: 60,
+        marginTop: 20,
+      },
+      android: {
+        height: 60,
+        marginTop: 5,
+      }
+    })
   },
   headerBackground: {
     backgroundColor: vars.grayBackground,

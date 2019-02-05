@@ -11,6 +11,7 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
+  Platform,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'

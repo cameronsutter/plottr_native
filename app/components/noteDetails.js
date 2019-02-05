@@ -13,9 +13,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  Platform,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
+import * as vars from '../styles/vars'
 import HeaderTitle from './headerTitle'
 import SaveButton from './saveButton'
 import DeleteButton from './deleteButton'
@@ -139,21 +141,21 @@ class NoteDetails extends Component {
       <View style={styles.listItem}>
         <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'characters', noteId: note.id, selected: note.characters})}>
           <View style={styles.attachmentItem}>
-            <Text>Characters{characterLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+            <Text style={styles.attachmentItemText}>Characters{characterLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.listItem}>
         <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'places', noteId: note.id, selected: note.places})}>
           <View style={styles.attachmentItem}>
-            <Text>Places{placeLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+            <Text style={styles.attachmentItemText}>Places{placeLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
           </View>
         </TouchableOpacity>
       </View>
       <View style={[styles.listItem, {borderBottomWidth: 0}]}>
         <TouchableOpacity onPress={() => navigation.navigate('Attachments', {type: 'tags', noteId: note.id, selected: note.tags})}>
           <View style={styles.attachmentItem}>
-            <Text>Tags{tagLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
+            <Text style={styles.attachmentItemText}>Tags{tagLengthText}</Text><Icon name={'angle-right'} size={25}></Icon>
           </View>
         </TouchableOpacity>
       </View>
@@ -194,6 +196,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  attachmentItemText: {
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    }),
+  }
 })
 
 NoteDetails.propTypes = {

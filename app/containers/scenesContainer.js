@@ -14,6 +14,7 @@ import {
   Alert,
   ScrollView,
   LayoutAnimation,
+  Platform,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'

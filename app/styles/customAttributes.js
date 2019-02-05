@@ -1,5 +1,5 @@
 import * as vars from './vars'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 export default CAstyles = {
   inputWrapper: {
@@ -11,6 +11,11 @@ export default CAstyles = {
     backgroundColor: vars.white,
     borderWidth: StyleSheet.hairlineWidth,
     padding: 10,
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    })
   },
   instructionsWrapper: {
     padding: 10,
@@ -21,6 +26,11 @@ export default CAstyles = {
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    })
   },
   itemContainer: {
     flexDirection: 'row',

@@ -1,10 +1,16 @@
 import * as vars from './vars'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 export default AppStyles = {
   headerTitle: {
     color: vars.orange,
     fontSize: 24,
+    ...Platform.select({
+      android: {
+        width: '100%',
+        textAlign: 'center',
+      }
+    }),
   },
   addButton: {
     color: vars.orange,
@@ -48,6 +54,11 @@ export default AppStyles = {
   },
   titleText: {
     fontSize: 16,
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    }),
   },
   descriptionText: {
     fontSize: 12,
@@ -67,10 +78,20 @@ export default AppStyles = {
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    }),
   },
   input: {
     width: '100%',
     fontSize: 16,
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    }),
   },
   inputWrapper: {
     padding: 10,

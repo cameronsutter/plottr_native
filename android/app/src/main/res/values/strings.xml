@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plottr</string>
     <string name="button_open">Open</string>
-    <string name="button_create">Create</string>
+    <string name="button_create">New</string>
     <string name="button_save">Save</string>
     <string name="pltr_description">Plottr files</string>
 </resources>

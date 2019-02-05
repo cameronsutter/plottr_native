@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
+import * as vars from '../styles/vars'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
   touchableItem: AppStyles.touchableItem,
   touchableItemText: {
     fontSize: 16,
-    color: 'black',
+    color: vars.black,
   }
 })
 

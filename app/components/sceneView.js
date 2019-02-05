@@ -11,6 +11,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Platform,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
@@ -113,6 +114,11 @@ const styles = StyleSheet.create({
   cardTitleText: {
     fontSize: 18,
     fontWeight: 'bold',
+    ...Platform.select({
+      android: {
+        color: vars.black,
+      }
+    }),
   },
   lineTitleText: {
     fontSize: 12,
