@@ -13,6 +13,9 @@ import {
   ActionSheetIOS,
   AlertIOS,
   Alert,
+  Platform,
+  Modal,
+  Button,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
@@ -20,6 +23,7 @@ import FakeNavHeader from '../components/fakeNavHeader'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
+import prompt from 'react-native-prompt-android'
 import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
@@ -42,56 +46,139 @@ class ScenesContainer extends Component {
     this.props.actions.addTag()
   }
 
+  constructor (props) {
+    super(props)
+    this.state = {openModal: false, selectedTag: null}
+  }
+
   componentDidMount () {
     this.props.navigation.setParams({addTag: this.addTag})
   }
 
-  showActionSheet = (tag) => {
-    ActionSheetIOS.showActionSheetWithOptions({
-        options: ['Rename', 'Change Color', 'Delete', 'Cancel'],
-        cancelButtonIndex: 3,
-        destructiveButtonIndex: 2,
-        title: 'Edit Tag',
-        message: tag.title || 'New Tag',
-      },
-      (idx) => {
-        switch (idx) {
-          case 0:
-            // rename
-            AlertIOS.prompt(
-              'New Tag Name:',
-              `currently: ${tag.title || 'New Tag'}`,
-              text => this.props.actions.editTag(tag.id, text, tag.color)
-            )
-            break
-          case 1:
-            // change color
-            let data = {
-              color: tag.color,
-              chooseAction: (newColor) => {
-                this.props.actions.editTag(tag.id, tag.title, newColor)
-              }
-            }
-            this.props.navigation.navigate('ColorPicker', data)
-            break
-          case 2:
-            // delete
-            Alert.alert(
-              'Are you sure you want to delete',
-              `${tag.title || 'New Tag'}?`,
-              [
-                {text: 'Yes', onPress: () => {
-                  this.props.actions.deleteTag(tag.id)
-                }},
-                {text: 'No', onPress: () => {}, style: 'cancel'},
-              ]
-            )
-            break
-          default:
-            return
+  rename = (tag) => {
+    if (Platform.OS == 'ios') {
+      AlertIOS.prompt(
+        'New Tag Name:',
+        `currently: ${tag.title || 'New Tag'}`,
+        text => this.props.actions.editTag(tag.id, text, tag.color)
+      )
+    } else {
+      prompt(
+        `Rename ${tag.title}` ,
+        null,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: this.finishRename }
+        ],
+        {
+          placeholder: tag.title,
+          defaultValue: tag.title,
         }
+      )
+    }
+  }
+
+  finishRename = (text) => {
+    const tag = this.state.selectedTag
+    this.props.actions.editTag(tag.id, text, tag.color)
+    this.setState({openModal: false})
+  }
+
+  changeColor = (tag) => {
+    let data = {
+      color: tag.color,
+      chooseAction: (newColor) => {
+        this.props.actions.editTag(tag.id, tag.title, newColor)
       }
+    }
+    this.setState({openModal: false})
+    this.props.navigation.navigate('ColorPicker', data)
+  }
+
+  delete = (tag) => {
+    this.setState({openModal: false})
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${tag.title || 'New Tag'}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteTag(tag.id)
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
     )
+  }
+
+  showActionSheet = (tag) => {
+    if (Platform.OS == 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions({
+          options: ['Rename', 'Change Color', 'Delete', 'Cancel'],
+          cancelButtonIndex: 3,
+          destructiveButtonIndex: 2,
+          title: 'Edit Tag',
+          message: tag.title || 'New Tag',
+        },
+        (idx) => {
+          switch (idx) {
+            case 0:
+              this.rename(tag)
+              break
+            case 1:
+              this.changeColor(tag)
+              break
+            case 2:
+              this.deleteTag(tag)
+              break
+            default:
+              return
+          }
+        }
+      )
+    } else {
+      this.setState({openModal: true, selectedTag: tag})
+    }
+  }
+
+  renderModal = () => {
+    const tag = this.state.selectedTag
+    if (!this.state.openModal) return null
+    return <Modal
+      animationType="slide"
+      transparent={true}
+      visible={this.state.openModal}
+      onRequestClose={() => this.setState({ openModal: false })}
+      >
+        <View style={[styles.container, styles.buttonContainer]}>
+          <View style={styles.buttonView}>
+            <Button
+              title={`Rename ${tag.title}`}
+              color="#6cace4"
+              onPress={() => this.rename(tag)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Change Color"
+              color="#6cace4"
+              onPress={() => this.changeColor(tag)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Delete"
+              color="#6cace4"
+              onPress={() => this.delete(tag)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Cancel"
+              color="#6cace4"
+              onPress={() => this.setState({ openModal: false })}>
+            </Button>
+          </View>
+        </View>
+    </Modal>
   }
 
   renderItem = (tag) => {
@@ -108,6 +195,7 @@ class ScenesContainer extends Component {
     const { navigation, tags } = this.props
     const sortedTags = _.sortBy(tags, 'title')
     return <View style={styles.container}>
+      { this.renderModal() }
       <FlatList
         data={sortedTags}
         keyExtractor={(tag) => tag.id}
@@ -126,6 +214,14 @@ const styles = StyleSheet.create({
   touchableItem: AppStyles.touchableItem,
   descriptionText: AppStyles.descriptionText,
   titleText: AppStyles.titleText,
+  buttonContainer: {
+    justifyContent: 'center',
+    padding: '3%',
+    backgroundColor: vars.white,
+  },
+  buttonView: {
+    margin: '5%',
+  },
 })
 
 ScenesContainer.propTypes = {

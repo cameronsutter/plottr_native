@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-mixpanel/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-prompt-android/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

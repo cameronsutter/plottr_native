@@ -15,6 +15,8 @@ import {
   ScrollView,
   LayoutAnimation,
   Platform,
+  Modal,
+  Button,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -23,6 +25,7 @@ import FakeNavHeader from '../components/fakeNavHeader'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
+import prompt from 'react-native-prompt-android'
 import * as vars from '../styles/vars'
 
 class ScenesContainer extends Component {
@@ -58,7 +61,7 @@ class ScenesContainer extends Component {
     super(props)
     const sceneData = this.sortScenes(props.scenes)
     this.setOrder(sceneData.sortedScenes)
-    this.state = sceneData
+    this.state = {...sceneData, openModal: false, selectedScene: null}
   }
 
   componentWillReceiveProps (newProps) {
@@ -76,42 +79,75 @@ class ScenesContainer extends Component {
     this.props.actions.addScene()
   }
 
-  showActionSheet = (scene) => {
-    ActionSheetIOS.showActionSheetWithOptions({
-        options: ['Rename', 'Delete', 'Cancel'],
-        cancelButtonIndex: 2,
-        destructiveButtonIndex: 1,
-        title: 'Edit Scene',
-        message: scene.title || 'New Scene',
-      },
-      (idx) => {
-        switch (idx) {
-          case 0:
-            // rename
-            AlertIOS.prompt(
-              'New Scene Name:',
-              `currently: ${scene.title || 'New Scene'}`,
-              text => this.props.actions.editSceneTitle(scene.id, text)
-            )
-            break
-          case 1:
-            // delete
-            Alert.alert(
-              'Are you sure you want to delete',
-              `${scene.title || 'New Scene'}?`,
-              [
-                {text: 'Yes', onPress: () => {
-                  this.props.actions.deleteScene(scene.id)
-                }},
-                {text: 'No', onPress: () => {}, style: 'cancel'},
-              ]
-            )
-            break
-          default:
-            return
+  rename = (scene) => {
+    if (Platform.OS == 'ios') {
+      AlertIOS.prompt(
+        'New Scene Name:',
+        `currently: ${scene.title || 'New Scene'}`,
+        text => this.props.actions.editSceneTitle(scene.id, text)
+      )
+    } else {
+      prompt(
+        `Rename ${scene.title}` ,
+        null,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: this.finishRename }
+        ],
+        {
+          placeholder: this.props.storyName,
+          defaultValue: scene.title,
         }
-      }
+      )
+    }
+  }
+
+  finishRename = (text) => {
+    this.props.actions.editSceneTitle(this.state.selectedScene.id, text)
+    this.setState({openModal: false})
+  }
+
+  delete = (scene) => {
+    this.setState({openModal: false})
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${scene.title || 'New Scene'}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteScene(scene.id)
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
     )
+  }
+
+  showActionSheet = (scene) => {
+    if (Platform.OS == 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions({
+          options: ['Rename', 'Delete', 'Cancel'],
+          cancelButtonIndex: 2,
+          destructiveButtonIndex: 1,
+          title: 'Edit Scene',
+          message: scene.title || 'New Scene',
+        },
+        (idx) => {
+          switch (idx) {
+            case 0:
+              // rename
+              this.rename(scene)
+              break
+            case 1:
+              // delete
+              this.delete(scene)
+              break
+            default:
+              return
+          }
+        }
+      )
+    } else {
+      this.setState({openModal: true, selectedScene: scene})
+    }
   }
 
   saveOrder = (nextOrder) => {
@@ -126,6 +162,41 @@ class ScenesContainer extends Component {
     })
     LayoutAnimation.easeInEaseOut()
     this.props.actions.reorderScenes(scenes)
+  }
+
+  renderModal = () => {
+    const scene = this.state.selectedScene
+    if (!this.state.openModal) return null
+    return <Modal
+      animationType="slide"
+      transparent={true}
+      visible={this.state.openModal}
+      onRequestClose={() => this.setState({ openModal: false })}
+      >
+        <View style={[styles.container, styles.buttonContainer]}>
+          <View style={styles.buttonView}>
+            <Button
+              title={`Rename ${scene.title}`}
+              color="#6cace4"
+              onPress={() => this.rename(scene)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Delete"
+              color="#6cace4"
+              onPress={() => this.delete(scene)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Cancel"
+              color="#6cace4"
+              onPress={() => this.setState({ openModal: false })}>
+            </Button>
+          </View>
+        </View>
+    </Modal>
   }
 
   renderItem = ({data, active}) => {
@@ -143,6 +214,7 @@ class ScenesContainer extends Component {
 
   render () {
     return <View style={styles.container}>
+      { this.renderModal() }
       <SortableList
         data={this.state.data}
         renderRow={this.renderItem}
@@ -181,6 +253,14 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,0.2)',
     shadowOpacity: 1,
     shadowOffset: {height: 2, width: 2},
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    padding: '3%',
+    backgroundColor: vars.white,
+  },
+  buttonView: {
+    margin: '5%',
   },
 })
 

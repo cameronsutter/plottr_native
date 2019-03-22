@@ -13,15 +13,19 @@ import {
   AlertIOS,
   Alert,
   LayoutAnimation,
+  Platform,
+  Modal,
+  Button,
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AppStyles from '../styles'
+import * as vars from '../styles/vars'
 import FakeNavHeader from '../components/fakeNavHeader'
 import HeaderTitle from '../components/headerTitle'
 import AddButton from '../components/addButton'
 import MenuButton from '../components/menuButton'
-import * as vars from '../styles/vars'
+import prompt from 'react-native-prompt-android'
 
 class LinesContainer extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -56,13 +60,13 @@ class LinesContainer extends Component {
     super(props)
     const lineData = this.sortLines(props.lines)
     this.setOrder(lineData.sortedLines)
-    this.state = lineData
+    this.state = {...lineData, openModal: false, selectedLine: null}
   }
 
   componentWillReceiveProps (newProps) {
     const lineData = this.sortLines(newProps.lines)
     this.setOrder(lineData.sortedLines)
-    this.setState(lineData)
+    this.setState({...lineData})
   }
 
   componentDidMount () {
@@ -74,52 +78,90 @@ class LinesContainer extends Component {
     this.props.actions.addLine()
   }
 
-  showActionSheet = (line) => {
-    ActionSheetIOS.showActionSheetWithOptions({
-        options: ['Rename', 'Change Color', 'Delete', 'Cancel'],
-        cancelButtonIndex: 3,
-        destructiveButtonIndex: 2,
-        title: 'Edit Plotline',
-        message: line.title || 'New Plotline',
-      },
-      (idx) => {
-        switch (idx) {
-          case 0:
-            // rename
-            AlertIOS.prompt(
-              'New Plotline Name:',
-              `currently: ${line.title || 'New Plotline'}`,
-              text => this.props.actions.editLineTitle(line.id, text)
-            )
-            break
-          case 1:
-            // change color
-            let data = {
-              color: line.color,
-              chooseAction: (newColor) => {
-                this.props.actions.editLineColor(line.id, newColor)
-              }
-            }
-            this.props.navigation.navigate('ColorPicker', data)
-            break
-          case 2:
-            // delete
-            Alert.alert(
-              'Are you sure you want to delete',
-              `${line.title || 'New Plotline'}?`,
-              [
-                {text: 'Yes', onPress: () => {
-                  this.props.actions.deleteLine(line.id)
-                }},
-                {text: 'No', onPress: () => {}, style: 'cancel'},
-              ]
-            )
-            break
-          default:
-            return
+  rename = (line) => {
+    if (Platform.OS == 'ios') {
+      AlertIOS.prompt(
+        'New Plotline Name:',
+        `currently: ${line.title || 'New Plotline'}`,
+        text => this.props.actions.editLineTitle(line.id, text)
+      )
+    } else {
+      prompt(
+        `Rename ${line.title}` ,
+        null,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'OK', onPress: this.finishRename }
+        ],
+        {
+          placeholder: line.title,
+          defaultValue: line.title,
         }
+      )
+    }
+  }
+
+  finishRename = (text) => {
+    this.props.actions.editLineTitle(this.state.selectedLine.id, text)
+    this.setState({openModal: false})
+  }
+
+  changeColor = (line) => {
+    let data = {
+      color: line.color,
+      chooseAction: (newColor) => {
+        this.props.actions.editLineColor(line.id, newColor)
       }
+    }
+    this.setState({openModal: false})
+    this.props.navigation.navigate('ColorPicker', data)
+  }
+
+  delete = (line) => {
+    this.setState({openModal: false})
+    Alert.alert(
+      'Are you sure you want to delete',
+      `${line.title || 'New Plotline'}?`,
+      [
+        {text: 'Yes', onPress: () => {
+          this.props.actions.deleteLine(line.id)
+        }},
+        {text: 'No', onPress: () => {}, style: 'cancel'},
+      ]
     )
+  }
+
+  showActionSheet = async (line) => {
+    if (Platform.OS == 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions({
+          options: ['Rename', 'Change Color', 'Delete', 'Cancel'],
+          cancelButtonIndex: 3,
+          destructiveButtonIndex: 2,
+          title: 'Edit Plotline',
+          message: line.title || 'New Plotline',
+        },
+        (idx) => {
+          switch (idx) {
+            case 0:
+              // rename
+              this.rename(line)
+              break
+            case 1:
+              // change color
+              this.changeColor(line)
+              break
+            case 2:
+              // delete
+              this.delete(line)
+              break
+            default:
+              return
+          }
+        }
+      )
+    } else {
+      this.setState({openModal: true, selectedLine: line})
+    }
   }
 
   saveOrder = (nextOrder) => {
@@ -134,6 +176,48 @@ class LinesContainer extends Component {
     })
     LayoutAnimation.easeInEaseOut()
     this.props.actions.reorderLines(lines)
+  }
+
+  renderModal = () => {
+    const line = this.state.selectedLine
+    if (!this.state.openModal) return null
+    return <Modal
+      animationType="slide"
+      transparent={true}
+      visible={this.state.openModal}
+      onRequestClose={() => this.setState({ openModal: false })}
+      >
+        <View style={[styles.container, styles.buttonContainer]}>
+          <View style={styles.buttonView}>
+            <Button
+              title={`Rename ${line.title}`}
+              color="#6cace4"
+              onPress={() => this.rename(line)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Change Color"
+              color="#6cace4"
+              onPress={() => this.changeColor(line)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Delete"
+              color="#6cace4"
+              onPress={() => this.delete(line)}>
+            </Button>
+          </View>
+          <View style={styles.buttonView}>
+            <Button
+              title="Cancel"
+              color="#6cace4"
+              onPress={() => this.setState({ openModal: false })}>
+            </Button>
+          </View>
+        </View>
+    </Modal>
   }
 
   renderItem = ({data, active}) => {
@@ -151,6 +235,7 @@ class LinesContainer extends Component {
 
   render () {
     return <View style={styles.container}>
+      { this.renderModal() }
       <SortableList
         data={this.state.data}
         renderRow={this.renderItem}
@@ -189,6 +274,14 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,0.2)',
     shadowOpacity: 1,
     shadowOffset: {height: 2, width: 2},
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    padding: '3%',
+    backgroundColor: vars.white,
+  },
+  buttonView: {
+    margin: '5%',
   },
 })
 

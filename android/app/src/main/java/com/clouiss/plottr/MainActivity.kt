@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.app.Activity
 import android.net.Uri
+import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import android.provider.Settings
@@ -32,11 +33,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        if (!Settings.canDrawOverlays(this)) {
-//            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-//                    Uri.parse("package:$packageName"))
-//            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE)
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:$packageName"))
+                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE)
+            }
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
     }
 
     fun chooseDocument(view: View) {
@@ -81,12 +86,16 @@ class MainActivity : AppCompatActivity() {
                     startReactNative(uri, data, name)
                 }
             }
-//
-//            if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
-//                if (!Settings.canDrawOverlays(this)) {
-//                    // SYSTEM_ALERT_WINDOW permission not granted
-//                }
-//            }
+
+            if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(this)) {
+                        // SYSTEM_ALERT_WINDOW permission not granted
+                    }
+                } else {
+                    TODO("VERSION.SDK_INT < M")
+                }
+            }
         }
     }
 

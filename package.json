@@ -20,7 +20,7 @@
     "node-random-chars": "^1.0.2",
     "pltr": "Plotinator/pltr#v1.0.1",
     "react": "^16.0.0",
-    "react-native": "0.51.0",
+    "react-native": "0.52.0",
     "react-native-color-picker": "^0.4.0",
     "react-native-mixpanel": "^0.0.16",
     "react-native-prompt-android": "^0.3.4",
