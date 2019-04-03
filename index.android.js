@@ -7,32 +7,26 @@ import { uiActions } from 'pltr'
 import {
   AppRegistry,
   NativeModules,
-  NativeEventEmitter,
-  Platform,
+  UIManager,
 } from 'react-native'
 import { DrawerWrapper } from './app/navigators/drawers'
 import { newFileData } from './helpers'
-const { DocumentViewController, ReactNativeEventEmitter } = NativeModules
-const emitter = new NativeEventEmitter(ReactNativeEventEmitter)
 import Mixpanel from 'react-native-mixpanel'
 Mixpanel.sharedInstanceWithToken('f1b3d3cc4788a907468cdde7d2bd7340')
 Ionicons.loadFont()
 Icon.loadFont()
 
+UIManager.setLayoutAnimationEnabledExperimental(true)
+
 const NEW_FILE_DATA = newFileData()
 
 const store = configureStore({})
 
-const KEY_PREFIX = '@Plottr:' //for future reference
-
 export class App extends Component {
   constructor (props) {
     super(props)
-    console.log(props)
 
-    if (Platform.OS === 'android') {
-      NativeModules.Document.setDocumentData(props.documentURL, props.data)
-    }
+    NativeModules.Document.setDocumentData(props.documentURL, props.data)
 
     let data = JSON.parse(props.data)
     if (data.newFile) {

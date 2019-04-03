@@ -17,6 +17,7 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
@@ -66,7 +67,6 @@ class CardDetails extends Component {
     this.props.navigation.setParams({dirty: false})
     LayoutAnimation.easeInEaseOut()
     this.setState({editLine: false, editScene: false})
-    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -145,16 +145,8 @@ class CardDetails extends Component {
 
   renderDescription = () => {
     return <View style={styles.inputWrapper}>
-      <TextInput onFocus={this.scroll} onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={this.state.card.description}/>
+      <TextInput onChangeText={this.descriptionChanged} style={styles.input} multiline={true} defaultValue={this.state.card.description}/>
     </View>
-  }
-
-  scroll = () => {
-    try {
-      this.scrollView.scrollToLocation({sectionIndex: 4, itemIndex: 0, viewOffset: 45})
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   renderLines = () => {
@@ -179,6 +171,7 @@ class CardDetails extends Component {
     let picker = null
     if (this.state.editLine) {
       picker = <Picker
+          mode='dropdown'
           selectedValue={this.state.card.lineId}
           onValueChange={this.changeLine}
         >
@@ -216,6 +209,7 @@ class CardDetails extends Component {
     let picker = null
     if (this.state.editScene) {
       picker = <Picker
+          mode='dropdown'
           selectedValue={this.state.card.sceneId}
           onValueChange={this.changeScene}
         >
@@ -267,9 +261,9 @@ class CardDetails extends Component {
     if (this.state.isNewCard) {
       return <ActivityIndicator/>
     } else {
-      return <View style={styles.container}>
+      return <KeyboardAvoidingView style={styles.container} behavior={'position'} keyboardVerticalOffset={-110}>
         <SectionList
-          ref={(ref) => this.scrollView = ref}
+          keyboardShouldPersistTaps='always'
           style={{paddingBottom: 300}}
           sections={[
             {data: ['title'], title: 'Title', renderItem: this.renderTitle},
@@ -282,7 +276,7 @@ class CardDetails extends Component {
           keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
         />
         <DeleteButton onPress={this.deleteCard}/>
-      </View>
+      </KeyboardAvoidingView>
     }
   }
 }

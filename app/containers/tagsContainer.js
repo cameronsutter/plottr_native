@@ -86,11 +86,12 @@ class ScenesContainer extends Component {
 
   changeColor = (tag) => {
     let data = {
-      color: tag.color,
+      color: tag.color || '#ff7f32',
       chooseAction: (newColor) => {
         this.props.actions.editTag(tag.id, tag.title, newColor)
       }
     }
+    console.error(data)
     this.setState({openModal: false})
     this.props.navigation.navigate('ColorPicker', data)
   }

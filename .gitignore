@@ -3,3 +3,4 @@ node_modules/
 npm-debug.*
 ios/build/
 .DS_Store
+*.keystore

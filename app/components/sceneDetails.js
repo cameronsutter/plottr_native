@@ -92,6 +92,7 @@ class SceneDetails extends Component {
     if (this.state.scene) {
       return <View style={styles.detailsView}>
         <SectionList
+          keyboardShouldPersistTaps='always'
           sections={[
             {data: [this.title], title: 'Title', renderItem: this.renderTitle},
           ]}

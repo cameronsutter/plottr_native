@@ -4,26 +4,52 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+// Configures the bundleJS commands for React-Native
+project.ext.react = [
+
+        // whether to bundle JS and assets in debug mode
+        bundleInDebug: false,
+        // whether to bundle JS and assets in release mode
+        bundleInRelease: true,
+
+        // the root of your RN project, i.e. where "package.json" lives
+        root: "../../"
+]
+apply from: "../../node_modules/react-native/react.gradle"
+
 project.ext.vectoricons = [
         iconFontNames: [ 'Ionicons.ttf', 'FontAwesome.ttf' ] // Name of the font files you want to copy
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
+def pass = getPassword("cameron","android_keystore")
+
 android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.clouiss.plottr"
-        minSdkVersion 22
-        targetSdkVersion 22
+        minSdkVersion 26
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            if (project.hasProperty('PLOTTR_RELEASE_STORE_FILE')) {
+                storeFile file(PLOTTR_RELEASE_STORE_FILE)
+                storePassword pass
+                keyAlias PLOTTR_RELEASE_KEY_ALIAS
+                keyPassword pass
+            }
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

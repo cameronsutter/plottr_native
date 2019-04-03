@@ -15,13 +15,15 @@ import CharacterDetails from '../components/characterDetails'
 import PlacesContainer from '../containers/placesContainer'
 import PlaceDetails from '../components/placeDetails'
 
+import * as vars from '../styles/vars'
+
 const navigationOptions = {
   navigationOptions: {
     headerStyle: {height: 60},
-    headerTintColor: '#ff7f32',
+    headerTintColor: vars.orange,
+    headerStyle: {backgroundColor: vars.grayBackground}
   }
 }
-// headerStyle: {backgroundColor: '#ff7f32'}
 
 export const OutlineNavigator = StackNavigator({
   Outline: { screen: OutlineContainer },

@@ -13,7 +13,7 @@ import ColorWheel from '../components/colorwheel'
 import * as vars from '../styles/vars'
 
 const navigationOptions = {
-  headerStyle: {height: 60},
+  headerStyle: {height: 60, backgroundColor: vars.grayBackground},
   headerTintColor: '#ff7f32',
 }
 

@@ -63,7 +63,6 @@ class CharacterDetails extends Component {
   handleSave = () => {
     this.props.actions.editCharacter(this.character.id, this.state)
     this.props.navigation.setParams({dirty: false})
-    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -146,17 +145,8 @@ class CharacterDetails extends Component {
   renderNotes = ({item}) => {
     if (item === 'blank') item = ''
     return <View style={styles.inputWrapper}>
-      <TextInput onFocus={this.scroll} onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item} />
+      <TextInput onChangeText={this.notesChanged} style={styles.input} multiline={true} defaultValue={item} />
     </View>
-  }
-
-  scroll = () => {
-    var num = 2 + this.props.customAttributes.length
-    try {
-      this.scrollView.scrollToLocation({sectionIndex: num, itemIndex: 0, viewOffset: 45})
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   renderCustomAttr = ({item}) => {
@@ -170,9 +160,9 @@ class CharacterDetails extends Component {
   render () {
     if (this.state.newCharacter) return <ActivityIndicator/>
     let customAttrs = this.prepareCustomAttributes()
-    return <KeyboardAvoidingView style={styles.container}>
+    return <KeyboardAvoidingView style={styles.container} behavior={'position'} keyboardVerticalOffset={-110}>
       <SectionList
-        ref={(ref) => this.scrollView = ref}
+        keyboardShouldPersistTaps='always'
         style={{paddingBottom: 300}}
         sections={[
           {data: [this.character.name || 'blank'], title: 'Name', renderItem: this.renderName},

@@ -14,6 +14,7 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppStyles from '../styles'
@@ -52,7 +53,6 @@ class NoteDetails extends Component {
   handleSave = () => {
     this.props.actions.editNote(this.state.note.id, this.state.note)
     this.props.navigation.setParams({dirty: false})
-    this.scrollView.scrollToLocation({sectionIndex: 0, itemIndex: 0, viewOffset: 45})
   }
 
   componentWillMount () {
@@ -119,16 +119,8 @@ class NoteDetails extends Component {
 
   renderContent = () => {
     return <View style={styles.inputWrapper}>
-      <TextInput onFocus={this.scroll} onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={this.state.note.content}/>
+      <TextInput onChangeText={this.contentChanged} style={styles.input} multiline={true} defaultValue={this.state.note.content}/>
     </View>
-  }
-
-  scroll = () => {
-    try {
-      this.scrollView.scrollToLocation({sectionIndex: 2, itemIndex: 0, viewOffset: 45})
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   renderAttachments = () => {
@@ -164,9 +156,9 @@ class NoteDetails extends Component {
 
   render () {
     if (this.state.isNewNote) return <ActivityIndicator/>
-    return <View style={styles.container}>
+    return <KeyboardAvoidingView style={styles.container} behavior={'position'} keyboardVerticalOffset={-110}>
       <SectionList
-        ref={(ref) => this.scrollView = ref}
+        keyboardShouldPersistTaps='always'
         style={{paddingBottom: 300}}
         sections={[
           {data: ['title'], title: 'Title', renderItem: this.renderTitle},
@@ -177,7 +169,7 @@ class NoteDetails extends Component {
         keyExtractor={(item, index) => `${item.substring(0, 3)}-${index}`}
       />
       <DeleteButton onPress={this.deleteNote}/>
-    </View>
+    </KeyboardAvoidingView>
   }
 }
 
