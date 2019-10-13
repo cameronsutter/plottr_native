@@ -8,7 +8,9 @@ import {
   AppRegistry,
   NativeModules,
   UIManager,
+  Alert,
 } from 'react-native'
+const { Document } = NativeModules
 import { DrawerWrapper } from './app/navigators/drawers'
 import { newFileData } from './helpers'
 import Mixpanel from 'react-native-mixpanel'
@@ -26,18 +28,48 @@ export class App extends Component {
   constructor (props) {
     super(props)
 
-    NativeModules.Document.setDocumentData(props.documentURL, props.data)
+    // console.log('URI', props.storyName)
 
-    let data = JSON.parse(props.data)
-    if (data.newFile) {
-      let storyName = data.storyName || props.storyName
-      if (storyName.includes('.pltr')) storyName = storyName.replace('.pltr', '')
-      data = NEW_FILE_DATA
-      data.storyName = storyName
+    if (props.storyName.includes('.pltr')) {
+      let data = {}
+      try {
+        data = JSON.parse(props.data)
+        Document.setDocumentData(props.documentURL, props.data)
+      } catch (e) {
+        // alert because possibly wrong file type
+        this.alertWrongFileType()
+        // Alert.alert('LOG', 'Parsing')
+      }
+      if (data.newFile) {
+        let storyName = data.storyName || props.storyName
+        if (storyName.includes('.pltr')) storyName = storyName.replace('.pltr', '')
+        data = NEW_FILE_DATA
+        data.storyName = storyName
+      }
+
+      if (data.file) {
+        store.dispatch(uiActions.loadFile(props.documentURL, false, data, data.file.version))
+        Mixpanel.trackWithProperties('open_file', {new_file: data.newFile})
+      } else {
+        // Alert.alert('LOG', `Checking for file.version ${data.file}`)
+        this.alertWrongFileType()
+      }
+    } else {
+      this.alertWrongFileType()
+      // Alert.alert('LOG', 'Checking for .pltr')
     }
 
-    store.dispatch(uiActions.loadFile(props.documentURL, false, data, data.file.version))
-    Mixpanel.trackWithProperties('open_file', {new_file: data.newFile})
+  }
+
+  alertWrongFileType = () => {
+    Alert.alert(
+      'Wrong file type',
+      'You tried to open a non-Plottr file',
+      [
+        {text: 'OK', onPress: () => Document.closeDocument()}
+      ],
+      { onDismiss: () => Document.closeDocument() }
+    )
   }
 
   render() {

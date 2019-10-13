@@ -31,9 +31,15 @@ android {
         applicationId "com.clouiss.plottr"
         minSdkVersion 26
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 8
+        versionName "1.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        // exclude everything 64bit related
+        exclude '/lib/mips64/**'
+        exclude '/lib/arm64-v8a/**'
+        exclude '/lib/x86_64/**'
     }
     signingConfigs {
         release {
@@ -50,11 +56,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "mips", "x86"
+            }
         }
     }
 }
 
 dependencies {
+    implementation 'com.facebook.react:react-native:0.52.0'
     compile project(':react-native-vector-icons')
     compile project(':react-native-prompt-android')
     compile project(':react-native-mixpanel')
@@ -66,5 +76,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 //    compile project(':react-native')
-    implementation 'com.facebook.react:react-native:0.52.0'
 }

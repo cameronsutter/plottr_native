@@ -19,6 +19,7 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import android.provider.OpenableColumns
+import android.webkit.MimeTypeMap
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,14 +49,18 @@ class MainActivity : AppCompatActivity() {
 
         val openIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         openIntent.addCategory(Intent.CATEGORY_OPENABLE)
-        openIntent.setType("text/com.clouiss.plottr.pltr")
+//        openIntent.setType("application/json")
+        openIntent.setType("*/*")
         startActivityForResult(openIntent, OPEN_REQUEST_CODE)
     }
 
     fun createDocument(view: View) {
         val createIntent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-        createIntent.setType("text/com.clouiss.plottr.pltr")
         createIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        createIntent.setType("*/*")
+//        createIntent.setType("text/com.clouiss.plottr.pltr")
+//        createIntent.setType("text/plain")
+//        createIntent.setType("application/json")
         createIntent.putExtra(Intent.EXTRA_TITLE, "story.pltr")
         startActivityForResult(createIntent, CREATE_REQUEST_CODE)
     }
@@ -65,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_REQUEST_CODE) {
-                var uri: Uri? = null
+//                var uri: Uri? = null
                 resultData?.let {
                     val uri = it.data
                     val name = readNameFromUri(uri)
@@ -78,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (requestCode == CREATE_REQUEST_CODE) {
-                var uri: Uri? = null
+//                var uri: Uri? = null
                 resultData?.let {
                     val uri = it.data
                     val name = readNameFromUri(uri)
